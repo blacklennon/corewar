@@ -1,0 +1,7 @@
+obj/
+*.swp
+*.o
+libft.a
+test_libft
+.vscode
+.DS_Store
