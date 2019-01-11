@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:07:17 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/11 19:58:07 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/11 20:06:44 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "op.h"
 #include "label.h"
+#include "parser.h"
 
 /*
 
@@ -115,7 +116,8 @@ int			parse_instruction(char *line, t_label **label_listp)
 
 int		parse_line(char *line, t_header *header)
 {
-	int	ret;
+	int				ret;
+	t_instruction	current;
 
 	ret = 0;
 	while (ft_isspace(*line))
