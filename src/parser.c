@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:07:17 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/15 16:38:44 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/15 18:32:33 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <stdlib.h>
 #include "libft.h"
+#include "utils.h"
 #include "op.h"
 #include "label.h"
 #include "parser.h"
@@ -122,7 +123,7 @@ int			parse_label(char *line, t_label **label_listp)
 	return (1);
 }
 
-int			parse_instruction(char *line, t_label **label_listp)
+int			parse_instruction(char *line, t_instruction *instruction, t_label **label_listp)
 {
 	int		ret;
 	t_op	*op;
@@ -136,16 +137,20 @@ int			parse_instruction(char *line, t_label **label_listp)
 			line++;
 	}
 	if ((op = parse_operation(line)))
-		printf("op: %s %s\n", op->name, op->description);
+	{
+		instruction->buffer[0] = op->code;
+		printf("op: %s | %s\n", op->name, op->description);
+	}
 	return (ret);
 }
 
 int		parse_line(char *line, t_header *header, t_label **label_listp)
 {
 	int				ret;
-	//t_instruction	current;
+	t_instruction	current_instruction;
 
 	ret = 0;
+	init_instruction(&current_instruction);
 	while (ft_isspace(*line))
 		line++;
 	if (!ft_strncmp(line, NAME_CMD_STRING, NAME_CMD_STR_LENGTH))
@@ -153,6 +158,6 @@ int		parse_line(char *line, t_header *header, t_label **label_listp)
 	else if (!ft_strncmp(line, COMMENT_CMD_STRING, COMMENT_CMD_STR_LENGTH))
 		ret += parse_string(line + COMMENT_CMD_STR_LENGTH, header->comment, COMMENT_LENGTH);
 	else
-		ret += parse_instruction(line, label_listp);
+		ret += parse_instruction(line, &current_instruction, label_listp);
 	return (ret);
 }

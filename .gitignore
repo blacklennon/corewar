@@ -2,3 +2,5 @@ asm
 corewar
 .DS_Store
 bin/
+resources/
+.vscode

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/15 14:28:14 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/15 18:50:37 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 #ifndef OP_H
 # define OP_H
+
+# include <stdint.h>
 
 # define IND_SIZE				2
 # define REG_SIZE				4
@@ -83,9 +85,9 @@ typedef struct			s_header
 typedef struct			s_op
 {
 	char				*name;
-	char				nb_params;
+	int8_t				nb_params;
 	t_arg_type			params[MAX_ARGS_NUMBER];
-	char				code;
+	int8_t				code;
 	int					cycles;
 	char				*description;
 	char				i;
