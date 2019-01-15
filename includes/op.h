@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/11 19:02:41 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/15 14:28:14 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 # define NAME_CMD_STRING		".name"
+# define NAME_CMD_STR_LENGTH	5
 # define COMMENT_CMD_STRING		".comment"
+# define COMMENT_CMD_STR_LENGTH	8
 
 # define REG_NUMBER				16
 

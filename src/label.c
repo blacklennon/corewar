@@ -6,11 +6,12 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 17:51:08 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/11 19:16:24 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/15 16:23:48 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdlib.h>
+#include "libft.h"
 #include "label.h"
 
 void		create_label(char *name, int index, t_label **label_listp)
@@ -24,7 +25,10 @@ void		create_label(char *name, int index, t_label **label_listp)
 	new->index = index;
 	new->next = NULL;
 	if (!(*label_listp))
+	{
 		*label_listp = new;
+		return ;
+	}
 	tmp = *label_listp;
 	while (tmp->next)
 		tmp = tmp->next;

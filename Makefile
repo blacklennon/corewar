@@ -6,22 +6,25 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/01/11 15:12:22 by pcarles          ###   ########.fr        #
+#    Updated: 2019/01/15 16:12:20 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= asm
 
 CC			?= gcc
-C_FLAGS		?= -Wall -Wextra -Werror
-LD_FLAGS	?=
+C_FLAGS		?= -Wall -Wextra -Werror -fsanitize=address -g
+LD_FLAGS	?= -fsanitize=address -g
 
 SRCDIR		= src/
 HDRDIR		= includes/
 LIBDIR		= libft/
 BINDIR		= bin/
 
-C_FILES		= main.c
+C_FILES		= main.c \
+			parser.c \
+			label.c \
+			utils.c
 
 LIBFT		= $(LIBDIR)libft.a
 
