@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/01/15 16:12:20 by pcarles          ###   ########.fr        #
+#    Updated: 2019/01/15 16:30:41 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ BINDIR		= bin/
 C_FILES		= main.c \
 			parser.c \
 			label.c \
-			utils.c
+			utils.c \
+			op.c
 
 LIBFT		= $(LIBDIR)libft.a
 
