@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 19:41:32 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/15 16:12:04 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/17 14:17:33 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <unistd.h>
 #include <errno.h>
 #include "get_next_line.h"
-#include "label.h"
 #include "parser.h"
 #include "utils.h"
 #include "op.h"
@@ -26,16 +25,14 @@ static int		read_file(int fd)
 {
 	int			ret;
 	char		*line;
-	t_header	header;
-	t_label		*label_list;
+	t_asm		env;
 
 	ret = 0;
-	label_list = NULL;
-	header.magic = COREWAR_EXEC_MAGIC;
+	init_asm(&env);
 	errno = 0;
 	while ((ret = get_next_line(fd, &line)))
 	{
-		if (ret == -1 || parse_line(line, &header, &label_list))
+		if (ret == -1 || parse_line(line, &env))
 		{
 			if (ret == -1)
 				perror("asm");
@@ -46,10 +43,10 @@ static int		read_file(int fd)
 		errno = 0;
 	}
 	free(line);
-	while (label_list)
+	while (env.label_list)
 	{
-		printf("Label: %s\n", label_list->name);
-		label_list = label_list->next;
+		printf("Label: %s\n", env.label_list->name);
+		env.label_list = env.label_list->next;
 	}
 	return (0);
 }

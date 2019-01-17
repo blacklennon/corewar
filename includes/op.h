@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/15 18:50:37 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/17 11:06:05 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct			s_op
 	int8_t				code;
 	int					cycles;
 	char				*description;
-	char				i;
+	char				ocp;
 	char				j;
 }						t_op;
 

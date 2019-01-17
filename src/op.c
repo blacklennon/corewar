@@ -6,14 +6,14 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/15 18:55:31 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/17 15:19:37 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
 /*
-{"op_name (char*)", "nb parametres (int)", {"parametres (enum de t_arg_type)"}, "op_code (int)", cycles (int), "description (char*)", "codage octal", 0}
+{"op_name (char*)", "nb parametres (int)", {"parametres (enum de t_arg_type)"}, "op_code (int)", cycles (int), "description (char*)", "ocp", 0}
 
 
 encoding ocp:
