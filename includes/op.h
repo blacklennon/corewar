@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/17 11:06:05 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/18 18:35:39 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,31 @@ typedef char					t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
+typedef enum			e_token {
+	LIVE,
+	LD,
+	ST,
+	ADD,
+	SUB,
+	AND,
+	OR,
+	XOR,
+	ZJMP,
+	LDI,
+	STI,
+	FORK,
+	LLD,
+	LLDI,
+	LFORK,
+	AFF,
+	LABEL,
+	DIRECT,
+	SEPARATOR,
+	NAME,
+	COMMENT,
+	UNDEFINED
+}						t_token;
+
 typedef struct			s_header
 {
 	unsigned int		magic;
@@ -92,6 +117,7 @@ typedef struct			s_op
 	char				*description;
 	char				ocp;
 	char				j;
+	t_token				token;
 }						t_op;
 
 #endif
