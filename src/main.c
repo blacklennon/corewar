@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 19:41:32 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/17 14:17:33 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/18 21:54:06 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,42 @@
 #include "utils.h"
 #include "op.h"
 
-static int		read_file(int fd)
-{
-	int			ret;
-	char		*line;
-	t_asm		env;
+// static int		read_file(int fd)
+// {
+// 	int			ret;
+// 	char		*line;
+// 	t_asm		env;
 
-	ret = 0;
-	init_asm(&env);
-	errno = 0;
-	while ((ret = get_next_line(fd, &line)))
-	{
-		if (ret == -1 || parse_line(line, &env))
-		{
-			if (ret == -1)
-				perror("asm");
-			free(line);
-			return (1);
-		}
-		free(line);
-		errno = 0;
-	}
-	free(line);
-	while (env.label_list)
-	{
-		printf("Label: %s\n", env.label_list->name);
-		env.label_list = env.label_list->next;
-	}
-	return (0);
+// 	ret = 0;
+// 	init_asm(&env);
+// 	errno = 0;
+// 	while ((ret = get_next_line(fd, &line)))
+// 	{
+// 		if (ret == -1 || parse_line(line, &env))
+// 		{
+// 			if (ret == -1)
+// 				perror("asm");
+// 			free(line);
+// 			return (1);
+// 		}
+// 		free(line);
+// 		errno = 0;
+// 	}
+// 	free(line);
+// 	while (env.label_list)
+// 	{
+// 		printf("Label: %s\n", env.label_list->name);
+// 		env.label_list = env.label_list->next;
+// 	}
+// 	return (0);
+// }
+
+static void		read_file(int fd)
+{
+	char		*buffer;
+	int			ret;
+
+	while (ret = read(fd, buffer, 1000))
 }
 
 static int		file_handler(char *file_path)
