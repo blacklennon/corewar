@@ -6,15 +6,15 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/01/18 18:42:43 by pcarles          ###   ########.fr        #
+#    Updated: 2019/01/23 17:27:42 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= asm
 
 CC			?= gcc
-C_FLAGS		?= -Wall -Wextra -Werror -fsanitize=address -g
-LD_FLAGS	?= -fsanitize=address -g
+C_FLAGS		?= -Wall -Wextra -Werror -fsanitize=address -g3
+LD_FLAGS	?= -fsanitize=address -g3
 
 SRCDIR		= src/
 HDRDIR		= includes/

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 20:02:59 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/17 14:31:56 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/23 14:45:59 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,10 @@
 
 # include <stddef.h>
 # include <stdint.h>
+# include "typedefs/s_label.h"
 # include "op.h"
 
 # define MAX_INSTRUCTION_SIZE 14
-
-typedef struct		s_label
-{
-	char			*name;
-	size_t			index;
-	struct s_instruction	*instruction;
-	struct s_label	*next;
-}					t_label;
 
 typedef struct s_asm
 {

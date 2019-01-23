@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/22 18:06:00 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/23 17:21:03 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define OP_H
 
 # include <stdint.h>
+# include "typedefs/s_token.h"
 
 # define IND_SIZE				2
 # define REG_SIZE				4
@@ -74,41 +75,6 @@ typedef char					t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef enum			e_token_type {
-	TOKEN_OP_LIVE,
-	TOKEN_OP_LD,
-	TOKEN_OP_ST,
-	TOKEN_OP_ADD,
-	TOKEN_OP_SUB,
-	TOKEN_OP_AND,
-	TOKEN_OP_OR,
-	TOKEN_OP_XOR,
-	TOKEN_OP_ZJMP,
-	TOKEN_OP_LDI,
-	TOKEN_OP_STI,
-	TOKEN_OP_FORK,
-	TOKEN_OP_LLD,
-	TOKEN_OP_LLDI,
-	TOKEN_OP_LFORK,
-	TOKEN_OP_AFF,
-	TOKEN_MISC_LABEL,
-	TOKEN_PARAM_REGISTER,
-	TOKEN_PARAM_DIRECT,
-	TOKEN_PARAM_INDIRECT,
-	TOKEN_MISC_SEPARATOR,
-	TOKEN_MISC_NAME,
-	TOKEN_MISC_COMMENT,
-	TOKEN_MISC_EOL,
-	TOKEN_MISC_UNDEFINED = 0
-}						t_token_type;
-
-typedef struct			s_token
-{
-	enum e_token_type	type;
-	int32_t				value;
-	struct s_label		*label;
-}						t_token;
-
 typedef struct			s_header
 {
 	unsigned int		magic;
@@ -125,9 +91,9 @@ typedef struct			s_op
 	int8_t				code;
 	int					cycles;
 	char				*description;
-	char				ocp;
-	char				j;
-	t_token				token;
+	int8_t				ocp;
+	int8_t				carry;
+	t_token_type		token;
 }						t_op;
 
 #endif

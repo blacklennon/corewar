@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:32:33 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/22 18:18:00 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/23 17:14:53 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,18 @@ t_token_type	return_token(char *begin_pointer, char *end_pointer)
 	return (TOKEN_MISC_UNDEFINED);
 }
 
+t_token		*new_token(void)
+{
+	t_token	*new;
+
+	if (!(new = (t_token*)malloc(sizeof(*new))))
+		return (NULL);
+	new->type = TOKEN_MISC_UNDEFINED;
+	new->value = 0;
+	new->label = NULL;
+	return (new);
+}
+
 t_token		*next_token(char *input_buffer)
 {
 	static char	*forward_pointer;
@@ -92,28 +104,13 @@ t_token		*next_token(char *input_buffer)
 	if (input_buffer)
 		forward_pointer = input_buffer;
 	back_pointer = forward_pointer;
-	if (!*forward_pointer)
+	if (!*forward_pointer || *forward_pointer == COMMENT_CHAR)
 		current_token->type = TOKEN_MISC_EOL;
-	while (*forward_pointer)
-	{
-		while (ft_isspace(*forward_pointer))
-			forward_pointer++;
-		back_pointer = forward_pointer;
-		while (*forward_pointer && !ft_isspace(*forward_pointer) && *forward_pointer != SEPARATOR_CHAR)
-			forward_pointer++;
-		current_token = return_token(back_pointer, forward_pointer);
-	}
+	while (ft_isspace(*forward_pointer))
+		forward_pointer++;
+	back_pointer = forward_pointer;
+	while (*forward_pointer && !ft_isspace(*forward_pointer) && *forward_pointer != SEPARATOR_CHAR)
+		forward_pointer++;
+	current_token = return_token(back_pointer, forward_pointer);
 	return (current_token);
-}
-
-t_token		*new_token(void)
-{
-	t_token	*new;
-
-	if (!(new = (t_token*)malloc(sizeof(*new))))
-		return (NULL);
-	new->type = TOKEN_MISC_UNDEFINED;
-	new->value = 0;
-	new->label = NULL;
-	return (new);
 }

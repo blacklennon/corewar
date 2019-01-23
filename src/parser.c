@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 16:07:17 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/17 15:16:04 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/01/23 15:40:53 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int			parse_string(char *line, char *buf_dest, size_t buf_size)
 	if (*line++ != '"')
 		return (1);
 	tmp = line;
-	while (*line)
-	{
-		if (*line == '"')
-			break ;
+	while (*line && *line != '"')
 		line++;
-	}
 	if (*line != '"' || (size = line - tmp) > buf_size)
+		return (1);
+	while (ft_isspace(*line))
+		line++;
+	if (*line)
 		return (1);
 	ft_strncpy(buf_dest, tmp, size);
 	return (0);
