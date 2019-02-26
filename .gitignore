@@ -2,7 +2,6 @@ asm
 corewar
 .DS_Store
 bin/
-resources/
 .vscode
 .d/
 *.o
@@ -11,3 +10,5 @@ resources/
 *.d
 !src/asm
 !src/corewar
+!resources/asm
+!resources/corewar
