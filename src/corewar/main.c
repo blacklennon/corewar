@@ -6,14 +6,14 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/26 19:44:06 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/26 20:03:55 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "corewar.h"
 
-void		parse_flags(int ac, char **av, t_vm *vm)
+static void	parse_flags(int ac, char **av, t_vm *vm)
 {
 	int		i;
 
@@ -21,7 +21,7 @@ void		parse_flags(int ac, char **av, t_vm *vm)
 	while (i <= MAX_PLAYERS && i < ac)
 	{
 		vm->process[i - 1].file_path = av[i];
-		i++;
+		vm->nb_champs = i++;
 	}
 }
 

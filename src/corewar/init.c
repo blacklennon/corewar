@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/26 19:43:21 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/26 20:07:28 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,15 @@ void		load_champs(t_vm *vm)
 			ft_putstr_fd("corewar: wrong exec format", 2);
 			exit(EXIT_FAILURE);
 		}
-		if (swap_uint32(header.prog_size) > CHAMP_MAX_SIZE)
+		if ((header.prog_size = swap_uint32(header.prog_size)) > CHAMP_MAX_SIZE)
 		{
 			ft_putstr_fd("corewar: champion too big", 2);
 			exit(EXIT_FAILURE);
 		}
+		read(fd, &vm->memory[(i - 1) * (MEM_SIZE / vm->nb_champs)], header.prog_size);
 		ft_strcpy(tmp->name, (char *)&header.prog_name);
 		ft_strcpy(tmp->comment, (char *)&header.comment);
 		close(fd);
-		ft_printf("CHAMP %d\nname: %s\ncomment: %s\n prog_size: %d\n\n", i, tmp->name, tmp->comment, swap_uint32(header.prog_size));
+		ft_printf("CHAMP %d\nname: %s\ncomment: %s\n prog_size: %d\n\n", i, tmp->name, tmp->comment, header.prog_size);
 	}
 }
