@@ -3,22 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcarles <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 15:41:57 by pcarles           #+#    #+#              #
-#    Updated: 2019/01/11 14:44:19 by pcarles          ###   ########.fr        #
+#    Updated: 2019/02/26 15:44:05 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+TARGET_PATH	?= .
 
 CC			?= gcc
 C_FLAGS		?= -Wall -Wextra -Werror
 LD_FLAGS	?=
 
-NAME		= libft.a
+NAME		= $(addprefix $(TARGET_PATH)/,libft.a)
 
-BINDIR		= bin/
-SRCDIR		= src/
-INCLDIR		= includes/
+BINDIR		= bin
+SRCDIR		= src
+INCLDIR		= includes
 
 H_FILES		= libft.h \
 			get_next_line.h
@@ -101,9 +103,9 @@ C_FILES		= ft_putchar.c \
 			ft_printf/handlers/unsigned.c \
 			ft_printf/handlers/wchar.c \
 
-SRC			= $(addprefix $(SRCDIR), $(C_FILES))
-HDRS		= $(addprefix $(INCLDIR), $(H_FILES))
-OBJ			= $(patsubst %.c, %.o, $(addprefix $(BINDIR), $(notdir $(SRC))))
+SRC			= $(addprefix $(SRCDIR)/, $(C_FILES))
+HDRS		= $(addprefix $(INCLDIR)/, $(H_FILES))
+OBJ			= $(patsubst %.c, %.o, $(addprefix $(BINDIR)/, $(notdir $(SRC))))
 
 VPATH		= $(shell find src -type d)
 
@@ -112,11 +114,12 @@ VPATH		= $(shell find src -type d)
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@mkdir -p $(dir $(NAME))
 	@ar -rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@echo "\033[32;1mCreated $@\033[0m"
 
-$(BINDIR)%.o: %.c $(HDRS)
+$(BINDIR)/%.o: %.c $(HDRS)
 	@mkdir -p $(BINDIR)
 	@$(CC) -o $@ -c $< -I $(INCLDIR) $(FLAGS)
 	@echo "\033[33mCompiling $@\033[0m"

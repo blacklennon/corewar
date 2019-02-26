@@ -4,3 +4,8 @@ corewar
 bin/
 resources/
 .vscode
+.d/
+*.o
+*.a
+*.cor
+*.d

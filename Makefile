@@ -6,64 +6,23 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/01/23 17:27:42 by pcarles          ###   ########.fr        #
+#    Updated: 2019/02/26 14:38:43 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= asm
+TARGETS		:= corewar
+LIBS		:= libft
 
-CC			?= gcc
-C_FLAGS		?= -Wall -Wextra -Werror -fsanitize=address -g3
-LD_FLAGS	?= -fsanitize=address -g3
+asm_LIB		:= ft
+corewar_LIB	:= ft
 
-SRCDIR		= src/
-HDRDIR		= includes/
-LIBDIR		= libft/
-BINDIR		= bin/
+# asm_SRC		:=	asm/main.c \
+# 				asm/parser.c \
+# 				asm/label.c \
+# 				asm/utils.c \
+# 				asm/op.c \
+# 				asm/lexer.c
 
-C_FILES		= main.c \
-			parser.c \
-			label.c \
-			utils.c \
-			op.c \
-			lexer.c
+corewar_SRC	:=	corewar/main.c
 
-LIBFT		= $(LIBDIR)libft.a
-
-SRC			= $(addprefix $(SRCDIR), $(C_FILES))
-OBJ			= $(patsubst %.c, %.o, $(addprefix $(BINDIR), $(notdir $(SRC))))
-
-VPATH		= $(shell find $(SRCDIR) -type d)
-
-export CC C_FLAGS LD_FLAGS
-
-.PHONY: all clean fclean re norm
-
-all: $(NAME)
-
-$(NAME): $(LIBFT) $(OBJ)
-	@$(CC) -o $@ -I$(HDRDIR) -L$(LIBDIR) -lft $(OBJ) $(LD_FLAGS)
-	@echo "\033[32;1mCreated $@\033[0m"
-
-$(LIBFT):
-	@$(MAKE) -C $(LIBDIR)
-
-$(BINDIR)%.o: %.c
-	@mkdir -p $(BINDIR)
-	@$(CC) -o $@ -I$(HDRDIR) -c $< $(C_FLAGS)
-	@echo "\033[33mCompiling $@\033[0m"
-
-clean:
-	@$(MAKE) -C $(LIBDIR) $@
-	@rm -rf $(BINDIR)
-	@echo "\033[31;1mRemoved $(BINDIR)\033[0m"
-
-fclean: clean
-	@$(MAKE) -C $(LIBDIR) $@
-	@rm -f $(NAME)
-	@echo "\033[31;1mRemoved $(NAME)\033[0m"
-
-re: fclean all
-
-norm:
-	@norminette $(SRCDIR) $(HDRDIR)
+include generic_c.mk

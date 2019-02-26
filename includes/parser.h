@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 20:02:59 by pcarles           #+#    #+#             */
-/*   Updated: 2019/01/23 14:45:59 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/26 14:37:30 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct	s_instruction
 }				t_instruction;
 
 void			create_label(char *name, int index, t_label **label_listp);
-t_label			*find_label(char *name, t_label *label_list);
+int				find_label(char *begin_pointer, char *end_pointer);
 int				parse_line(char *line, t_asm *env);
 
 #endif
