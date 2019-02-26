@@ -9,3 +9,5 @@ resources/
 *.a
 *.cor
 *.d
+!src/asm
+!src/corewar
