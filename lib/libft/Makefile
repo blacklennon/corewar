@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 15:41:57 by pcarles           #+#    #+#              #
-#    Updated: 2019/02/26 16:11:29 by pcarles          ###   ########.fr        #
+#    Updated: 2019/02/26 17:30:45 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ C_FILES		= ft_putchar.c \
 			ft_printf/parser.c \
 			ft_printf/utils_2.c \
 			ft_printf/utils.c \
+			ft_printf/converter.c \
 			ft_printf/handlers/char.c \
 			ft_printf/handlers/hexa.c \
 			ft_printf/handlers/int.c \

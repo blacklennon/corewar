@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/26 19:44:06 by pcarles          ###   ########.fr       */
+/*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
+/*   Updated: 2019/02/26 19:13:02 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <stddef.h>
+#include <stdio.h>
+#include "libft.h"
+#include "ft_printf.h"
 #include "corewar.h"
 
-void		parse_flags(int ac, char **av, t_vm *vm)
+void		mem_dump(uint8_t *p, size_t size)
 {
-	int		i;
+	size_t	i;
 
-	i = 1;
-	while (i <= MAX_PLAYERS && i < ac)
+	i = 0;
+	while (i < size)
 	{
-		vm->process[i - 1].file_path = av[i];
+		if ((i % 64) == 0)
+		{
+			if (i != 0)
+				ft_printf("\n");
+			ft_putstr("0x");
+			ft_printf("%.4zx : ", i);
+		}
+		ft_printf("%.2x ", *p);
+		p++;
 		i++;
 	}
 }
 
-int			main(int ac, char **av)
+uint32_t swap_uint32(uint32_t value)
 {
-	t_vm	vm;
-
-	if (ac < 1)
-		return (EXIT_FAILURE);
-	init_vm(&vm);
-	parse_flags(ac, av, &vm);
-	load_champs(&vm);
-	mem_dump(vm.memory, MEM_SIZE);
-	return (EXIT_SUCCESS);
+	value = ((value << 8) & 0xFF00FF00 ) | ((value >> 8) & 0xFF00FF ); 
+	return (value << 16) | (value >> 16);
 }

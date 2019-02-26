@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/23 17:30:55 by pcarles           #+#    #+#              #
-#    Updated: 2019/02/26 15:43:16 by pcarles          ###   ########.fr        #
+#    Updated: 2019/02/26 17:13:24 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ endef
 define INCLUDE_DEP_TEMPLATE
 include $$(wildcard $$(patsubst %.c,$(DEPDIR)/%.d,$$($(1)_SRC)))
 endef
+
+export DEBUG C_FLAGS LD_FLAGS
 
 ##
 # Rule definition

@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   converter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 14:02:28 by pcarles           #+#    #+#             */
-/*   Updated: 2018/03/08 14:52:49 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/26 17:32:09 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "private_ft_printf.h"
 
 intmax_t	ft_printf_signed_conv(va_list ap, t_arg *arg)
