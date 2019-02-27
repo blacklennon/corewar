@@ -6,13 +6,14 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:43:08 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 14:22:49 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/27 16:18:08 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef S_PROCESS_H
 # define S_PROCESS_H
 
+# include <stddef.h>
 # include <stdint.h>
 # include "op.h"
 
@@ -34,6 +35,7 @@ typedef struct			s_vm
 	size_t				nb_champs;
 	struct s_process	process[MAX_PLAYERS];
 	size_t				cycle;
+	void				(*op_table[17])(t_process*, struct s_vm*);
 }						t_vm;
 
 

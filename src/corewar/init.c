@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 14:06:40 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/27 16:15:53 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include "corewar.h"
+
+static void	init_opcode(void (*op[17])(t_process *process, t_vm *vm))
+{
+	op[1] = &live;
+}
 
 static void	init_process(t_process *process)
 {
@@ -41,6 +46,7 @@ void		init_vm(t_vm *vm)
 		init_process(&vm->process[i]);
 		i++;
 	}
+	init_opcode(vm->op_table);
 }
 
 void		load_champs(t_vm *vm)

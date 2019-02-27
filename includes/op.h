@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/01/23 17:21:03 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/27 16:26:15 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # define OP_H
 
 # include <stdint.h>
-# include "typedefs/s_token.h"
 
 # define IND_SIZE				2
 # define REG_SIZE				4
@@ -82,18 +81,5 @@ typedef struct			s_header
 	unsigned int		prog_size;
 	char				comment[COMMENT_LENGTH + 1];
 }						t_header;
-
-typedef struct			s_op
-{
-	char				*name;
-	int8_t				nb_params;
-	t_arg_type			params[MAX_ARGS_NUMBER];
-	int8_t				code;
-	int					cycles;
-	char				*description;
-	int8_t				ocp;
-	int8_t				carry;
-	t_token_type		token;
-}						t_op;
 
 #endif
