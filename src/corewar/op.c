@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 17:09:27 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/27 17:26:06 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		live(t_process *process, t_vm *vm)
 	if (*arg <= MAX_PLAYERS && *arg > 1)
 		vm->process[(*arg) - 1].live_counter++;
 	printf("player %d is alive\n", swap_uint32(*arg));
-	//process->program_counter += 4;;
+	process->program_counter += 4;
 	process->next_op = vm->cycle + 10;
 }
 
