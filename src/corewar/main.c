@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 16:20:48 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/27 16:38:11 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ int			main(int ac, char **av)
 	parse_flags(ac, av, &vm);
 	load_champs(&vm);
 	launch(&vm);
-	mem_dump(vm.memory, MEM_SIZE);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 16:15:53 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/27 16:53:05 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ static void	init_opcode(void (*op[17])(t_process *process, t_vm *vm))
 static void	init_process(t_process *process)
 {
 	process->file_path = NULL;
-	process->carry = 0;
 	process->program_counter = 0;
+	process->carry = 0;
+	process->live_counter = 0;
+	process->next_op = 0;
 	ft_bzero(process->name, sizeof(process->name));
 	ft_bzero(process->comment, sizeof(process->comment));
 	ft_bzero(process->registers, sizeof(process->registers));

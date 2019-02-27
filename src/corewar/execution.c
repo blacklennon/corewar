@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 16:22:27 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/27 17:06:17 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ static void	do_op(t_process *process, t_vm *vm)
 
 	op_code = vm->memory[process->program_counter];
 	if (op_code == 1)
-		vm->op_table[op_code];
-	else
-	{
-		printf("shit\n");
-	}
-	
+		vm->op_table[op_code](process, vm);
+	return ;
 }
 
 void		launch(t_vm *vm)
@@ -36,9 +32,10 @@ void		launch(t_vm *vm)
 
 	while (42)
 	{
-		i = 0;
+		//printf("cycle: %zu\n", vm->cycle);
 		if (vm->cycle == 500)
 			break ;
+		i = 0;
 		while (i < vm->nb_champs)
 		{
 			if (vm->process[i].next_op == vm->cycle)
