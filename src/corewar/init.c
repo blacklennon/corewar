@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/26 20:07:28 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/27 14:06:40 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		init_vm(t_vm *vm)
 
 	i = 0;
 	ft_bzero(vm->memory, sizeof(vm->memory));
+	vm->cycle = 0;
 	while (i < MAX_PLAYERS)
 	{
 		init_process(&vm->process[i]);
@@ -70,6 +71,7 @@ void		load_champs(t_vm *vm)
 			exit(EXIT_FAILURE);
 		}
 		read(fd, &vm->memory[(i - 1) * (MEM_SIZE / vm->nb_champs)], header.prog_size);
+		tmp->program_counter = (i - 1) * (MEM_SIZE / vm->nb_champs);
 		ft_strcpy(tmp->name, (char *)&header.prog_name);
 		ft_strcpy(tmp->comment, (char *)&header.comment);
 		close(fd);
