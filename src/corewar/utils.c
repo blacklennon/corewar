@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 15:38:45 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/28 16:55:16 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void		mem_dump(uint8_t *p, size_t size)
 		if ((i % 64) == 0)
 		{
 			if (i != 0)
-				ft_printf("\n");
-			ft_printf("0x%.4zx: ", i);
+				printf("\n");
+			printf("0x%.4zx: ", i);
 		}
-		ft_printf("%.2x ", *p);
+		printf("%.2x ", *p);
 		p++;
 		i++;
 	}

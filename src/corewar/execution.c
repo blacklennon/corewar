@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 20:56:30 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/02/28 16:45:42 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void		launch(t_vm *vm)
 		while (tmp < vm->nb_champs)
 		{
 			printf("player %lu: %zu lives\n", tmp + 1, vm->process[tmp].live_counter);
-			vm->process[tmp].program_counter %= MEM_SIZE;
+			if (vm->process[tmp].program_counter >= MEM_SIZE)
+				vm->process[tmp].program_counter %= MEM_SIZE;
 			tmp++;
 		}
 		vm->cycle++;
