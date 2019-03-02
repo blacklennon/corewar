@@ -14,56 +14,62 @@
 
 #include "corewar.h"
 
-//WIP
-
-uint32_t	read_memory(t_vm *vm, size_t index)
+typedef enum 	e_type
 {
-	uint32_t	*tmp;
-	uint8_t		tab[4];
-	size_t		i;
+	LIVE, LD, ST, ADD, SUB, AND, OR XOR, ZJMP, LDI, STI, FORK, LLD, LLDI,\
+	LFORK, AAF
+}				t_type;
 
-	i = 0;
-	index %= MEM_SIZE;
-	tmp = (uint32_t*)&vm->memory[index];
-	if (MEM_SIZE - index > 4)
-		return (swap_uint32(*tmp));
-	else
-	{
-		tmp = (uint32_t*)tab;
-		while (i < 4)
-		{
-			tab[i] = vm->memory[index];
-			index++;
-			i++;
-			index %= MEM_SIZE;
-		}
-		return (swap_uint32(*tmp));
-	}
+
+/*
+**	LIVE CONTIENT SIMPLEMENT UN T_DIR code sur 2 ou 4 octets
+**	LD CONTIENT 
+**
+**
+**
+**
+**
+**
+**
+**
+*/
+
+typedef struct 			s_instruct
+{
+	t_type				type;
+	int					tab_utils[9];
+	uint8_t				reg_1_0;
+	uint8_t				reg_2_1;
+	uint8_t				reg_3_2;
+	uint16_t			ind_1_3;
+	uint16_t			ind_2_4;
+	uint16_t			dir_16_1_5;
+	uint16_t			dir_16_2_6;
+	uint32_t			dir_32_1_7;
+	uint32_t			dir_32_2_8;
+	struct t_instruct	*prev;
+	struct t_instruct	*next;
+}						t_instruct;
+
+int 	ft_init_struct_instruct(t_vm *vm, t_instruct *instruct)
+{
+
 }
 
-void		live(t_process *process, t_vm *vm)
-{
-	uint32_t	tmp;
 
-	tmp = read_memory(vm, ++process->program_counter);
-	if (tmp > 0 && tmp <= vm->nb_champs)
-		vm->process[(tmp) - 1].live_counter++;
-	printf("player %d is alive\n", tmp);
-	process->program_counter += 4;
-	process->next_op = vm->cycle + 10;
+int		ft_print_binary_of_all_instruct_and_args(t_vm *vm, int index, int size)
+{
+
 }
 
-void		zjmp(t_process *process, t_vm *vm)
+int		ft_print_hexa_of_all_instruct_and_args(t_vm *vm, int index, int size)
 {
-	uint16_t	*arg;
 
-	arg = (uint16_t*)&vm->memory[++process->program_counter];
-	process->next_op = vm->cycle + 20;
 }
 
-void		ld(t_process *process, t_vm *vm)
-{
-	process->next_op = vm->cycle + 5;
-}
+int		ft_print_struct_instruct(t_instruct *current)
 
-// 
+int 	ft_parse_instructions(t_vm *vm)
+{
+
+}
