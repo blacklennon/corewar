@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 15:34:07 by pcarles           #+#    #+#             */
-/*   Updated: 2017/12/07 17:49:38 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/02 19:11:30 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 #include <limits.h>
 #include "libft.h"
 #include "get_next_line.h"
+
+#ifndef OPEN_MAX
+# define OPEN_MAX 100
+#endif
 
 static char	*join_until(char *s1, char *s2, char c)
 {

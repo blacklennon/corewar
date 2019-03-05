@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/27 16:20:26 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/05 15:37:12 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ uint32_t	swap_uint32(uint32_t value);
 void		launch(t_vm *vm);
 
 void		live(t_process *process, t_vm *vm);
+void		write_memory(t_vm *vm, uint32_t value, size_t index);
 
 #endif
