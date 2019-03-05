@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/05 17:10:09 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/05 17:59:28 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ void		live(t_process *process, t_vm *vm)
 	process->next_op = vm->cycle + 10;
 }
 
-// void		zjmp(t_process *process, t_vm *vm)
-// {
-// 	uint16_t	*arg;
+void		zjmp(t_process *process, t_vm *vm)
+{
+	uint16_t	*arg;
 
-// 	arg = (uint16_t*)&vm->memory[++process->program_counter];
-// 	process->next_op = vm->cycle + 20;
-// }
+	arg = (uint16_t*)&vm->memory[++process->program_counter];
+	process->next_op = vm->cycle + 20;
+}
 
 // void		ld(t_process *process, t_vm *vm)
 // {
