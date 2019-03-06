@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/06 14:42:12 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/06 16:48:09 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 static void	init_opcode(void (*op[17])(t_process *process, t_vm *vm))
 {
 	op[1] = &live;
+	op[9] = &zjmp;
+	op[16] = &aff;
 }
 
 static void	init_process(t_process *process)
