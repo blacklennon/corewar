@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/05 15:37:12 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/06 14:52:07 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ int			main(int ac, char **av);
 void		init_vm(t_vm *vm);
 void		mem_dump(uint8_t *p, size_t size);
 void		load_champs(t_vm *vm);
-uint32_t	swap_uint32(uint32_t value);
+int32_t		swap_int32(int32_t value);
+int16_t 	swap_int16(int16_t value);
 void		launch(t_vm *vm);
 
 void		live(t_process *process, t_vm *vm);
-void		write_memory(t_vm *vm, uint32_t value, size_t index);
+int32_t		read4_memory(t_vm *vm, size_t index);
+int16_t		read2_memory(t_vm *vm, size_t index);
+void		write4_memory(t_vm *vm, int32_t value, size_t index);
 
 #endif

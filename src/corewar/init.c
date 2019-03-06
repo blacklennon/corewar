@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/02 17:48:34 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/06 14:42:12 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ void		load_champs(t_vm *vm)
 			exit(EXIT_FAILURE);
 		}
 		read(fd, &header, sizeof(header));
-		if (swap_uint32(header.magic) != COREWAR_EXEC_MAGIC)
+		if (swap_int32(header.magic) != COREWAR_EXEC_MAGIC)
 		{
 			ft_putstr_fd("corewar: wrong exec format", 2);
 			exit(EXIT_FAILURE);
 		}
-		if ((header.prog_size = swap_uint32(header.prog_size)) > CHAMP_MAX_SIZE)
+		if ((header.prog_size = swap_int32(header.prog_size)) > CHAMP_MAX_SIZE)
 		{
 			ft_putstr_fd("corewar: champion too big", 2);
 			exit(EXIT_FAILURE);

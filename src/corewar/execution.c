@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/28 16:45:42 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/06 14:01:38 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	do_op(t_process *process, t_vm *vm)
 
 void		launch(t_vm *vm)
 {
-	size_t	tmp;
 	size_t	i;
 
 	while (42)
@@ -43,15 +42,7 @@ void		launch(t_vm *vm)
 		{
 			if (vm->process[i].next_op == vm->cycle)
 				do_op(&vm->process[i], vm);
-			i++;
-		}
-		tmp = 0;
-		while (tmp < vm->nb_champs)
-		{
-			printf("player %lu: %zu lives\n", tmp + 1, vm->process[tmp].live_counter);
-			if (vm->process[tmp].program_counter >= MEM_SIZE)
-				vm->process[tmp].program_counter %= MEM_SIZE;
-			tmp++;
+			vm->process[i++].program_counter %= MEM_SIZE;
 		}
 		vm->cycle++;
 	}
