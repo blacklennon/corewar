@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/02/27 16:26:15 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/08 00:37:38 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define DIR_SIZE				REG_SIZE
 
 /* OCP */
-# define REG_CODE				1
-# define DIR_CODE				2
-# define IND_CODE				3
+# define REG_CODE				1 //01
+# define DIR_CODE				2 //10
+# define IND_CODE				3 //11
 
 # define MAX_ARGS_NUMBER		4
 
@@ -81,5 +81,58 @@ typedef struct			s_header
 	unsigned int		prog_size;
 	char				comment[COMMENT_LENGTH + 1];
 }						t_header;
+
+typedef enum 			e_op_code
+{
+	LIVE = 1,
+	LD = 2,
+	ST = 3,
+	ADD = 4,
+	SUB = 5,
+	AND = 6,
+	OR = 7,
+	XOR = 8,
+	ZJMP = 9,
+	LDI = 10,
+	STI = 11,
+	FORK = 12,
+	LLD = 13,
+	LLDI = 14,
+	LFORK = 15,
+	AFF = 16
+}						t_op_code;
+
+typedef struct			s_op
+{
+	char				*name;
+	size_t				nb_params;
+	t_arg_type			params[MAX_ARGS_NUMBER];
+	t_op_code			code;
+	uint32_t			cycles;
+	char				*description;
+	char				ocp; // booleen 1/0 l'instruction contient-elle un OCP?
+	char				little_dir; // boolean 1/0 taille du direct, 2 ou 4 octets; 
+} 						t_op;
+
+t_op					op_tab[17] =
+{
+	{"live",	1, {T_DIR}, LIVE, 10, "alive", 0, 0},
+	{"ld",		2, {T_DIR | T_IND, T_REG}, LD, 5, "load", 1, 0},
+	{"st",		2, {T_REG, T_IND | T_REG}, ST, 5, "store", 1, 0},
+	{"add",		3, {T_REG, T_REG, T_REG}, ADD, 10, "addition", 1, 0},
+	{"sub",		3, {T_REG, T_REG, T_REG}, SUB, 10, "soustraction", 1, 0},
+	{"and",		3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, AND, 6, "et (and  r1, r2, r3   r1&r2 -> r3", 1, 0},
+	{"or",		3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, OR, 6, "ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0},
+	{"xor",		3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, XOR, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
+	{"zjmp",	1, {T_DIR}, ZJMP, 20, "jump if zero", 0, 1},
+	{"ldi",		3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, LDI, 25, "load index", 1, 1},
+	{"sti",		3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, STI, 25, "store index", 1, 1},
+	{"fork",	1, {T_DIR}, FORK, 800, "fork", 0, 1},
+	{"lld",		2, {T_DIR | T_IND, T_REG}, LLD, 10, "long load", 1, 0},
+	{"lldi",	3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, LLDI, 50, "long load index", 1, 1},
+	{"lfork",	1, {T_DIR}, LFORK, 1000, "long fork", 0, 1},
+	{"aff",		1, {T_REG}, AFF, 2, "aff", 1, 0},
+	{NULL, 0, {0}, 0, 0, 0, 0, 0}
+};
 
 #endif
