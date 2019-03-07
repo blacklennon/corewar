@@ -23,9 +23,10 @@ int32_t		swap_int32(int32_t value);
 int16_t 	swap_int16(int16_t value);
 void		launch(t_vm *vm);
 
-void		live(t_process *process, t_vm *vm);
-void		zjmp(t_process *process, t_vm *vm);
-void		aff(t_process *process, t_vm *vm);
+void		op_live(t_process *process, t_vm *vm);
+void		op_zjmp(t_process *process, t_vm *vm);
+void		op_aff(t_process *process, t_vm *vm);
+void		op_add(t_process *process, t_vm *vm);
 
 int32_t		read4_memory(t_vm *vm, size_t index);
 int16_t		read2_memory(t_vm *vm, size_t index);

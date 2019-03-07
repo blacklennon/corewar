@@ -21,9 +21,10 @@
 
 static void	init_opcode(void (*op[17])(t_process *process, t_vm *vm))
 {
-	op[1] = &live;
-	op[9] = &zjmp;
-	op[16] = &aff;
+	op[1] = &op_live;
+	op[9] = &op_zjmp;
+	op[4] = &op_add;
+	op[16] = &op_aff;
 }
 
 static void	init_process(t_process *process)
