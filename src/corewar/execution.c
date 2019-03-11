@@ -21,7 +21,7 @@ static void	do_op(t_process *process, t_vm *vm)
 	uint8_t	op_code;
 
 	op_code = vm->memory[process->program_counter];
-	if (op_code > 0 && op_code < 17)
+	if (op_code > 0 && op_code < 17 && vm->op_table[op_code])
 		vm->op_table[op_code](process, vm);
 	else
 		process->next_op++;

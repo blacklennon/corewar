@@ -15,7 +15,7 @@
 
 # include "typedefs/s_process.h"
 
-int			main(int ac, char **av);
+int		main(int ac, char **av);
 void		init_vm(t_vm *vm);
 void		mem_dump(uint8_t *p, size_t size);
 void		load_champs(t_vm *vm);
