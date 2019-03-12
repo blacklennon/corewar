@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/09 03:56:55 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 00:24:45 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,24 @@ void		write4_memory(t_vm *vm, int32_t value, size_t index)
 	*((int32_t*)tab) = swap_int32(value);
 	i = 0;
 	while (i < 4)
+	{
+		index %= MEM_SIZE;
+		vm->memory[index] = tab[i];
+		index++;
+		i++;
+	}
+}
+
+//jac 12032019
+
+void		write2_memory(t_vm *vm, int16_t value, size_t index)
+{
+	uint8_t		tab[2];
+	size_t		i;
+
+	*((int16_t*)tab) = swap_int16(value);
+	i = 0;
+	while (i < 2)
 	{
 		index %= MEM_SIZE;
 		vm->memory[index] = tab[i];
