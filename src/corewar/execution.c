@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 16:33:01 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 17:10:27 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 			else
 				crash(process, "wtf this should never be reached, you can go hang yourself");
 			i++;
+			// Don't forget to increment program counter correctly
 		}
 	}
 	else if (op->params[0] == T_DIR && op->little_dir == 1) // special cases, operations with no OCP
