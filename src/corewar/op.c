@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 16:13:21 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 17:23:28 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		op_live(t_process *process, t_args *args, t_vm *vm)
 {
 	int32_t	arg;
 
-	arg = args->arg_1.u_dir32;
+	arg = args->value[0].u_dir32;
 	if (arg > 0 && arg <= (int)vm->nb_champs)
 		vm->process[arg - 1].live_counter++;
 	printf("player %d is alive\n", arg);
@@ -99,12 +99,12 @@ void		op_live(t_process *process, t_args *args, t_vm *vm)
 void		op_zjmp(t_process *process, t_args *args, t_vm *vm)
 {
 	if (process->carry == 1)
-		process->program_counter += args->arg_1.u_dir16;
+		process->program_counter += args->value[0].u_dir16;
 	else
 		process->program_counter += 3;
 }
 
-void		op_aff(t_process *process, t_vm *vm)
+void		op_aff(t_process *process, t_args *args, t_vm *vm)
 {
 	uint8_t	ocp;
 

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 17:10:27 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 17:33:16 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 	i = 0;
 	while (i < op->nb_params)
 	{
-		tmp = (ocp & mask) >> (3 - i) * 2;
+		tmp = (ocp & mask) >> ((3 - i) * 2);
 		if (tmp == REG_CODE && (op->params[i] & T_REG) != 0)
-			args->arg_type[i] = e_reg;
+			args->type[i] = e_reg;
 		else if (tmp == IND_CODE && (op->params[i] & T_IND) != 0)
-			args->arg_type[i] = e_ind;
+			args->type[i] = e_ind;
 		else if (tmp == DIR_CODE && (op->params[i] & T_DIR) != 0)
-			args->arg_type[i] = e_dir;
+			args->type[i] = e_dir;
 		else
 			return (0);
 		mask >> 2;
@@ -57,26 +57,27 @@ static void		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 			crash(process, "bad ocp");
 		while (i < op->nb_params)
 		{
-			if (args->arg_type[i] == e_reg)
-				args->arg[i].u_reg = (int8_t)vm->memory[process->program_counter];
-			else if (args->arg_type[i] == e_ind)
-				args->arg[i].u_ind = read2_memory(vm, process->program_counter);
-			else if (args->arg_type[i] == e_dir && op->little_dir == 1)
-				args->arg[i].u_dir16 = read2_memory(vm, process->program_counter);
-			else if (args->arg_type[i] == e_dir && op->little_dir == 0)
-				args->arg[i].u_dir32 = read4_memory(vm, process->program_counter);
+			if (args->type[i] == e_reg)
+				args->value[i].u_reg = (int8_t)vm->memory[process->program_counter];
+			else if (args->type[i] == e_ind)
+				args->value[i].u_ind = read2_memory(vm, process->program_counter);
+			else if (args->type[i] == e_dir && op->little_dir == 1)
+				args->value[i].u_dir16 = read2_memory(vm, process->program_counter);
+			else if (args->type[i] == e_dir && op->little_dir == 0)
+				args->value[i].u_dir32 = read4_memory(vm, process->program_counter);
 			else
 				crash(process, "wtf this should never be reached, you can go hang yourself");
 			i++;
 			// Don't forget to increment program counter correctly
 		}
 	}
-	else if (op->params[0] == T_DIR && op->little_dir == 1) // special cases, operations with no OCP
-		args->arg[0].u_dir16 = read2_memory(vm, process->program_counter);
+	// special cases, operations with no OCP
+	else if (op->params[0] == T_DIR && op->little_dir == 1)
+		args->value[0].u_dir16 = read2_memory(vm, process->program_counter);
 	else if (op->params[0] == T_DIR && op->little_dir == 0)
-		args->arg[0].u_dir32 = read4_memory(vm, process->program_counter);
+		args->value[0].u_dir32 = read4_memory(vm, process->program_counter);
 	else if (op->params[0] == T_REG)
-		args->arg[0].u_reg = (int8_t)vm->memory[process->program_counter];
+		args->value[0].u_reg = (int8_t)vm->memory[process->program_counter];
 	else
 		crash(process, "wtf this should never be reached, you can go hang yourself");
 }

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/12 15:55:08 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 17:41:36 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,17 @@ typedef struct			s_op
 	char				*name;
 	uint8_t				nb_params;
 	t_arg_type			params[MAX_ARGS_NUMBER];
-	uint8_t				code;
+	t_op_code			code;
 	uint32_t			cycles;
 	char				*description;
 	uint8_t				ocp; // booleen 1/0 est-ce que je dois lire l'ocp
 	uint8_t				little_dir; // boolean 1/0 est-ce que c'est un direct de taille 16/32 bits 2/4 BYTES; 
-	void				(*func)(struct s_process*, struct s_arguments*, struct s_vm*);
+	void				(*func)(struct s_process*, struct s_args*, struct s_vm*);
 }						t_op;
 
 t_op		op_tab[17] =
 {
-	{NULL, 0, {0}, 0, 0, 0, 0, 0, NULL},
+	{NULL, 0, {0}, 0, 0, NULL, 0, 0, NULL},
 	{"live", 1, {T_DIR}, LIVE, 10, "alive", 0, 0, NULL},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, LD, 5, "load", 1, 0, NULL},
 	{"st", 2, {T_REG, T_IND | T_REG}, ST, 5, "store", 1, 0, NULL},

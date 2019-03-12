@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:43:08 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 16:32:20 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 17:38:12 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include "op.h"
 
+// We should rename those two typedefs (enum and union) to a more comprehensive name
 typedef union			u_int_types
 {
 	int8_t				u_reg;
@@ -33,8 +34,8 @@ typedef enum			u_int_types_enum
 
 typedef	struct 			s_args
 {
-	t_int_types_enum	arg_type[3];
-	t_int_types			arg[3];
+	t_int_types_enum	type[3];
+	t_int_types			value[3];
 }						t_args;
 
 typedef struct			s_process
