@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/06 16:48:09 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 12:09:49 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,15 @@ void		init_vm(t_vm *vm)
 	size_t	i;
 
 	i = 0;
-	ft_bzero(vm->memory, sizeof(vm->memory));
 	vm->cycle = 0;
+	ft_bzero(vm->memory, sizeof(vm->memory));
 	while (i < MAX_PLAYERS)
-	{
-		init_process(&vm->process[i]);
-		i++;
-	}
+		init_process(&vm->process[i++]);
 	init_opcode(vm->op_table);
 }
 
+
+// TODO protect everything
 void		load_champs(t_vm *vm)
 {
 	t_process	*tmp;
