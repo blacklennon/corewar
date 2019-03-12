@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 14:37:37 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 16:33:01 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,47 +16,89 @@
 #include <stddef.h>
 #include "corewar.h"
 
-static int		read_ocp(t_op *op, uint8_t ocp, t_arguments *args)
+// This function read the OCP, and fill up the arg struct, it return 0 if the
+// current operation has a bad OCP. (the check is done with the op_tab values)
+static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 {
-	t_int_types_enum	*tmp2;
-	uint8_t				mask;
-	uint8_t				tmp;
-	int					i;
+	uint8_t		mask;
+	uint8_t		tmp;
+	int			i;
 
 	mask = 0xc0;
 	i = 0;
-	while (i++ < op->nb_params)
+	while (i < op->nb_params)
 	{
-		tmp = 0;
-		tmp = (tmp & mask) >> (4 - i) * 2;
-		if (tmp == REG_CODE && (op->params[i - 1] & T_REG) != 0)
-			*tmp2 = int_8;
-		else if (tmp == IND_CODE && (op->params[i - 1] & T_IND) != 0)
-			*tmp2 = int_16;
-		else if (tmp == DIR_CODE && (op->params[i - 1] & T_DIR) != 0)
-			*tmp2 = op->little_dir == 1 ? int_16 : int_32;
+		tmp = (ocp & mask) >> (3 - i) * 2;
+		if (tmp == REG_CODE && (op->params[i] & T_REG) != 0)
+			args->arg_type[i] = e_reg;
+		else if (tmp == IND_CODE && (op->params[i] & T_IND) != 0)
+			args->arg_type[i] = e_ind;
+		else if (tmp == DIR_CODE && (op->params[i] & T_DIR) != 0)
+			args->arg_type[i] = e_dir;
 		else
 			return (0);
 		mask >> 2;
-		//TODO find a way to iterate through argument types
+		i++;
 	}
 	return (1);
 }
 
-static void		do_op(t_process *process, t_vm *vm)
+static void		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 {
 	uint8_t		ocp;
-	t_op		*op;
-	t_arguments	args;
+	int			i;
 
-	op = &op_tab[vm->memory[process->program_counter]];
-	if (op->ocp == 1)
+	i = 0;
+	if (op->ocp == 1) // If OCP we parse it and then we read arguments from memory
 	{
-		ocp = vm->memory[(process->program_counter + 1) % MEM_SIZE];
-		if (read_ocp(op, ocp, &args) == 0)
-			crash(process, "bad_ocp");
+		ocp = vm->memory[process->program_counter++];
+		process->program_counter %= MEM_SIZE;
+		if (parse_ocp(op, ocp, &args) == 0)
+			crash(process, "bad ocp");
+		while (i < op->nb_params)
+		{
+			if (args->arg_type[i] == e_reg)
+				args->arg[i].u_reg = (int8_t)vm->memory[process->program_counter];
+			else if (args->arg_type[i] == e_ind)
+				args->arg[i].u_ind = read2_memory(vm, process->program_counter);
+			else if (args->arg_type[i] == e_dir && op->little_dir == 1)
+				args->arg[i].u_dir16 = read2_memory(vm, process->program_counter);
+			else if (args->arg_type[i] == e_dir && op->little_dir == 0)
+				args->arg[i].u_dir32 = read4_memory(vm, process->program_counter);
+			else
+				crash(process, "wtf this should never be reached, you can go hang yourself");
+			i++;
+		}
 	}
-	op->op_func(process, vm);
+	else if (op->params[0] == T_DIR && op->little_dir == 1) // special cases, operations with no OCP
+		args->arg[0].u_dir16 = read2_memory(vm, process->program_counter);
+	else if (op->params[0] == T_DIR && op->little_dir == 0)
+		args->arg[0].u_dir32 = read4_memory(vm, process->program_counter);
+	else if (op->params[0] == T_REG)
+		args->arg[0].u_reg = (int8_t)vm->memory[process->program_counter];
+	else
+		crash(process, "wtf this should never be reached, you can go hang yourself");
+}
+
+static void		do_op(t_process *process, t_vm *vm)
+{
+	uint8_t		op_code;
+	uint8_t		ocp;
+	t_op		*op;
+	t_args		args;
+
+	op_code = vm->memory[process->program_counter++];
+	if (op_code < LIVE || op_code > AFF)
+	{
+		process->next_op = vm->cycle + 1;
+		return ;
+	}
+	op = &op_tab[op_code];
+	process->program_counter %= MEM_SIZE;
+	read_args(op, process, &args, vm);
+	if (op->func)
+		op->func(process, &args, vm);
+	process->next_op = vm->cycle + op->cycles;
 }
 
 void			launch(t_vm *vm)
