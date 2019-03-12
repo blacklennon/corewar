@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/06 15:45:45 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 13:47:34 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		load_champs(t_vm *vm);
 int32_t		swap_int32(int32_t value);
 int16_t 	swap_int16(int16_t value);
 void		launch(t_vm *vm);
+void		crash(t_process *process, char *str);
 
 void		op_live(t_process *process, t_vm *vm);
 void		op_zjmp(t_process *process, t_vm *vm);

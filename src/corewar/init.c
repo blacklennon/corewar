@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 12:09:49 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 14:07:08 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 #include "ft_printf.h"
 #include "corewar.h"
 
-static void	init_opcode(void (*op[17])(t_process *process, t_vm *vm))
+static void	init_opcode(t_op *op_tab)
 {
-	op[1] = &op_live;
-	op[9] = &op_zjmp;
-	op[4] = &op_add;
-	op[16] = &op_aff;
+	op_tab[LIVE].op_func = &op_live;
+	op_tab[ADD].op_func = &op_add;
+	op_tab[ZJMP].op_func = &op_zjmp;
+	op_tab[AFF].op_func = &op_aff;
 }
 
 static void	init_process(t_process *process)

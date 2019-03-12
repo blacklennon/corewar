@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 12:32:28 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 14:37:37 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include <stddef.h>
 #include "corewar.h"
 
-static void		read_ocp(t_op *op, uint8_t ocp, t_arguments *args)
+static int		read_ocp(t_op *op, uint8_t ocp, t_arguments *args)
 {
 	t_int_types_enum	*tmp2;
-	uint8_t		mask;
-	uint8_t		tmp;
-	int			i;
+	uint8_t				mask;
+	uint8_t				tmp;
+	int					i;
 
 	mask = 0xc0;
 	i = 0;
@@ -36,32 +36,32 @@ static void		read_ocp(t_op *op, uint8_t ocp, t_arguments *args)
 		else if (tmp == DIR_CODE && (op->params[i - 1] & T_DIR) != 0)
 			*tmp2 = op->little_dir == 1 ? int_16 : int_32;
 		else
-			crash("bad ocp");
+			return (0);
 		mask >> 2;
 		//TODO find a way to iterate through argument types
 	}
+	return (1);
 }
 
-static void	do_op(t_process *process, t_vm *vm)
+static void		do_op(t_process *process, t_vm *vm)
 {
-	uint8_t		op_code;
 	uint8_t		ocp;
+	t_op		*op;
 	t_arguments	args;
 
-	op_code = vm->memory[process->program_counter];
-	if (op_tab[op_code].ocp == 1)
+	op = &op_tab[vm->memory[process->program_counter]];
+	if (op->ocp == 1)
+	{
 		ocp = vm->memory[(process->program_counter + 1) % MEM_SIZE];
-	
-	if (op_code > 0 && op_code < 17)
-		vm->op_table[op_code](process, vm);
-	else
-		process->next_op++;
-	return ;
+		if (read_ocp(op, ocp, &args) == 0)
+			crash(process, "bad_ocp");
+	}
+	op->op_func(process, vm);
 }
 
-void		launch(t_vm *vm)
+void			launch(t_vm *vm)
 {
-	size_t	i;
+	size_t		i;
 
 	while (42)
 	{

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/06 14:44:09 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 13:35:00 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ void		mem_dump(uint8_t *p, size_t size)
 		p++;
 		i++;
 	}
+}
+
+void		crash(t_process *process, char *str)
+{
+	printf("Process %s crash: %s\n", process->name, str);
+	exit(1);
 }
 
 int32_t		swap_int32(int32_t value)
