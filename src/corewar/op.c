@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/06 15:33:58 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/09 03:56:55 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,10 @@ int16_t			read2_memory(t_vm *vm, size_t index)
 
 void		write4_memory(t_vm *vm, int32_t value, size_t index)
 {
-	int32_t	*tmp;
 	uint8_t		tab[4];
 	size_t		i;
 
-	tmp = (int32_t*)tab;
-	*tmp = swap_int32(value);
+	*((int32_t*)tab) = swap_int32(value);
 	i = 0;
 	while (i < 4)
 	{
