@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 17:33:16 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 22:43:20 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 			args->type[i] = e_dir;
 		else
 			return (0);
-		mask >> 2;
+		mask >>= 2;
 		i++;
 	}
 	return (1);
@@ -53,7 +53,7 @@ static void		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 	{
 		ocp = vm->memory[process->program_counter++];
 		process->program_counter %= MEM_SIZE;
-		if (parse_ocp(op, ocp, &args) == 0)
+		if (parse_ocp(op, ocp, args) == 0)
 			crash(process, "bad ocp");
 		while (i < op->nb_params)
 		{
@@ -85,7 +85,6 @@ static void		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 static void		do_op(t_process *process, t_vm *vm)
 {
 	uint8_t		op_code;
-	uint8_t		ocp;
 	t_op		*op;
 	t_args		args;
 

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 17:23:28 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 22:50:32 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "libft.h"
 
 #include "corewar.h"
-
-//WIP
 
 int32_t			read4_memory(t_vm *vm, size_t index)
 {
@@ -98,6 +96,7 @@ void		op_live(t_process *process, t_args *args, t_vm *vm)
 
 void		op_zjmp(t_process *process, t_args *args, t_vm *vm)
 {
+	(void)vm;
 	if (process->carry == 1)
 		process->program_counter += args->value[0].u_dir16;
 	else
@@ -108,6 +107,7 @@ void		op_aff(t_process *process, t_args *args, t_vm *vm)
 {
 	uint8_t	ocp;
 
+	(void)args;
 	ocp = vm->memory[++process->program_counter % MEM_SIZE];
 	if (ocp != 0x40)
 		//crash ?

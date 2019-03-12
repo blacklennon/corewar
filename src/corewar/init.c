@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 15:55:30 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 22:44:59 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 static void	init_opcode(t_op *op_tab)
 {
 	op_tab[LIVE].func = &op_live;
-	op_tab[ADD].func = &op_add;
 	op_tab[ZJMP].func = &op_zjmp;
 	op_tab[AFF].func = &op_aff;
 }
@@ -48,7 +47,7 @@ void		init_vm(t_vm *vm)
 	ft_bzero(vm->memory, sizeof(vm->memory));
 	while (i < MAX_PLAYERS)
 		init_process(&vm->process[i++]);
-	init_opcode(&op_tab);
+	init_opcode(op_tab);
 }
 
 // TODO protect everything

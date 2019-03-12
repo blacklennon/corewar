@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/12 17:41:36 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/12 22:51:02 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define OP_H
 
 # include <stdint.h>
+# include "typedefs/s_process.h"
 
 # define IND_SIZE				2
 # define REG_SIZE				4
@@ -102,6 +103,45 @@ typedef enum 			e_op_code
 	AFF		= 16
 }						t_op_code;
 
+typedef union			u_int_types
+{
+	int8_t				u_reg;
+	int16_t				u_ind;
+	int16_t				u_dir16;
+	int32_t				u_dir32;
+}						t_int_types;
+
+typedef enum			u_int_types_enum
+{
+	e_none, e_reg, e_ind, e_dir
+}						t_int_types_enum;
+
+typedef	struct 			s_args
+{
+	t_int_types_enum	type[3];
+	t_int_types			value[3];
+}						t_args;
+
+typedef struct			s_process
+{
+	char				*file_path;
+	char				name[PROG_NAME_LENGTH + 1];
+	char				comment[COMMENT_LENGTH + 1];
+	size_t				program_counter;
+	uint8_t				carry;
+	int32_t				registers[REG_NUMBER]; // c est bien ici qu on doit set les valeurs des registres
+	size_t				live_counter;
+	size_t				next_op;
+}						t_process;
+
+typedef struct			s_vm
+{
+	uint8_t				memory[MEM_SIZE];
+	size_t				nb_champs;
+	struct s_process	process[MAX_PLAYERS];
+	size_t				cycle;
+}						t_vm;
+
 typedef struct			s_op
 {
 	char				*name;
@@ -112,10 +152,10 @@ typedef struct			s_op
 	char				*description;
 	uint8_t				ocp; // booleen 1/0 est-ce que je dois lire l'ocp
 	uint8_t				little_dir; // boolean 1/0 est-ce que c'est un direct de taille 16/32 bits 2/4 BYTES; 
-	void				(*func)(struct s_process*, struct s_args*, struct s_vm*);
+	void				(*func)(t_process*, t_args*, t_vm*);
 }						t_op;
 
-t_op		op_tab[17] =
+static t_op		op_tab[17] =
 {
 	{NULL, 0, {0}, 0, 0, NULL, 0, 0, NULL},
 	{"live", 1, {T_DIR}, LIVE, 10, "alive", 0, 0, NULL},
