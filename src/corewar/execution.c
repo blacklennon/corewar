@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:26:12 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 18:07:58 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 	if (op->ocp == 1) // If OCP we parse it and then we read arguments from memory
 	{
 		ocp = vm->memory[process->program_counter++];
-		printf("OP: %s OPCODE: %x, OCP: %x, PC: %zu\n", op->name, op->code, ocp, process->program_counter);
 		process->program_counter %= MEM_SIZE;
 		if (parse_ocp(op, ocp, args) == 0)
 			crash(process, "bad ocp");
