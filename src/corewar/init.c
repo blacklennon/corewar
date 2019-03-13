@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:26:00 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 18:14:39 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	init_opcode(t_op *op_tab)
 //	op_tab[ST].func = &op_st;
 	op_tab[ADD].func = &op_add;
 	op_tab[SUB].func = &op_sub;
-	op_tab[AND].func = &op_and;
+//	op_tab[AND].func = &op_and;
 //	op_tab[OR].func = &op_or;
 //	op_tab[XOR].func = &op_xor;
 	op_tab[ZJMP].func = &op_zjmp;
@@ -117,6 +117,7 @@ void		load_champs(t_vm *vm)
 		}
 		read(fd, &vm->memory[(i - 1) * (MEM_SIZE / vm->nb_champs)], header.prog_size);
 		tmp->program_counter = (i - 1) * (MEM_SIZE / vm->nb_champs);
+		tmp->registers[0] = (int32_t)i;
 		ft_strcpy(tmp->name, (char *)&header.prog_name);
 		ft_strcpy(tmp->comment, (char *)&header.comment);
 		close(fd);

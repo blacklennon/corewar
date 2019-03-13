@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 18:07:38 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 18:22:36 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ int			main(int ac, char **av)
 	init_vm(&vm);
 	parse_flags(ac, av, &vm);
 	load_champs(&vm);
-	vm.process[0].registers[0] = 0x20;
-	vm.process[0].registers[1] = 0x08;
-	//mem_dump(vm.memory, 4096);
 	launch(&vm);
-	reg_dump(&vm);
-	mem_dump(vm.memory, 4096);
+	reg_dump(vm.process, vm.nb_champs);
+	mem_dump(vm.memory, MEM_SIZE);
 	return (EXIT_SUCCESS);
 }
