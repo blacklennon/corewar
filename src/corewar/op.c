@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 02:26:25 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:07:08 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,18 @@ void		op_live(t_process *process, t_args *args, t_vm *vm)
 {
 	int32_t	arg;
 
+	(void)process;
 	arg = args->value[0].u_dir32;
 	if (arg > 0 && arg <= (int)vm->nb_champs)
 		vm->process[arg - 1].live_counter++;
 	printf("player %d is alive\n", arg);
-	process->program_counter += 4;
 }
 
 void		op_zjmp(t_process *process, t_args *args, t_vm *vm)
 {
 	(void)vm;
 	if (process->carry == 1)
-		process->program_counter += args->value[0].u_dir16;
-	else
-		process->program_counter += 3;
+		process->program_counter += args->value[0].u_dir16 - 3;
 }
 
 void		op_aff(t_process *process, t_args *args, t_vm *vm)
@@ -131,9 +129,6 @@ void		op_aff(t_process *process, t_args *args, t_vm *vm)
 	ocp = vm->memory[++process->program_counter % MEM_SIZE];
 	if (ocp > 0 && ocp <= REG_NUMBER)
 		printf("process %s is saying `%c'\n", process->name, process->registers[ocp - 1] % 256);
-	else
-		//crash ?
-	process->program_counter++;
 }
 
 //jac 12032019
@@ -141,15 +136,11 @@ void		op_add(t_process *process, t_args *args, t_vm *vm)
 {
 	int32_t	result;
 
-/*	if (ocp != 0x54) // utile ici?
- 		crash(process, "bad ocp");
- 	else */
+	(void)vm;
 	result = process->registers[args->value[0].u_reg]
 		+ process->registers[args->value[1].u_reg];
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	process->program_counter += 4;
-	process->next_op = vm->cycle + 10;
 }
 
 //jac 12032019
@@ -157,15 +148,11 @@ void		op_sub(t_process *process, t_args *args, t_vm *vm)
 {
 	int32_t	result;
 
-/*	if (ocp != 0x54) // utile ici?
- 		crash(process, "bad ocp");
- 	else */
+	(void)vm;
 	result = process->registers[args->value[0].u_reg]
 		- process->registers[args->value[1].u_reg];
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	process->program_counter += 4;
-	process->next_op = vm->cycle + 10;
 }
 
 //jac 12032019
@@ -173,6 +160,7 @@ void	op_and(t_process *process, t_args *args, t_vm *vm)
 {
 	int32_t	result;
 
+	(void)vm;
 	result = -1; //arbitraire, tant qu il n est utilise que quand il est utile, c est OK
 	if (args->type[0] == e_reg && args->type[1] == e_reg)
 	{
@@ -196,8 +184,8 @@ void	op_and(t_process *process, t_args *args, t_vm *vm)
 	// car la je me relance dans une galere... Sinon c est ca?
 	else if (args->type[0] == e_none || args->type[1] == e_none || args->type[2] == e_none)
 		crash(process, "bad arg into and");
-	process->program_counter += 4; 
-	process->next_op = vm->cycle + 6;
+	// process->program_counter += 4; 
+	// process->next_op = vm->cycle + 6;
 	process->carry = (result == 0) ? 1 : 0;
 }
 

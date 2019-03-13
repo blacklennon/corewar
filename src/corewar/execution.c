@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 01:25:40 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:05:47 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,15 @@ static void		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 	if (op->ocp == 1) // If OCP we parse it and then we read arguments from memory
 	{
 		ocp = vm->memory[process->program_counter++];
+		printf("OP: %s OPCODE: %x, OCP: %x, PC: %zu\n", op->name, op->code, ocp, process->program_counter);
 		process->program_counter %= MEM_SIZE;
 		if (parse_ocp(op, ocp, args) == 0)
-		{
-			process->program_counter +=1; // avant crash(process, "bad ocp"); // j ai change juste pour que le programme continue
-			process->program_counter %= MEM_SIZE;
-		}
+			crash(process, "bad ocp");
 		while (i < op->nb_params)
 		{
 			if (args->type[i] == e_reg)
 			{
-				args->value[i].u_reg = (int8_t)vm->memory[process->program_counter];
+				args->value[i].u_reg = (int8_t)vm->memory[process->program_counter] - 1;
 				process->program_counter += 1; 
 			}
 			else if (args->type[i] == e_ind)
@@ -116,13 +114,17 @@ static void		do_op(t_process *process, t_vm *vm)
 	if (op_code < LIVE || op_code > AFF)
 	{
 		process->next_op = vm->cycle + 1;
+		printf("Player (%s), bad opcode: 0x%.2x consumming 1 cycle\n", process->name, op_code);
 		return ;
 	}
 	op = &op_tab[op_code];
+	printf("Process %s doing op %s\n", process->name, op->name);
 	process->program_counter %= MEM_SIZE;
 	read_args(op, process, &args, vm);
-	if (op->func)
+	if (op->func != NULL)
 		op->func(process, &args, vm);
+	else
+		printf("No func for operation %s :(\n", op->name);
 	process->next_op = vm->cycle + op->cycles;
 }
 
@@ -133,7 +135,7 @@ void			launch(t_vm *vm)
 	while (42)
 	{
 //		printf("cycle: %zu\n", vm->cycle);
-		if (vm->cycle == 500)
+		if (vm->cycle == 100)
 			break ;
 		i = 0;
 		while (i < vm->nb_champs)
