@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 02:17:16 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/13 02:26:25 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,29 +179,25 @@ void	op_and(t_process *process, t_args *args, t_vm *vm)
 		result = process->registers[args->value[0].u_reg]
 			& process->registers[args->value[1].u_reg];
 		process->registers[args->value[2].u_reg] = result;
-		process->program_counter += 4;
-		process->next_op = vm->cycle + 6;
 	}
 	else if (args->type[0] == e_reg && args->type[1] == e_ind)
 	{
 		result = process->registers[args->value[0].u_reg]
 			& args->value[1].u_ind;
 		process->registers[args->value[2].u_reg] = result;
-		process->program_counter += 4;
-		process->next_op = vm->cycle + 6;
 	}
 	else if (args->type[0] == e_reg && args->type[1] == e_dir)
 	{
 		result = process->registers[args->value[0].u_reg]
 			& args->value[1].u_dir32;
 		process->registers[args->value[2].u_reg] = result;
-		process->program_counter += 4;
-		process->next_op = vm->cycle + 6;
 	}
 	// etc. la foret de else if // est ce qu on est pas cense gerer ca autrement?? 
 	// car la je me relance dans une galere... Sinon c est ca?
 	else if (args->type[0] == e_none || args->type[1] == e_none || args->type[2] == e_none)
 		crash(process, "bad arg into and");
+	process->program_counter += 4; 
+	process->next_op = vm->cycle + 6;
 	process->carry = (result == 0) ? 1 : 0;
 }
 
