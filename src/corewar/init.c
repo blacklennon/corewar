@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 02:20:33 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/13 02:23:03 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	init_opcode(t_op *op_tab)
 //	op_tab[LD].func = &op_ld;
 //	op_tab[ST].func = &op_st;
 	op_tab[ADD].func = &op_add;
-//	op_tab[SUB].func = &op_sub;
-//	op_tab[AND].func = &op_and;
+	op_tab[SUB].func = &op_sub;
+	op_tab[AND].func = &op_and;
 //	op_tab[OR].func = &op_or;
 //	op_tab[XOR].func = &op_xor;
 	op_tab[ZJMP].func = &op_zjmp;
