@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:25:43 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 22:53:11 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ t_vm		*get_vm(t_vm *new_vm);
 //jac 12032019
 
 void		op_live(t_process *process, t_args *args);
-//void		op_ld(t_process *process, t_args *args);
-//void		op_st(t_process *process, t_args *args);
+void		op_ld(t_process *process, t_args *args);
+void		op_st(t_process *process, t_args *args);
 void		op_add(t_process *process, t_args *args);
 void		op_sub(t_process *process, t_args *args);
 void		op_and(t_process *process, t_args *args);
-//void		op_or(t_process *process, t_args *args);
-//void		op_xor(t_process *process, t_args *args);
+void		op_or(t_process *process, t_args *args);
+void		op_xor(t_process *process, t_args *args);
 void		op_zjmp(t_process *process, t_args *args);
-//void		op_ldi(t_process *process, t_args *args);
-//void		op_sti(t_process *process, t_args *args);
+void		op_ldi(t_process *process, t_args *args);
+void		op_sti(t_process *process, t_args *args);
 //void		op_fork(t_process *process, t_args *args);
 //void		op_lld(t_process *process, t_args *args);
 //void		op_lldi(t_process *process, t_args *args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:07:56 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 17:39:30 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int			main(int ac, char **av)
 	init_vm(&vm);
 	parse_flags(ac, av, &vm);
 	load_champs(&vm);
-	vm.process[0].registers[0] = 10;
-	vm.process[0].registers[1] = 20;
+	vm.process[0].registers[0] = 0x124;
+	vm.process[0].registers[1] = 0x024;
 	//mem_dump(vm.memory, 4096);
 	launch(&vm);
 	reg_dump(&vm);

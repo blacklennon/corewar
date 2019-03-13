@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:26:12 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 18:38:32 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void			launch(t_vm *vm)
 	while (42)
 	{
 //		printf("cycle: %zu\n", vm->cycle);
-		if (vm->cycle == 100)
+		if (vm->cycle == 200)
 			break ;
 		i = 0;
 		while (i < vm->nb_champs)

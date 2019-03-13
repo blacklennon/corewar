@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:26:27 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 22:52:49 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ int16_t			read2_memory(t_vm *vm, size_t index)
 		}
 	}
 	return (swap_int16(*tmp));
+}
+
+int8_t		read1_memory(t_vm *vm, size_t index)
+{	
+	int8_t	*tmp;
+
+	tmp = NULL;
+	index %= MEM_SIZE;
+	*tmp = vm->memory[index];
+	return ((int8_t)tmp);
 }
 
 void		write4_memory(t_vm *vm, int32_t value, size_t index)
@@ -157,39 +167,134 @@ void		op_sub(t_process *process, t_args *args)
 	process->carry = (result == 0) ? 1 : 0;
 }
 
+// jac 13032019 essai avec les u_dir16
+void 	ft_get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type)
+{
+/*	t_int_types 		first_arg_type;
+	t_int_types_enum	first_arg_enum;
+
+	arg->type[] = 
+	arg->value[] = 
+*/
+	if (*type == e_reg) 
+	{
+		(*value).u_dir32 = process->registers[(*value).u_reg]; // a voir si besoin variable temp
+		*type = e_dir;
+	}
+	else if (*type == e_ind)
+	{
+		(*value).u_dir32 = read4_memory(get_vm(NULL), (*value).u_ind);
+		*type = e_dir;
+	}
+	else if (*type == e_dir && (*value).u_dir16) // a voir si ca fonctionne
+	{
+//		(*value).u_dir32 = read2_memory(get_vm(NULL), (*value).u_dir16);
+		(*value).u_dir32 = process->registers[(*value).u_dir16]; // je ne sais pas bien lequel ca doit etre je pense celui ci au cas ou je met l autre
+		*type = e_dir;
+	}
+
+	// si c est un indirect ou un registre il faut modifier le type et le set sur un direct 32 et dans la valeur je vais chercher 
+	// si registre mettre valeur du reg
+
+//si c est indirect aller checrcher avec read memory la valeur a cette index
+}
+
 //jac 12032019
 void	op_and(t_process *process, t_args *args)
 {
 	int32_t	result;
 
-	result = -1; //arbitraire, tant qu il n est utilise que quand il est utile, c est OK
-	if (args->type[0] == e_reg && args->type[1] == e_reg)
-	{
-		result = process->registers[args->value[0].u_reg]
-			& process->registers[args->value[1].u_reg];
-		process->registers[args->value[2].u_reg] = result;
-	}
-	else if (args->type[0] == e_reg && args->type[1] == e_ind)
-	{
-		result = process->registers[args->value[0].u_reg]
-			& args->value[1].u_ind;
-		process->registers[args->value[2].u_reg] = result;
-	}
-	else if (args->type[0] == e_reg && args->type[1] == e_dir)
-	{
-		result = process->registers[args->value[0].u_reg]
-			& args->value[1].u_dir32;
-		process->registers[args->value[2].u_reg] = result;
-	}
-	// etc. la foret de else if // est ce qu on est pas cense gerer ca autrement?? 
-	// car la je me relance dans une galere... Sinon c est ca?
-	else if (args->type[0] == e_none || args->type[1] == e_none || args->type[2] == e_none)
-		crash(process, "bad arg into and");
-	// process->program_counter += 4; 
-	// process->next_op = vm->cycle + 6;
+	ft_get_value_of_arg(process, &args->value[0], &args->type[0]);
+	ft_get_value_of_arg(process, &args->value[1], &args->type[1]);
+	printf(" value 0 : %x value 1 = %x\n", args->value[0].u_dir32, args->value[1].u_dir32);
+	result = args->value[0].u_dir32 & args->value[1].u_dir32;
+	process->registers[args->value[2].u_reg] = result;
+	printf(" result : %x\n", process->registers[args->value[2].u_dir32]);
+	printf(" result : %x\n", result);
+}
+
+void	op_xor(t_process *process, t_args *args)
+{
+	int32_t	result;
+
+	ft_get_value_of_arg(process, &args->value[0], &args->type[0]);
+	ft_get_value_of_arg(process, &args->value[1], &args->type[1]);
+	printf(" value 0 : %x value 1 = %x\n", args->value[0].u_dir32, args->value[1].u_dir32);
+	result = args->value[0].u_dir32 ^ args->value[1].u_dir32;
+	process->registers[args->value[2].u_reg] = result;
+	printf(" result : %x\n", process->registers[args->value[2].u_dir32]);
+	printf(" result : %x\n", result);
 	process->carry = (result == 0) ? 1 : 0;
 }
 
+void	op_or(t_process *process, t_args *args)
+{
+	int32_t	result;
+
+	ft_get_value_of_arg(process, &args->value[0], &args->type[0]);
+	ft_get_value_of_arg(process, &args->value[1], &args->type[1]);
+	printf(" value 0 : %x value 1 = %x\n", args->value[0].u_dir32, args->value[1].u_dir32);
+	result = args->value[0].u_dir32 | args->value[1].u_dir32;
+	process->registers[args->value[2].u_reg] = result;
+	printf(" result : %x\n", process->registers[args->value[2].u_dir32]);
+	printf(" result : %x\n", result);
+	process->carry = (result == 0) ? 1 : 0;
+}
+
+void	op_ld(t_process *process, t_args *args) // pour chaque nouvelle operation changer corewar.h et init.c
+{
+	int32_t	result;
+
+	ft_get_value_of_arg(process, &args->value[0], &args->type[0]);
+	result = args->value[0].u_dir32;
+	process->registers[args->value[1].u_reg] = result;
+	process->carry = (result == 0) ? 1 : 0;
+}
+
+void	op_ldi(t_process *process, t_args *args)
+{
+	int32_t	result;
+
+	ft_get_value_of_arg(process, &args->value[0], &args->type[0]);
+	ft_get_value_of_arg(process, &args->value[1], &args->type[1]);
+	result = args->value[0].u_dir32 + args->value[1].u_dir32;
+//	process->registers[args->value[2].u_reg] = result; // je pense que ce n est pas ca demande
+	process->registers[args->value[2].u_reg] = read1_memory(get_vm(NULL), result); // est ce que c est bien un read de 1?
+	process->carry = (result == 0) ? 1 : 0;
+}
+
+void	op_st(t_process *process, t_args *args) // ajouter le cas modulo IDX_MODE
+{
+	int32_t	value_to_store; // est ce que ca serait un int8_t?
+
+	value_to_store = (int32_t)process->registers[args->value[0].u_reg];
+//	ft_get_value_of_arg(process, &args->value[0], &args->type[0]);
+	if (args->type[1] == e_ind) // pas sur de la maniere de le jouer
+	{
+		write4_memory(get_vm(NULL), value_to_store, args->value[1].u_ind); // c est ca ?
+		//sinon c est ca? cumule au ft get value commente ci dessus
+		// write4_memory(get_vm(NULL), args->value[0].u_dir32 , args->value[1].u_ind);
+	}
+	else if (args->type[1] == e_reg)
+	{
+		process->registers[args->value[1].u_reg] = value_to_store;
+	}
+	process->carry = (value_to_store == 0) ? 1 : 0;
+}
+
+void	op_sti(t_process *process, t_args *args)
+{
+	int32_t	value_to_store; // est ce que ca serait un int8_t?
+	int32_t address;
+
+	value_to_store = (int32_t)process->registers[args->value[0].u_reg];
+	ft_get_value_of_arg(process, &args->value[1], &args->type[1]);
+	ft_get_value_of_arg(process, &args->value[2], &args->type[2]);
+	address = (args->value[1].u_dir32 + args->value[2].u_dir32);// % IDX_MOD? pas sur pour le modulo...
+	write4_memory(get_vm(NULL), value_to_store, address); // l index c est address ou process->program_counter + address?
+	process->carry = (value_to_store == 0) ? 1 : 0;
+
+}
 // int32_t ft_addition(int32_t arg1, int32_t arg2)
 // {
 // 	return (arg1 + arg2);

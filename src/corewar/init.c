@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:26:00 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 22:53:00 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ t_op	op_tab[17] =
 //jac 12032019
 static void	init_opcode(t_op *op_tab)
 {
-	op_tab[LIVE].func = &op_live;
-//	op_tab[LD].func = &op_ld;
-//	op_tab[ST].func = &op_st;
-	op_tab[ADD].func = &op_add;
-	op_tab[SUB].func = &op_sub;
-	op_tab[AND].func = &op_and;
-//	op_tab[OR].func = &op_or;
-//	op_tab[XOR].func = &op_xor;
+	op_tab[LIVE].func = &op_live; //ok
+	op_tab[LD].func = &op_ld;
+	op_tab[ST].func = &op_st;
+	op_tab[ADD].func = &op_add;	//ok
+	op_tab[SUB].func = &op_sub; //ok
+	op_tab[AND].func = &op_and; //ok
+	op_tab[OR].func = &op_or; //ok
+	op_tab[XOR].func = &op_xor; //ok
 	op_tab[ZJMP].func = &op_zjmp;
-//	op_tab[LDI].func = &op_ldi;
-//	op_tab[STI].func = &op_sti;
+	op_tab[LDI].func = &op_ldi;
+	op_tab[STI].func = &op_sti;
 //	op_tab[FORK].func = &op_fork;
 //	op_tab[LLD].func = &op_lld;
 //	op_tab[LLDI].func = &op_lldi;
