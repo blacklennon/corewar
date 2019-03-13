@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 01:25:16 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/13 02:28:07 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void		op_live(t_process *process, t_args *args, t_vm *vm);
 //void		op_ld(t_process *process, t_args *args, t_vm *vm);
 //void		op_st(t_process *process, t_args *args, t_vm *vm);
 void		op_add(t_process *process, t_args *args, t_vm *vm);
-//void		op_sub(t_process *process, t_args *args, t_vm *vm);
-//void		op_and(t_process *process, t_args *args, t_vm *vm);
+void		op_sub(t_process *process, t_args *args, t_vm *vm);
+void		op_and(t_process *process, t_args *args, t_vm *vm);
 //void		op_or(t_process *process, t_args *args, t_vm *vm);
 //void		op_xor(t_process *process, t_args *args, t_vm *vm);
 void		op_zjmp(t_process *process, t_args *args, t_vm *vm);
