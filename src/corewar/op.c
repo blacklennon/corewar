@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/12 22:50:32 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 02:17:16 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,23 @@ void		write4_memory(t_vm *vm, int32_t value, size_t index)
 	}
 }
 
+//jac 12032019
+void		write2_memory(t_vm *vm, int16_t value, size_t index)
+{
+	uint8_t		tab[2];
+	size_t		i;
+
+	*((int16_t*)tab) = swap_int16(value);
+	i = 0;
+	while (i < 2)
+	{
+		index %= MEM_SIZE;
+		vm->memory[index] = tab[i];
+		index++;
+		i++;
+	}
+}
+
 void		op_live(t_process *process, t_args *args, t_vm *vm)
 {
 	int32_t	arg;
@@ -117,6 +134,75 @@ void		op_aff(t_process *process, t_args *args, t_vm *vm)
 	else
 		//crash ?
 	process->program_counter++;
+}
+
+//jac 12032019
+void		op_add(t_process *process, t_args *args, t_vm *vm)
+{
+	int32_t	result;
+
+/*	if (ocp != 0x54) // utile ici?
+ 		crash(process, "bad ocp");
+ 	else */
+	result = process->registers[args->value[0].u_reg]
+		+ process->registers[args->value[1].u_reg];
+	process->registers[args->value[2].u_reg] = result;
+	process->carry = (result == 0) ? 1 : 0;
+	process->program_counter += 4;
+	process->next_op = vm->cycle + 10;
+}
+
+//jac 12032019
+void		op_sub(t_process *process, t_args *args, t_vm *vm)
+{
+	int32_t	result;
+
+/*	if (ocp != 0x54) // utile ici?
+ 		crash(process, "bad ocp");
+ 	else */
+	result = process->registers[args->value[0].u_reg]
+		- process->registers[args->value[1].u_reg];
+	process->registers[args->value[2].u_reg] = result;
+	process->carry = (result == 0) ? 1 : 0;
+	process->program_counter += 4;
+	process->next_op = vm->cycle + 10;
+}
+
+//jac 12032019
+void	op_and(t_process *process, t_args *args, t_vm *vm)
+{
+	int32_t	result;
+
+	result = -1; //arbitraire, tant qu il n est utilise que quand il est utile, c est OK
+	if (args->type[0] == e_reg && args->type[1] == e_reg)
+	{
+		result = process->registers[args->value[0].u_reg]
+			& process->registers[args->value[1].u_reg];
+		process->registers[args->value[2].u_reg] = result;
+		process->program_counter += 4;
+		process->next_op = vm->cycle + 6;
+	}
+	else if (args->type[0] == e_reg && args->type[1] == e_ind)
+	{
+		result = process->registers[args->value[0].u_reg]
+			& args->value[1].u_ind;
+		process->registers[args->value[2].u_reg] = result;
+		process->program_counter += 4;
+		process->next_op = vm->cycle + 6;
+	}
+	else if (args->type[0] == e_reg && args->type[1] == e_dir)
+	{
+		result = process->registers[args->value[0].u_reg]
+			& args->value[1].u_dir32;
+		process->registers[args->value[2].u_reg] = result;
+		process->program_counter += 4;
+		process->next_op = vm->cycle + 6;
+	}
+	// etc. la foret de else if // est ce qu on est pas cense gerer ca autrement?? 
+	// car la je me relance dans une galere... Sinon c est ca?
+	else if (args->type[0] == e_none || args->type[1] == e_none || args->type[2] == e_none)
+		crash(process, "bad arg into and");
+	process->carry = (result == 0) ? 1 : 0;
 }
 
 // int32_t ft_addition(int32_t arg1, int32_t arg2)
