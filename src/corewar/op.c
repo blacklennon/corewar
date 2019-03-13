@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:07:08 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 16:26:27 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,43 +100,46 @@ void		write2_memory(t_vm *vm, int16_t value, size_t index)
 	}
 }
 
-void		op_live(t_process *process, t_args *args, t_vm *vm)
+void		op_live(t_process *process, t_args *args)
 {
 	int32_t	arg;
+	t_vm	*vm;
 
 	(void)process;
+	vm = get_vm(NULL);
 	arg = args->value[0].u_dir32;
 	if (arg > 0 && arg <= (int)vm->nb_champs)
 		vm->process[arg - 1].live_counter++;
 	printf("player %d is alive\n", arg);
 }
 
-void		op_zjmp(t_process *process, t_args *args, t_vm *vm)
+void		op_zjmp(t_process *process, t_args *args)
 {
-	(void)vm;
 	if (process->carry == 1)
 		process->program_counter += args->value[0].u_dir16 - 3;
 }
 
-void		op_aff(t_process *process, t_args *args, t_vm *vm)
+void		op_aff(t_process *process, t_args *args)
 {
-	uint8_t	ocp;
+	//uint8_t	ocp;
 
+	// (void)args;
+	// ocp = vm->memory[++process->program_counter % MEM_SIZE];
+	// if (ocp != 0x40)
+	// 	//crash ?
+	// ocp = vm->memory[++process->program_counter % MEM_SIZE];
+	// if (ocp > 0 && ocp <= REG_NUMBER)
+	//printf("process %s is saying `%c'\n", process->name, process->registers[ocp - 1] % 256);
+	(void)process;
 	(void)args;
-	ocp = vm->memory[++process->program_counter % MEM_SIZE];
-	if (ocp != 0x40)
-		//crash ?
-	ocp = vm->memory[++process->program_counter % MEM_SIZE];
-	if (ocp > 0 && ocp <= REG_NUMBER)
-		printf("process %s is saying `%c'\n", process->name, process->registers[ocp - 1] % 256);
+	printf("hello world\n");
 }
 
 //jac 12032019
-void		op_add(t_process *process, t_args *args, t_vm *vm)
+void		op_add(t_process *process, t_args *args)
 {
 	int32_t	result;
 
-	(void)vm;
 	result = process->registers[args->value[0].u_reg]
 		+ process->registers[args->value[1].u_reg];
 	process->registers[args->value[2].u_reg] = result;
@@ -144,11 +147,10 @@ void		op_add(t_process *process, t_args *args, t_vm *vm)
 }
 
 //jac 12032019
-void		op_sub(t_process *process, t_args *args, t_vm *vm)
+void		op_sub(t_process *process, t_args *args)
 {
 	int32_t	result;
 
-	(void)vm;
 	result = process->registers[args->value[0].u_reg]
 		- process->registers[args->value[1].u_reg];
 	process->registers[args->value[2].u_reg] = result;
@@ -156,11 +158,10 @@ void		op_sub(t_process *process, t_args *args, t_vm *vm)
 }
 
 //jac 12032019
-void	op_and(t_process *process, t_args *args, t_vm *vm)
+void	op_and(t_process *process, t_args *args)
 {
 	int32_t	result;
 
-	(void)vm;
 	result = -1; //arbitraire, tant qu il n est utilise que quand il est utile, c est OK
 	if (args->type[0] == e_reg && args->type[1] == e_reg)
 	{

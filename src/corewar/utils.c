@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 14:48:44 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 16:21:03 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,15 @@ void		reg_dump(t_vm *vm)
 		}
 		i++;
 	}
+}
+
+t_vm		*get_vm(t_vm *new_vm)
+{
+	static t_vm		*vm;
+
+	if (new_vm != NULL)
+		vm = new_vm;
+	return (vm);
 }
 
 void		crash(t_process *process, char *str)

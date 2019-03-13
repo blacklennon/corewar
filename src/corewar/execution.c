@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 16:05:47 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 16:26:12 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static void		do_op(t_process *process, t_vm *vm)
 	process->program_counter %= MEM_SIZE;
 	read_args(op, process, &args, vm);
 	if (op->func != NULL)
-		op->func(process, &args, vm);
+		op->func(process, &args);
 	else
 		printf("No func for operation %s :(\n", op->name);
 	process->next_op = vm->cycle + op->cycles;

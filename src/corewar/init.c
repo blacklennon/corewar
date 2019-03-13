@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 14:57:42 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 16:26:00 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		init_vm(t_vm *vm)
 	while (i < MAX_PLAYERS)
 		init_process(&vm->process[i++]);
 	init_opcode(op_tab);
+	get_vm(vm);
 }
 
 // TODO protect everything

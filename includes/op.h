@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/13 14:58:13 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/13 16:25:53 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ typedef struct			s_op
 	char				*description;
 	uint8_t				ocp; // booleen 1/0 est-ce que je dois lire l'ocp
 	uint8_t				little_dir; // boolean 1/0 est-ce que c'est un direct de taille 16/32 bits 2/4 BYTES; 
-	void				(*func)(t_process*, t_args*, t_vm*);
+	void				(*func)(t_process*, t_args*);
 }						t_op;
 
 extern t_op				op_tab[17];
