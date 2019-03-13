@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 22:52:49 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/13 23:13:29 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ void	op_and(t_process *process, t_args *args)
 	printf(" result : %x\n", result);
 }
 
+//jac 12032019
 void	op_xor(t_process *process, t_args *args)
 {
 	int32_t	result;
@@ -227,6 +228,7 @@ void	op_xor(t_process *process, t_args *args)
 	process->carry = (result == 0) ? 1 : 0;
 }
 
+//jac 12032019
 void	op_or(t_process *process, t_args *args)
 {
 	int32_t	result;
@@ -241,6 +243,7 @@ void	op_or(t_process *process, t_args *args)
 	process->carry = (result == 0) ? 1 : 0;
 }
 
+//jac 12032019
 void	op_ld(t_process *process, t_args *args) // pour chaque nouvelle operation changer corewar.h et init.c
 {
 	int32_t	result;
@@ -251,6 +254,7 @@ void	op_ld(t_process *process, t_args *args) // pour chaque nouvelle operation c
 	process->carry = (result == 0) ? 1 : 0;
 }
 
+//jac 12032019
 void	op_ldi(t_process *process, t_args *args)
 {
 	int32_t	result;
@@ -263,6 +267,7 @@ void	op_ldi(t_process *process, t_args *args)
 	process->carry = (result == 0) ? 1 : 0;
 }
 
+//jac 12032019
 void	op_st(t_process *process, t_args *args) // ajouter le cas modulo IDX_MODE
 {
 	int32_t	value_to_store; // est ce que ca serait un int8_t?
@@ -282,6 +287,7 @@ void	op_st(t_process *process, t_args *args) // ajouter le cas modulo IDX_MODE
 	process->carry = (value_to_store == 0) ? 1 : 0;
 }
 
+//jac 12032019
 void	op_sti(t_process *process, t_args *args)
 {
 	int32_t	value_to_store; // est ce que ca serait un int8_t?
@@ -293,7 +299,6 @@ void	op_sti(t_process *process, t_args *args)
 	address = (args->value[1].u_dir32 + args->value[2].u_dir32);// % IDX_MOD? pas sur pour le modulo...
 	write4_memory(get_vm(NULL), value_to_store, address); // l index c est address ou process->program_counter + address?
 	process->carry = (value_to_store == 0) ? 1 : 0;
-
 }
 // int32_t ft_addition(int32_t arg1, int32_t arg2)
 // {
