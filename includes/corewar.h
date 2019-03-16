@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/16 17:17:22 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:31:51 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int32_t		read4_memory(t_vm *vm, size_t index);
 int16_t		read2_memory(t_vm *vm, size_t index);
 int8_t		read1_memory(t_vm *vm, size_t index);
 void		write4_memory(t_vm *vm, int32_t value, size_t index);
-void		write2_memory(t_vm *vm, int16_t value, size_t index); //jac 12032019
+void		write2_memory(t_vm *vm, int16_t value, size_t index);
 
 #endif

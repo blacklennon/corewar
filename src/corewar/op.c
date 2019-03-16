@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/16 20:28:37 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/16 21:33:02 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "corewar.h"
 
-static void	get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type)
+static void	get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type) // ajouter t_op pour dir16/32 et indirect valeur ou address
 {
 	if (*type == e_reg) 
 	{
