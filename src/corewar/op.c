@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 00:24:45 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/16 17:53:59 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "libft.h"
 
 #include "corewar.h"
-
-//WIP
 
 int32_t			read4_memory(t_vm *vm, size_t index)
 {
@@ -84,7 +82,6 @@ void		write4_memory(t_vm *vm, int32_t value, size_t index)
 }
 
 //jac 12032019
-
 void		write2_memory(t_vm *vm, int16_t value, size_t index)
 {
 	uint8_t		tab[2];
@@ -101,47 +98,47 @@ void		write2_memory(t_vm *vm, int16_t value, size_t index)
 	}
 }
 
-void		live(t_process *process, t_vm *vm)
+void		op_live(t_process *process, t_args *args)
 {
 	int32_t	arg;
+	t_vm	*vm;
 
-	arg = read4_memory(vm, ++process->program_counter);
+	(void)process;
+	vm = get_vm(NULL);
+	arg = args->value[0].u_dir32;
 	if (arg > 0 && arg <= (int)vm->nb_champs)
 		vm->process[arg - 1].live_counter++;
 	printf("player %d is alive\n", arg);
-	process->program_counter += 4;
-	process->next_op = vm->cycle + 10;
 }
 
-void		zjmp(t_process *process, t_vm *vm)
+void		op_zjmp(t_process *process, t_args *args)
 {
-	int16_t	arg;
-
-	arg = read2_memory(vm, process->program_counter + 1);
 	if (process->carry == 1)
-		process->program_counter += arg;
-	else
-		process->program_counter += 3;
-	process->next_op = vm->cycle + 20;
+		process->program_counter += args->value[0].u_dir16 - 3;
 }
 
-void		aff(t_process *process, t_vm *vm)
+void		op_aff(t_process *process, t_args *args)
 {
-	uint8_t	ocp;
-
-	ocp = vm->memory[++process->program_counter % MEM_SIZE];
-	if (ocp != 0x40)
-		//crash ?
-	ocp = vm->memory[++process->program_counter % MEM_SIZE];
-	if (ocp > 0 && ocp <= REG_NUMBER)
-		printf("process %s is saying `%c'\n", process->name, process->registers[ocp - 1] % 256);
-	else
-		//crash ?
-	process->program_counter++;
-	process->next_op = vm->cycle + 2;
+	printf("Process %s is saying `%c'\n", process->name, \
+	process->registers[args->value[0].u_reg] % 256);
 }
 
-// void		ld(t_process *process, t_vm *vm)
-// {
-// 	process->next_op = vm->cycle + 5;
-// }
+void		op_add(t_process *process, t_args *args)
+{
+	int32_t	result;
+
+	result = process->registers[args->value[0].u_reg]
+		+ process->registers[args->value[1].u_reg];
+	process->registers[args->value[2].u_reg] = result;
+	process->carry = (result == 0) ? 1 : 0;
+}
+
+void		op_sub(t_process *process, t_args *args)
+{
+	int32_t	result;
+
+	result = process->registers[args->value[0].u_reg]
+		- process->registers[args->value[1].u_reg];
+	process->registers[args->value[2].u_reg] = result;
+	process->carry = (result == 0) ? 1 : 0;
+}

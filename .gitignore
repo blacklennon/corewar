@@ -8,6 +8,7 @@ bin/
 *.a
 *.cor
 *.d
+*.dSYM
 !src/asm
 !src/corewar
 !resources/asm
