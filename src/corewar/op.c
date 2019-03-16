@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/14 18:12:44 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/16 16:27:07 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,15 +135,29 @@ void		op_zjmp(t_process *process, t_args *args) // OK
 		process->program_counter += args->value[0].u_dir16 - 3;
 }
 
+int		if_registre(int value, t_process *process, int byte)
+{
+	t_vm *vm;
+
+	vm = get_vm(NULL);
+	value = ((vm->memory[(process->program_counter + 1) % MEM_SIZE] >> byte & 0x03) == 1) ?
+		process->registers[value] : value;
+	return (value);
+}
+
 void		op_ldi(t_process *process, t_args *args)
 {
-	int32_t	address;
+	int32_t	value;
 
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
-	address = process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD);
-	process->registers[args->value[2].u_reg] = read4_memory(get_vm(NULL), address);
-	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0;
+//	address = process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD); // ou (all % IDX_MOD)
+//	process->registers[args->value[2].u_reg] = read4_memory(get_vm(NULL), address); // pas write plutot?
+	args->value[0] = if_registre(&args->value[0], process, 6);
+	args->value[1] = if_registre(&args->value[1], process, 4);
+	value = (&args->value[0] + &args->value[1]) % IDX_MOD;
+	process->registers[args->value[2].u_reg] = value;
+	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
 }
 
 void		op_sti(t_process *process, t_args *args)
@@ -154,9 +168,10 @@ void		op_sti(t_process *process, t_args *args)
 	value_to_store = process->registers[args->value[0].u_reg];
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
 	get_value_of_arg(process, &args->value[2], &args->type[2]);
-	address = process->program_counter + ((args->value[1].u_dir32 + args->value[2].u_dir32) % IDX_MOD);
-	printf("ADRESS: %u\n", address);
-	write4_memory(get_vm(NULL), value_to_store, address);
+	args->value[1] = if_registre(&args->value[1], process, 4);
+	args->value[2] = if_registre(&args->value[2], process, 2);
+	address = (&args->value[1] + &args->value[2]) % IDX_MOD;
+	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
 	process->carry = (value_to_store == 0) ? 1 : 0;
 }
 
