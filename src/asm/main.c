@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/15 19:46:24 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/16 15:04:58 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include "../../lib/libft/includes/libft.h"
 #include "../../includes/op.h"
+#include "asm.h"
 
 char	*read_file(char	*path)
 {
@@ -60,11 +61,8 @@ int		check_args(int argc, char **argv)
 	return (0);
 }
 
-uint8_t	*bytes_conv(uint32_t content)
+uint8_t	*bytes_conv(uint32_t content, uint8_t *table)
 {
-	uint8_t	*table;
-
-	table = (uint8_t *)malloc(sizeof(uint8_t) * 4);
 	table[3] = content;
 	table[2] = (content >> 8);
 	table[1] = (content >> 16);
@@ -77,6 +75,7 @@ int		write_in_file(char *path)
 	int		fd;
 	char	*newpath;
 	int		i;
+	uint8_t	tmp[4];
 
 	i = ft_strlen(path);
 	while (path[i] != '.')
@@ -92,15 +91,15 @@ int		write_in_file(char *path)
 	{
 		printf("output file in %s created\nFilling file\n", newpath);
 		printf("MAGIC : %x\n", COREWAR_EXEC_MAGIC);
-		printf("write return : %zd\n", write(fd, bytes_conv((uint32_t)COREWAR_EXEC_MAGIC), 4));
-		printf("write return : %zd\n", write(fd, "name", ft_strlen("name")));
+		bytes_conv((uint32_t)COREWAR_EXEC_MAGIC, tmp);
+		write(fd, tmp, 4);
 		i = PROG_NAME_LENGTH - ft_strlen("name");
-		while (i != 0)
+		while (i >= 0)
 		{
-			write(fd, bytes_conv((uint32_t)0x0), 1);
+			write(fd, bytes_conv((uint32_t)0x0, tmp), 1);
 			i--;
 		}
-		printf("write return : %zd\n", write(fd, bytes_conv((uint32_t)0x0), 4));
+		write(fd, bytes_conv((uint32_t)0x0, tmp), 4);
 	}
 	return (1);
 }
@@ -114,6 +113,6 @@ int		main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	file = read_file(argv[1]);
 	write_in_file(argv[1]);
-	//printf("%s", file);
+	split_whitespaces(file);
 	return (EXIT_SUCCESS);
 }
