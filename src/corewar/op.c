@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/16 16:38:26 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/16 16:49:20 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,8 @@ void		op_zjmp(t_process *process, t_args *args) // OK
 	if (process->carry == 1)
 		process->program_counter += args->value[0].u_dir16 - 3;
 }
-
-int		if_registre(int value, t_process *process, int byte)
+/* OLD
+int32_t		if_registre(int32_t value, t_process *process, int byte)
 {
 	t_vm *vm;
 
@@ -144,7 +144,7 @@ int		if_registre(int value, t_process *process, int byte)
 		process->registers[value] : value;
 	return (value);
 }
-
+*/
 void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
@@ -153,8 +153,10 @@ void		op_ldi(t_process *process, t_args *args)
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
 //	address = process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD); // ou (all % IDX_MOD)
 //	process->registers[args->value[2].u_reg] = read4_memory(get_vm(NULL), address); // pas write plutot?
-	args->value[0] = if_registre(&args->value[0], process, 6);
-	args->value[1] = if_registre(&args->value[1], process, 4);
+	args->value[0] = (args->type[0] == e_reg) ?
+		process->registers[&args->value[0]] : &args->value[0];//if_registre(&args->value[0], process, 6);
+	args->value[1] = (args->type[1] == e_reg) ?
+		process->registers[&args->value[1]] : &args->value[1];
 	value = (&args->value[0] + &args->value[1]) % IDX_MOD;
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
@@ -168,8 +170,12 @@ void		op_sti(t_process *process, t_args *args)
 	value_to_store = process->registers[args->value[0].u_reg];
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
 	get_value_of_arg(process, &args->value[2], &args->type[2]);
-	args->value[1] = if_registre(&args->value[1], process, 4);
-	args->value[2] = if_registre(&args->value[2], process, 2);
+	args->value[1] = (args->type[1] == e_reg) ?
+		process->registers[&args->value[1]] : &args->value[1];
+	args->value[2] = (args->type[2] == e_reg) ?
+		process->registers[&args->value[2]] : &args->value[2];
+//	args->value[1] = if_registre(&args->value[1], process, 4);
+//	args->value[2] = if_registre(&args->value[2], process, 2);
 	address = (&args->value[1] + &args->value[2]) % IDX_MOD;
 	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
 	process->carry = (value_to_store == 0) ? 1 : 0;
