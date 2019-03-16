@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 23:13:31 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/16 16:37:36 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void		op_zjmp(t_process *process, t_args *args);
 void		op_ldi(t_process *process, t_args *args);
 void		op_sti(t_process *process, t_args *args);
 //void		op_fork(t_process *process, t_args *args);
-//void		op_lld(t_process *process, t_args *args);
-//void		op_lldi(t_process *process, t_args *args);
+void		op_lld(t_process *process, t_args *args);
+void		op_lldi(t_process *process, t_args *args);
 //void		op_lfork(t_process *process, t_args *args);
 void		op_aff(t_process *process, t_args *args);
 

@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/16 16:27:07 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/16 16:38:26 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		op_ld(t_process *process, t_args *args) // OK
 	int32_t	result;
 
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	result = args->value[0].u_dir32;
+	result = args->value[0].u_dir32; // result = result % IDX_MOD ?
 	process->registers[args->value[1].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
 }
@@ -190,3 +190,88 @@ void		op_aff(t_process *process, t_args *args)
 	(void)args;
 	printf("hello world\n");
 }
+
+void		op_lld(t_process *process, t_args *args)
+{
+	int32_t	result;
+
+	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	result = args->value[0].u_dir32;
+	process->registers[args->value[1].u_reg] = result;
+	process->carry = (result == 0) ? 1 : 0;
+}
+
+void		op_lldi(t_process *process, t_args *args)
+{
+	int32_t	value;
+
+	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	args->value[0] = if_registre(&args->value[0], process, 6);
+	args->value[1] = if_registre(&args->value[1], process, 4);
+	value = (&args->value[0] + &args->value[1]);
+	process->registers[args->value[2].u_reg] = value;
+	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
+}
+
+
+/*
+//tni
+void	lld(t_process *prc, t_a *a)
+{
+	int		val;
+	int		reg;
+
+	if (!check_cycle(prc))
+		return ;
+	prc->tmp_pc = prc->pc;
+	prc->pc = (prc->pc + 2) % MEM_SIZE;
+	val = rec_memory(a->mem[(prc->tmp_pc + 1) % MEM_SIZE] >> 6, prc, a, 0);
+	reg = rec_memory(a->mem[(prc->tmp_pc + 1) % MEM_SIZE] >> 4, prc, a, 0);
+	if (reg != -1)
+	{
+		if (a->mem[(prc->tmp_pc + 1) % MEM_SIZE] == 0xd0)
+			load_value(prc, val, a, reg);
+		else
+			prc->reg[reg] = val;
+		prc->carry = ((prc->reg[reg] == 0) ? 1 : 0);
+	}
+	ft_curseur(prc, prc->tmp_pc, prc->pc, a);
+}
+// tni
+void	ld(t_process *prc, t_a *a)
+{
+	int		val;
+	int		reg;
+
+	if (!check_cycle(prc))
+		return ;
+	prc->tmp_pc = prc->pc;
+	prc->pc = (prc->pc + 2) % MEM_SIZE;
+	val = rec_memory(a->mem[(prc->tmp_pc + 1) % MEM_SIZE] >> 6, prc, a, 0);
+	reg = rec_memory(a->mem[(prc->tmp_pc + 1) % MEM_SIZE] >> 4, prc, a, 0);
+	if (reg != -1)
+	{
+		if (a->mem[(prc->tmp_pc + 1) % MEM_SIZE] == 0xd0)
+		{
+			val %= IDX_MOD;
+			load_value(prc, val, a, reg);
+		}
+		else
+			prc->reg[reg] = val;
+		prc->carry = ((prc->reg[reg] == 0) ? 1 : 0);
+	}
+	ft_curseur(prc, prc->tmp_pc, prc->pc, a);
+}
+
+// mine
+void		op_ld(t_process *process, t_args *args) // OK
+{
+	int32_t	result;
+
+	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	result = args->value[0].u_dir32;
+	process->registers[args->value[1].u_reg] = result;
+	process->carry = (result == 0) ? 1 : 0;
+}
+*/
