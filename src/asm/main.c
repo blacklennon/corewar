@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/16 15:04:58 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/16 18:00:12 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,15 @@ int		check_args(int argc, char **argv)
 	return (0);
 }
 
+int32_t	swap_int32(int32_t value)
+{
+	value = ((value << 8) & 0xFF00FF00) | ((value >> 8) & 0xFF00FF);
+	return ((value << 16) | ((value >> 16) & 0xFFFF));
+}
+
 uint8_t	*bytes_conv(uint32_t content, uint8_t *table)
 {
-	table[3] = content;
-	table[2] = (content >> 8);
-	table[1] = (content >> 16);
-	table[0] = (content >> 24);
+	(*(uint32_t*)table) = (uint32_t)swap_int32(content);
 	return (table);
 }
 
@@ -86,7 +89,8 @@ int		write_in_file(char *path)
 	newpath[i] = 0;
 	printf("just path without extension : %s\n", newpath);
 	ft_strcat(newpath, ".cor");
-	printf("output file : %s (size: %zu | malloc: %d)\n", newpath, ft_strlen(newpath), i + 4);
+	printf("output file : %s (size: %zu | malloc: %d)\n", newpath, \
+			ft_strlen(newpath), i + 4);
 	if ((fd = open(newpath, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR)))
 	{
 		printf("output file in %s created\nFilling file\n", newpath);
@@ -107,12 +111,14 @@ int		write_in_file(char *path)
 int		main(int argc, char **argv)
 {
 	char	*file;
+	char	**data;
 
 	file = NULL;
 	if (!check_args(argc, argv))
 		return (EXIT_FAILURE);
 	file = read_file(argv[1]);
 	write_in_file(argv[1]);
-	split_whitespaces(file);
+	data = split_whitespaces(file);
+	//interpret();
 	return (EXIT_SUCCESS);
 }

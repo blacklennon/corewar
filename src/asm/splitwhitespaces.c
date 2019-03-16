@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:55:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/16 15:00:16 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/16 16:21:37 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,28 @@
 #include "../../lib/libft/includes/libft.h"
 #include "asm.h"
 
-char	**split_whitespaces(char *txt)
+static int	sws_count_words(char *txt)
+{
+	int	i;
+	int	count_words;
+
+	count_words = 0;
+	i = -1;
+	while (txt[++i])
+	{
+		if (txt[i] == '#')
+			while (txt[i] != '\n')
+				i++;
+		if (ft_strchr(" \t\n", txt[i]))
+			continue;
+		count_words++;
+		while (!ft_strchr(" \t\n", txt[i + 1]))
+			i++;
+	}
+	return (count_words);
+}
+
+char		**split_whitespaces(char *txt)
 {
 	char	**table;
 	int		count_words;
@@ -25,22 +46,16 @@ char	**split_whitespaces(char *txt)
 
 	length = 0;
 	i = -1;
-	count_words = 0;
 	if (!txt)
 		return (NULL);
-	while (txt[++i])
-	{
-		if (ft_strchr(" \t\n", txt[i]))
-			continue;
-		count_words++;
-		while (!ft_strchr(" \t\n", txt[i + 1]))
-			i++;
-	}
+	count_words = sws_count_words(txt);
 	table = (char **)malloc(sizeof(char *) * count_words + 2);
-	i = -1;
 	count_words = 0;
 	while (txt[++i])
 	{
+		if (txt[i] == '#')
+			while (txt[i] != '\n')
+				i++;
 		if (ft_strchr(" \t\n", txt[i]))
 		{
 			if (length)
@@ -48,7 +63,6 @@ char	**split_whitespaces(char *txt)
 				table[count_words] = (char *)malloc(sizeof(char) * length + 1);
 				ft_strncpy(table[count_words], &txt[i - length], length);
 				table[count_words][length] = 0;
-				printf("%s\n", table[count_words]);
 				length = 0;
 				count_words++;
 			}
