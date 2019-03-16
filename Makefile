@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/02/27 16:25:48 by pcarles          ###   ########.fr        #
+#    Updated: 2019/03/16 17:55:49 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIBS		:= libft
 
 corewar_LIB	:= ft
 
-corewar_SRC	:=	corewar/main.c \
+corewar_SRC	:=	op.c \
+				corewar/main.c \
 				corewar/init.c \
 				corewar/utils.c \
 				corewar/execution.c \
