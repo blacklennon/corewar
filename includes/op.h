@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/14 16:39:14 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/16 17:49:32 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct			s_process
 	int32_t				registers[REG_NUMBER]; // c est bien ici qu on doit set les valeurs des registres
 	size_t				live_counter;
 	size_t				next_op;
+	struct s_process	*next;
 }						t_process;
 
 typedef struct			s_vm

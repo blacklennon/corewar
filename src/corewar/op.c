@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/16 16:49:20 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/16 18:20:30 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,10 +154,10 @@ void		op_ldi(t_process *process, t_args *args)
 //	address = process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD); // ou (all % IDX_MOD)
 //	process->registers[args->value[2].u_reg] = read4_memory(get_vm(NULL), address); // pas write plutot?
 	args->value[0] = (args->type[0] == e_reg) ?
-		process->registers[&args->value[0]] : &args->value[0];//if_registre(&args->value[0], process, 6);
+		process->registers[args->value[0]] : args->value[0];
 	args->value[1] = (args->type[1] == e_reg) ?
 		process->registers[&args->value[1]] : &args->value[1];
-	value = (&args->value[0] + &args->value[1]) % IDX_MOD;
+	value = (args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
 }
@@ -174,9 +174,7 @@ void		op_sti(t_process *process, t_args *args)
 		process->registers[&args->value[1]] : &args->value[1];
 	args->value[2] = (args->type[2] == e_reg) ?
 		process->registers[&args->value[2]] : &args->value[2];
-//	args->value[1] = if_registre(&args->value[1], process, 4);
-//	args->value[2] = if_registre(&args->value[2], process, 2);
-	address = (&args->value[1] + &args->value[2]) % IDX_MOD;
+	address = (args->value[1].u_dir32 + args->value[2].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste 
 	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
 	process->carry = (value_to_store == 0) ? 1 : 0;
 }
@@ -213,71 +211,51 @@ void		op_lldi(t_process *process, t_args *args)
 
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
-	args->value[0] = if_registre(&args->value[0], process, 6);
-	args->value[1] = if_registre(&args->value[1], process, 4);
-	value = (&args->value[0] + &args->value[1]);
+	args->value[0] = (args->type[0] == e_reg) ?
+		process->registers[args->value[0]] : args->value[0];
+	args->value[1] = (args->type[1] == e_reg) ?
+		process->registers[&args->value[1]] : &args->value[1];
+	value = (args->value[0].u_dir32 + args->value[1].u_dir32);
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
 }
 
-
-/*
-//tni
-void	lld(t_process *prc, t_a *a)
+t_process	*ft_copy_process(t_process *process)
 {
-	int		val;
-	int		reg;
+	t_process	*new_process;
+	t_vm		*vm;
 
-	if (!check_cycle(prc))
-		return ;
-	prc->tmp_pc = prc->pc;
-	prc->pc = (prc->pc + 2) % MEM_SIZE;
-	val = rec_memory(a->mem[(prc->tmp_pc + 1) % MEM_SIZE] >> 6, prc, a, 0);
-	reg = rec_memory(a->mem[(prc->tmp_pc + 1) % MEM_SIZE] >> 4, prc, a, 0);
-	if (reg != -1)
+	vm = get_vm(NULL);
+	if (!(new_process = (t_process *)ft_memalloc(sizeof(t_process))))
 	{
-		if (a->mem[(prc->tmp_pc + 1) % MEM_SIZE] == 0xd0)
-			load_value(prc, val, a, reg);
-		else
-			prc->reg[reg] = val;
-		prc->carry = ((prc->reg[reg] == 0) ? 1 : 0);
+		printf("erreur malloc copy process dans fork");
+		return (NULL);
 	}
-	ft_curseur(prc, prc->tmp_pc, prc->pc, a);
-}
-// tni
-void	ld(t_process *prc, t_a *a)
-{
-	int		val;
-	int		reg;
+	ft_memcpy(new_process, process, sizeof(t_process)); // faire un parcours des next jusqu a null pour copy le next;
+	process->next = new_process; // il faut bien ajouter un process mais je ne sais pas si c est la bonne maniere de faire
+	return (new_process);
 
-	if (!check_cycle(prc))
-		return ;
-	prc->tmp_pc = prc->pc;
-	prc->pc = (prc->pc + 2) % MEM_SIZE;
-	val = rec_memory(a->mem[(prc->tmp_pc + 1) % MEM_SIZE] >> 6, prc, a, 0);
-	reg = rec_memory(a->mem[(prc->tmp_pc + 1) % MEM_SIZE] >> 4, prc, a, 0);
-	if (reg != -1)
-	{
-		if (a->mem[(prc->tmp_pc + 1) % MEM_SIZE] == 0xd0)
-		{
-			val %= IDX_MOD;
-			load_value(prc, val, a, reg);
-		}
-		else
-			prc->reg[reg] = val;
-		prc->carry = ((prc->reg[reg] == 0) ? 1 : 0);
-	}
-	ft_curseur(prc, prc->tmp_pc, prc->pc, a);
 }
 
-// mine
-void		op_ld(t_process *process, t_args *args) // OK
+void		op_fork(t_process *process, t_args *args)
 {
-	int32_t	result;
+	t_process 	*new_process;
+	
+	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	args->value[0].u_dir32 %= IDX_MOD;
+	new_process = ft_copy_process(process);
+	new_process->program_counter = (process->program_counter + args->value[0].u_dir32) % MEM_SIZE;
+	if (new_process->program_counter < 0)
+		new_process->program_counter += MEM_SIZE;
+}
+
+void		op_lfork(t_process *process, t_args *args)
+{
+	t_process *new_process;
 
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	result = args->value[0].u_dir32;
-	process->registers[args->value[1].u_reg] = result;
-	process->carry = (result == 0) ? 1 : 0;
+	new_process = ft_copy_process(process);
+	new_process->program_counter = (process->program_counter + args->value[0].u_dir32) % MEM_SIZE;
+	if (new_process->program_counter < 0)
+		new_process->program_counter += MEM_SIZE;
 }
-*/
