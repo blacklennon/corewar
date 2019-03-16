@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/16 18:20:30 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:28:37 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,10 @@ void		op_ldi(t_process *process, t_args *args)
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
 //	address = process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD); // ou (all % IDX_MOD)
 //	process->registers[args->value[2].u_reg] = read4_memory(get_vm(NULL), address); // pas write plutot?
-	args->value[0] = (args->type[0] == e_reg) ?
-		process->registers[args->value[0]] : args->value[0];
-	args->value[1] = (args->type[1] == e_reg) ?
-		process->registers[&args->value[1]] : &args->value[1];
+	args->value[0].u_dir32 = (args->type[0] == e_reg) ? 
+		process->registers[args->value[0].u_reg] : args->value[0].u_dir32; // atention le arg0 peut etre un indirect
+	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
+		process->registers[args->value[1].u_reg] : args->value[1].u_dir32;
 	value = (args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
@@ -170,10 +170,10 @@ void		op_sti(t_process *process, t_args *args)
 	value_to_store = process->registers[args->value[0].u_reg];
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
 	get_value_of_arg(process, &args->value[2], &args->type[2]);
-	args->value[1] = (args->type[1] == e_reg) ?
-		process->registers[&args->value[1]] : &args->value[1];
-	args->value[2] = (args->type[2] == e_reg) ?
-		process->registers[&args->value[2]] : &args->value[2];
+	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
+		process->registers[args->value[1].u_reg] : args->value[1].u_dir32; // atention arg1 peut etre un indirect
+	args->value[2].u_dir32 = (args->type[2] == e_reg) ?
+		process->registers[args->value[2].u_reg] : args->value[2].u_dir32;
 	address = (args->value[1].u_dir32 + args->value[2].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste 
 	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
 	process->carry = (value_to_store == 0) ? 1 : 0;
@@ -181,18 +181,8 @@ void		op_sti(t_process *process, t_args *args)
 
 void		op_aff(t_process *process, t_args *args)
 {
-	//uint8_t	ocp;
-
-	// (void)args;
-	// ocp = vm->memory[++process->program_counter % MEM_SIZE];
-	// if (ocp != 0x40)
-	// 	//crash ?
-	// ocp = vm->memory[++process->program_counter % MEM_SIZE];
-	// if (ocp > 0 && ocp <= REG_NUMBER)
-	//printf("process %s is saying `%c'\n", process->name, process->registers[ocp - 1] % 256);
-	(void)process;
-	(void)args;
-	printf("hello world\n");
+	printf("Process %s is saying `%c'\n", process->name, \
+	process->registers[args->value[0].u_reg] % 256);
 }
 
 void		op_lld(t_process *process, t_args *args)
@@ -211,10 +201,10 @@ void		op_lldi(t_process *process, t_args *args)
 
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
-	args->value[0] = (args->type[0] == e_reg) ?
-		process->registers[args->value[0]] : args->value[0];
-	args->value[1] = (args->type[1] == e_reg) ?
-		process->registers[&args->value[1]] : &args->value[1];
+	args->value[0].u_dir32 = (args->type[0] == e_reg) ?
+		process->registers[args->value[0].u_reg] : args->value[0].u_dir32;  // atention arg0 peut etre un indirect
+	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
+		process->registers[args->value[1].u_reg] : args->value[1].u_dir32;
 	value = (args->value[0].u_dir32 + args->value[1].u_dir32);
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
