@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/19 17:26:24 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/19 18:46:28 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include "../../lib/libft/includes/libft.h"
 #include "../../includes/op.h"
-#include "asm.h"
+#include "../../includes/asm.h"
 
 char	*read_file(char	*path)
 {
@@ -90,17 +90,18 @@ char	*get_new_name(char *path)
 
 int		write_in_file(char *path, char **data)
 {
-	int		fd;
-	char	*newpath;
-	uint8_t	tmp[4];
+	int			fd;
+	char		*newpath;
+	uint8_t		tmp[4];
+	uint32_t	*table;
 
 	newpath = get_new_name(path);
 	if ((fd = open(newpath, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR)))
 	{
+		printf("output file : %s\n", newpath);
 		bytes_conv((uint32_t)COREWAR_EXEC_MAGIC, tmp);
 		write(fd, tmp, 4);
-		(void)data;
-		interpret(data);
+		table = interpret(data, fd);
 	}
 	return (1);
 }

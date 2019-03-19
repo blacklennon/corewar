@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:55:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/19 17:26:11 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/19 18:49:04 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../lib/libft/includes/libft.h"
-#include "asm.h"
+#include "../../includes/asm.h"
 
 static int	sws_count_words(char *txt)
 {
@@ -25,7 +25,9 @@ static int	sws_count_words(char *txt)
 	i = -1;
 	while (txt[++i])
 	{
-		if (txt[i] == '#')
+		if (txt[i] == '"')
+			count_words++;
+		if (txt[i] == '#' || txt[i] == '"')
 			while (txt[i] != '\n')
 				i++;
 		if (ft_strchr(", \t\n", txt[i]))

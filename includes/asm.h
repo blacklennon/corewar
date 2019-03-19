@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/19 14:18:03 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/19 18:45:25 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ char		*read_file(char	*path);
 int			check_args(int argc, char **argv);
 uint8_t		*bytes_conv(uint32_t content, uint8_t *table);
 int			write_in_file(char *path, char **data);
-uint32_t	*interpret(char **program);
+uint32_t	*interpret(char **program, int fd);
 
 #endif

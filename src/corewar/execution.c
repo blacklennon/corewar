@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/19 17:58:18 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/19 18:06:23 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ static void		do_op(t_process *process, t_vm *vm)
 	read_args(op, process, &args, vm);
 	if (op->func != NULL)
 		op->func(process, &args);
->>>>>>> origin/master
 	else
 		printf("No func for operation %s :(\n", op->name);
 	process->next_op = vm->cycle + op->cycles;
