@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/06 16:48:09 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/16 17:55:27 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,27 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include "corewar.h"
+#include "op.h"
 
-static void	init_opcode(void (*op[17])(t_process *process, t_vm *vm))
+//jac 12032019
+static void	init_opcode(t_op *op_tab)
 {
-	op[1] = &live;
-	op[9] = &zjmp;
-	op[16] = &aff;
+	op_tab[LIVE].func = &op_live;
+//	op_tab[LD].func = &op_ld;
+//	op_tab[ST].func = &op_st;
+	op_tab[ADD].func = &op_add;
+	op_tab[SUB].func = &op_sub;
+//	op_tab[AND].func = &op_and;
+//	op_tab[OR].func = &op_or;
+//	op_tab[XOR].func = &op_xor;
+	op_tab[ZJMP].func = &op_zjmp;
+//	op_tab[LDI].func = &op_ldi;
+//	op_tab[STI].func = &op_sti;
+//	op_tab[FORK].func = &op_fork;
+//	op_tab[LLD].func = &op_lld;
+//	op_tab[LLDI].func = &op_lldi;
+//	op_tab[LFORK].func = &op_lfork;
+	op_tab[AFF].func = &op_aff;
 }
 
 static void	init_process(t_process *process)
@@ -43,16 +58,15 @@ void		init_vm(t_vm *vm)
 	size_t	i;
 
 	i = 0;
-	ft_bzero(vm->memory, sizeof(vm->memory));
 	vm->cycle = 0;
+	ft_bzero(vm->memory, sizeof(vm->memory));
 	while (i < MAX_PLAYERS)
-	{
-		init_process(&vm->process[i]);
-		i++;
-	}
-	init_opcode(vm->op_table);
+		init_process(&vm->process[i++]);
+	init_opcode(op_tab);
+	get_vm(vm);
 }
 
+// TODO protect everything
 void		load_champs(t_vm *vm)
 {
 	t_process	*tmp;
@@ -82,6 +96,7 @@ void		load_champs(t_vm *vm)
 		}
 		read(fd, &vm->memory[(i - 1) * (MEM_SIZE / vm->nb_champs)], header.prog_size);
 		tmp->program_counter = (i - 1) * (MEM_SIZE / vm->nb_champs);
+		tmp->registers[0] = (int32_t)i;
 		ft_strcpy(tmp->name, (char *)&header.prog_name);
 		ft_strcpy(tmp->comment, (char *)&header.comment);
 		close(fd);

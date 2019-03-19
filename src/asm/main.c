@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/16 18:00:12 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/19 17:26:24 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,37 +73,34 @@ uint8_t	*bytes_conv(uint32_t content, uint8_t *table)
 	return (table);
 }
 
-int		write_in_file(char *path)
+char	*get_new_name(char *path)
 {
-	int		fd;
 	char	*newpath;
 	int		i;
-	uint8_t	tmp[4];
 
 	i = ft_strlen(path);
 	while (path[i] != '.')
 		i--;
-	printf("%d (%c)\n", i, path[i]);
 	newpath = malloc(sizeof(char) * (i + 5));
 	ft_strncpy(newpath, path, i);
 	newpath[i] = 0;
-	printf("just path without extension : %s\n", newpath);
 	ft_strcat(newpath, ".cor");
-	printf("output file : %s (size: %zu | malloc: %d)\n", newpath, \
-			ft_strlen(newpath), i + 4);
+	return (newpath);
+}
+
+int		write_in_file(char *path, char **data)
+{
+	int		fd;
+	char	*newpath;
+	uint8_t	tmp[4];
+
+	newpath = get_new_name(path);
 	if ((fd = open(newpath, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR)))
 	{
-		printf("output file in %s created\nFilling file\n", newpath);
-		printf("MAGIC : %x\n", COREWAR_EXEC_MAGIC);
 		bytes_conv((uint32_t)COREWAR_EXEC_MAGIC, tmp);
 		write(fd, tmp, 4);
-		i = PROG_NAME_LENGTH - ft_strlen("name");
-		while (i >= 0)
-		{
-			write(fd, bytes_conv((uint32_t)0x0, tmp), 1);
-			i--;
-		}
-		write(fd, bytes_conv((uint32_t)0x0, tmp), 4);
+		(void)data;
+		interpret(data);
 	}
 	return (1);
 }
@@ -112,13 +109,16 @@ int		main(int argc, char **argv)
 {
 	char	*file;
 	char	**data;
+	int		i;
 
+	i = 0;
 	file = NULL;
 	if (!check_args(argc, argv))
 		return (EXIT_FAILURE);
 	file = read_file(argv[1]);
-	write_in_file(argv[1]);
 	data = split_whitespaces(file);
-	//interpret();
+	write_in_file(argv[1], data);
+	while (data[i])
+		free(data[i++]);
 	return (EXIT_SUCCESS);
 }

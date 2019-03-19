@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:55:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/16 16:21:37 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/19 17:26:11 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static int	sws_count_words(char *txt)
 		if (txt[i] == '#')
 			while (txt[i] != '\n')
 				i++;
-		if (ft_strchr(" \t\n", txt[i]))
+		if (ft_strchr(", \t\n", txt[i]))
 			continue;
 		count_words++;
-		while (!ft_strchr(" \t\n", txt[i + 1]))
+		while (!ft_strchr(", \t\n", txt[i + 1]))
 			i++;
 	}
 	return (count_words);
@@ -45,18 +45,18 @@ char		**split_whitespaces(char *txt)
 	int		length;
 
 	length = 0;
-	i = -1;
+	i = 0;
 	if (!txt)
 		return (NULL);
 	count_words = sws_count_words(txt);
-	table = (char **)malloc(sizeof(char *) * count_words + 2);
+	table = (char **)malloc(sizeof(char *) * (count_words + 2));
 	count_words = 0;
-	while (txt[++i])
+	while (i <= (int)ft_strlen(txt))
 	{
-		if (txt[i] == '#')
-			while (txt[i] != '\n')
+		if (txt[i] && txt[i] == '#')
+			while (txt[i] && txt[i] != '\n')
 				i++;
-		if (ft_strchr(" \t\n", txt[i]))
+		if (!txt[i] || ft_strchr(", \t\n", txt[i]))
 		{
 			if (length)
 			{
@@ -66,9 +66,11 @@ char		**split_whitespaces(char *txt)
 				length = 0;
 				count_words++;
 			}
+			i++;
 			continue;
 		}
 		length++;
+		i++;
 	}
 	table[count_words] = NULL;
 	return (table);

@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:49:49 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/16 20:49:42 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/19 17:27:27 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,33 @@
 #include "../../includes/op.h"
 #include "asm.h"
 
-int		interpret(char **program)
+int			tokenizer(char *str)
 {
+	int	ret;
 	int	i;
 
 	i = 0;
-	while ()
+	ret = 1;
+	while (str[i])
 	{
-
+		ret += (i+1) * str[i];
+		i++;
 	}
+	return (ret);
+}
+
+uint32_t	*interpret(char **program)
+{
+	int			i;
+	uint32_t	*table;
+
+	table = NULL;
+	i = 0;
+	while (program[i])
+	{
+		printf("string = '%s'\t\ttoken = %d\n", program[i], \
+				tokenizer(program[i]));
+		i++;
+	}
+	return (table);
 }
