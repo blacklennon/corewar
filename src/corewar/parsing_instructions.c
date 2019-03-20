@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.c                                               :+:      :+:    :+:   */
+/*   parsing_instructions.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/02/28 17:57:33 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/16 20:33:00 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
 #include "corewar.h"
+
+/* OBSOLETE
 
 void		ft_set_type_aux(uint8_t *ft, t_instruct *instruct) // l'appeler avec t_process->instruct?
 {
@@ -148,3 +150,5 @@ int 	ft_parse_instructions(t_vm *vm)
 {
 
 }
+
+*/

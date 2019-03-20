@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 18:14:39 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 16:49:58 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ static void	init_opcode(t_op *op_tab)
 //	op_tab[OR].func = &op_or;
 //	op_tab[XOR].func = &op_xor;
 	op_tab[ZJMP].func = &op_zjmp;
-//	op_tab[LDI].func = &op_ldi;
-//	op_tab[STI].func = &op_sti;
-//	op_tab[FORK].func = &op_fork;
-//	op_tab[LLD].func = &op_lld;
-//	op_tab[LLDI].func = &op_lldi;
-//	op_tab[LFORK].func = &op_lfork;
+	op_tab[LDI].func = &op_ldi;
+	op_tab[STI].func = &op_sti;
+	op_tab[FORK].func = &op_fork;
+	op_tab[LLD].func = &op_lld;
+	op_tab[LLDI].func = &op_lldi;
+	op_tab[LFORK].func = &op_lfork;
 	op_tab[AFF].func = &op_aff;
 }
 
@@ -72,6 +72,7 @@ static void	init_process(t_process *process)
 	ft_bzero(process->name, sizeof(process->name));
 	ft_bzero(process->comment, sizeof(process->comment));
 	ft_bzero(process->registers, sizeof(process->registers));
+	process->next = NULL;
 }
 
 void		init_vm(t_vm *vm)
