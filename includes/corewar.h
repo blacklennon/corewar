@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 16:49:11 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 22:44:04 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int16_t 	swap_int16(int16_t value);
 void		launch(t_vm *vm);
 void		crash(t_process *process, char *str);
 t_vm		*get_vm(t_vm *new_vm);
+void		free_process(t_process *process_list);
 
 //jac 12032019
 void		op_live(t_process *process, t_args *args);

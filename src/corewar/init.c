@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 21:44:48 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 22:58:29 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void		init_vm(t_vm *vm)
 
 	i = 0;
 	vm->cycle = 0;
+	vm->forked_process = NULL;
 	ft_bzero(vm->memory, sizeof(vm->memory));
 	while (i < MAX_PLAYERS)
 		init_process(&vm->process[i++]);
@@ -102,6 +103,6 @@ void		load_champs(t_vm *vm)
 		ft_strcpy(tmp->name, (char *)&header.prog_name);
 		ft_strcpy(tmp->comment, (char *)&header.comment);
 		close(fd);
-		ft_printf("CHAMP %d\nname: %s\ncomment: %s\n prog_size: %d\n\n", i, tmp->name, tmp->comment, header.prog_size);
+		ft_printf(" \e[%dm=== CHAMP %d ===\e[0m\n     name: %s\n  comment: %s\nprog_size: %d\n\n", 31 + i, i, tmp->name, tmp->comment, header.prog_size);
 	}
 }

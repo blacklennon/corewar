@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/13 18:22:11 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 22:42:59 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,24 @@ t_vm		*get_vm(t_vm *new_vm)
 	return (vm);
 }
 
+void		free_process(t_process *process_list)
+{
+	t_process	*tmp;
+
+	while (process_list != NULL)
+	{
+		tmp = process_list->next;
+		free(process_list);
+		process_list = tmp;
+	}
+}
+
 void		crash(t_process *process, char *str)
 {
+	t_vm	*vm;
+
+	vm = get_vm(NULL);
+	free_process(vm->forked_process);
 	printf("Process %s crash: %s\n", process->name, str);
 	exit(1);
 }

@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/03/20 20:02:26 by jdouniol         ###   ########.fr       */
-=======
-/*   Updated: 2019/03/20 19:57:45 by pcarles          ###   ########.fr       */
->>>>>>> 226ee6fd0d93d8275080de1d5776b2ccde944616
+/*   Updated: 2019/03/20 23:37:45 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "libft.h"
-
 #include "corewar.h"
 
 static void    get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type, int opcode)
@@ -31,7 +27,7 @@ static void    get_value_of_arg(t_process *process, t_int_types *value, t_int_ty
         (*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + (*value).u_ind);
         *type = e_dir;
     }
-    else if (*type == e_ind && opcode != LLD && opcode != LLDI)// avec restricition d adressage
+    else if (*type == e_ind)// avec restricition d adressage
     {
         (*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + ((*value).u_ind) % IDX_MOD);
         *type = e_dir;
@@ -59,7 +55,7 @@ void		op_ld(t_process *process, t_args *args) // OK
 {
 	int32_t	result;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], LD);
 	result = args->value[0].u_dir32;
 	process->registers[args->value[1].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
@@ -153,8 +149,8 @@ void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], LDI);
+	get_value_of_arg(process, &args->value[1], &args->type[1], LDI);
 	value = read4_memory(get_vm(NULL), process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD)); // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (value == 0) ? 1 : 0; // ou value == 0s
@@ -166,8 +162,8 @@ void		op_sti(t_process *process, t_args *args)
 	int32_t address;
 
 	value_to_store = process->registers[args->value[0].u_reg];
-	get_value_of_arg(process, &args->value[1], &args->type[1]);
-	get_value_of_arg(process, &args->value[2], &args->type[2]);
+	get_value_of_arg(process, &args->value[1], &args->type[1], STI);
+	get_value_of_arg(process, &args->value[2], &args->type[2], STI);
 	address = (args->value[1].u_dir32 + args->value[2].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste 
 	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
 	process->carry = (value_to_store == 0) ? 1 : 0;
@@ -204,39 +200,40 @@ void		op_lldi(t_process *process, t_args *args)
 	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
 }
 
-t_process	*ft_copy_process(t_process *process)
+t_process	*fork_process(t_process *process)
 {
 	t_process	*new_process;
 	t_vm		*vm;
 
 	vm = get_vm(NULL);
-	if (!(new_process = (t_process *)ft_memalloc(sizeof(t_process))))
-	{
-		printf("erreur malloc copy process dans fork");
-		return (NULL);
-	}
+	if ((new_process = (t_process*)malloc(sizeof(t_process))) == NULL)
+		crash(process, "fork failed :(");
 	ft_memcpy(new_process, process, sizeof(t_process)); // faire un parcours des next jusqu a null pour copy le next;
-	process->next = new_process; // il faut bien ajouter un process mais je ne sais pas si c est la bonne maniere de faire
 	return (new_process);
 
 }
 
 void		op_fork(t_process *process, t_args *args)
 {
-	t_process 	*new_process;
+	t_vm		*vm;
+	t_process	*new_process;
 
 	args->value[0].u_dir16 %= IDX_MOD;
-	new_process = ft_copy_process(process);
-	new_process->program_counter = (process->program_counter + args->value[0].u_dir16) % MEM_SIZE;s
+	new_process = fork_process(process);
+	new_process->program_counter = (process->program_counter + args->value[0].u_dir16) % MEM_SIZE;
+	vm = get_vm(NULL);
+	new_process->next = vm->forked_process;
+	vm->forked_process = new_process;
 }
 
 void		op_lfork(t_process *process, t_args *args)
 {
-	t_process *new_process;
+	t_vm		*vm;
+	t_process	*new_process;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0], LFORK);
-	new_process = ft_copy_process(process);
-	new_process->program_counter = (process->program_counter + args->value[0].u_dir32) % MEM_SIZE;
-	if (new_process->program_counter < 0)
-		new_process->program_counter += MEM_SIZE;
+	new_process = fork_process(process);
+	new_process->program_counter = (process->program_counter + args->value[0].u_dir16) % MEM_SIZE;
+	vm = get_vm(NULL);
+	new_process->next = vm->forked_process;
+	vm->forked_process = new_process;
 }

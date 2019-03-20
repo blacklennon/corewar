@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/20 21:44:38 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 21:51:53 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct			s_vm
 	int					nb_check; //j1903 ajout pour cycle
 	char				*winner_name;//j1903 ajout pour cycle
 	int					finish_first_cycle;//j1903 ajout pour cycle
+	struct s_process	*forked_process; // Liste chainée, un maillon = un process forks
 }						t_vm;
 
 typedef struct			s_op

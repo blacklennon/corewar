@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 16:50:06 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 23:35:44 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	parse_flags(int ac, char **av, t_vm *vm)
 int			main(int ac, char **av)
 {
 	t_vm	vm;
+	t_process	*tmp;
 
 	if (ac < 1)
 		return (EXIT_FAILURE);
@@ -39,5 +40,12 @@ int			main(int ac, char **av)
 	launch(&vm);
 	reg_dump(vm.process, vm.nb_champs);
 	mem_dump(vm.memory, MEM_SIZE);
+	tmp = vm.forked_process;
+	while (tmp != NULL)
+	{
+		printf("Forked process: %s\n", tmp->name);
+		tmp = tmp->next;
+	}
+	free_process(vm.forked_process);
 	return (EXIT_SUCCESS);
 }

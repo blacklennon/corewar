@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 20:00:39 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 23:36:22 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ static void		read_op(t_process *process, t_vm *vm)
 	op_code = (uint8_t)read1_memory(vm, process->program_counter);
 	if (op_code < LIVE || op_code > AFF)
 	{
-		process->do_op = vm->cycle + 1;
-		process->next_op = NULL;
 		process->program_counter++;
+		process->next_op = NULL;
+		process->do_op = vm->cycle + 1;
 		printf("Player (%s), bad opcode: 0x%.2x consumming 1 cycle\n", process->name, op_code);
 		return ;
 	}
@@ -131,11 +131,13 @@ static void		read_op(t_process *process, t_vm *vm)
 	process->do_op = vm->cycle + op_tab[op_code].cycles;
 }
 
-static void		do_op(t_process *process, t_op *op, t_vm *vm)
+static void		do_op(t_process *process, t_vm *vm)
 {
 	uint16_t	pc;
+	t_op		*op;
 	t_args		args;
 
+	op = process->next_op;
 	if (op != NULL)
 	{
 		printf("Process %s doing op %s\n", process->name, op->name);
@@ -143,6 +145,8 @@ static void		do_op(t_process *process, t_op *op, t_vm *vm)
 		op->func(process, &args);
 		if (op->code != ZJMP || process->carry == 0)
 			process->program_counter = pc;
+		if (op->code == FORK || op->code == LFORK)
+			read_op(vm->forked_process, vm);
 	}
 	read_op(process, vm);
 }
@@ -150,6 +154,7 @@ static void		do_op(t_process *process, t_op *op, t_vm *vm)
 void			launch(t_vm *vm)
 {
 	size_t		i;
+	t_process	*fork;
 
 	i = 0;
 	while (i < vm->nb_champs)
@@ -160,19 +165,22 @@ void			launch(t_vm *vm)
 	while (42)
 	{
 		//printf("\ncylce %zu\n", vm->cycle);
-		if (vm->cycle == 500)
+		if (vm->cycle == 1500)
 			break ;
-		// while (vm->fork)
-		// {
-		// 	vm->fork = vm->fork->next;
-		// }
+		fork = vm->forked_process;
+		while (fork != NULL)
+		{
+			if (fork->do_op == vm->cycle)
+				do_op(fork, vm);
+			fork = fork->next;
+		}
 		i = vm->nb_champs;
 		while (42)
 		{
-			if (vm->process[i].do_op == vm->cycle)
-				do_op(&vm->process[i], vm->process[i].next_op, vm);
-			vm->process[i].program_counter %= MEM_SIZE;
 			i--;
+			if (vm->process[i].do_op == vm->cycle)
+				do_op(&vm->process[i], vm);
+			vm->process[i].program_counter %= MEM_SIZE;
 			if (i == 0)
 				break ;
 		}
