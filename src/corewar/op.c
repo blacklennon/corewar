@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/16 21:33:02 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/20 03:20:38 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	get_value_of_arg(t_process *process, t_int_types *value, t_int_types
 	}
 	else if (*type == e_ind)
 	{
-		(*value).u_dir32 = read4_memory(get_vm(NULL), (*value).u_ind);
+		(*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + ((*value).u_ind) % IDX_MOD);
 		*type = e_dir;
 	}
 }
@@ -50,8 +50,8 @@ void		op_ld(t_process *process, t_args *args) // OK
 {
 	int32_t	result;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	result = args->value[0].u_dir32; // result = result % IDX_MOD ?
+	get_value_of_arg(process, &args->value[0], &args->type[0], LD);
+	result = args->value[0].u_dir32;
 	process->registers[args->value[1].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
 }
@@ -94,11 +94,10 @@ void		op_and(t_process *process, t_args *args) // OK
 
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
-	printf(" value 0 : %x value 1 = %x\n", args->value[0].u_dir32, args->value[1].u_dir32);
 	result = args->value[0].u_dir32 & args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
-	printf(" result : %x\n", process->registers[args->value[2].u_dir32]);
-	printf(" result : %x\n", result);
+	process->carry = (result == 0) ? 1 : 0;
+	printf("AND: %x & %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
 }
 
 void		op_or(t_process *process, t_args *args) // OK
@@ -107,12 +106,10 @@ void		op_or(t_process *process, t_args *args) // OK
 
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
-	printf(" value 0 : %x value 1 = %x\n", args->value[0].u_dir32, args->value[1].u_dir32);
 	result = args->value[0].u_dir32 | args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
-	printf(" result : %x\n", process->registers[args->value[2].u_dir32]);
-	printf(" result : %x\n", result);
 	process->carry = (result == 0) ? 1 : 0;
+	printf(" OR: %x | %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
 }
 
 void		op_xor(t_process *process, t_args *args) // OK
@@ -121,18 +118,16 @@ void		op_xor(t_process *process, t_args *args) // OK
 
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
-	printf(" value 0 : %x value 1 = %x\n", args->value[0].u_dir32, args->value[1].u_dir32);
 	result = args->value[0].u_dir32 ^ args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
-	printf(" result : %x\n", process->registers[args->value[2].u_dir32]);
-	printf(" result : %x\n", result);
 	process->carry = (result == 0) ? 1 : 0;
+	printf("XOR: %x ^ %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
 }
 
 void		op_zjmp(t_process *process, t_args *args) // OK
 {
 	if (process->carry == 1)
-		process->program_counter += args->value[0].u_dir16 - 3;
+		process->program_counter += args->value[0].u_dir16;
 }
 /* OLD
 int32_t		if_registre(int32_t value, t_process *process, int byte)

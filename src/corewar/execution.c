@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/14 17:58:43 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/19 18:35:57 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 		mask >>= 2;
 		i++;
 	}
+	while (i < MAX_ARGS_NUMBER)
+	{
+		if ((ocp & mask) >> ((3 - i) * 2) != 0)
+			return (0);
+		mask >>= 2;
+		i++;
+	}
 	return (1);
 }
 
@@ -61,6 +68,8 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 			if (args->type[i] == e_reg)
 			{
 				args->value[i].u_reg = read1_memory(vm, pc) - 1;
+				if (args->value[i].u_reg < 0 || args->value[i].u_reg >= REG_NUMBER)
+					crash(process, "invalid register");
 				pc += 1;
 			}
 			else if (args->type[i] == e_ind)
