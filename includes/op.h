@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/20 19:37:49 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 20:06:57 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,14 @@ typedef struct			s_vm
 {
 	uint8_t				memory[MEM_SIZE];
 	size_t				nb_champs;
-	struct s_process	process[MAX_PLAYERS];
+	struct s_process	process[MAX_PLAYERS]; // MAX PLAYERS OU MAX_PLAYERS + nb_fork?
 	size_t				cycle;
+	int					size_cycle; //j1903 ajout pour cycle
+	size_t				live_counter_temp; //j1903 ajout pour cycle
+	int					someone_is_alive; //j1903 ajout pour cycle
+	int					nb_check; //j1903 ajout pour cycle
+	char				*winner_name;//j1903 ajout pour cycle
+	int					finish_first_cycle;//j1903 ajout pour cycle
 }						t_vm;
 
 typedef struct			s_op
