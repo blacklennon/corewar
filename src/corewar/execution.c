@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 23:36:22 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 23:46:11 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 		{
 			if (args->type[i] == e_reg)
 			{
-				args->value[i].u_reg = read1_memory(vm, pc) - 1;
+				args->value[i].u_reg = read1_memory(vm, pc++) - 1;
 				if (args->value[i].u_reg < 0 || args->value[i].u_reg >= REG_NUMBER)
 					crash(process, "invalid register");
-				pc += 1;
 			}
 			else if (args->type[i] == e_ind)
 			{
