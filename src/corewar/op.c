@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 03:20:38 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 20:02:26 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,24 @@
 
 #include "corewar.h"
 
-static void	get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type) // ajouter t_op pour dir16/32 et indirect valeur ou address
+static void    get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type, int opcode)
 {
-	if (*type == e_reg) 
-	{
-		(*value).u_dir32 = process->registers[(*value).u_reg];
-		*type = e_dir;
-	}
-	else if (*type == e_ind)
-	{
-		(*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + ((*value).u_ind) % IDX_MOD);
-		*type = e_dir;
-	}
-}
+    if (*type == e_reg)
+    {
+        (*value).u_dir32 = process->registers[(*value).u_reg];
+        *type = e_dir;
+    }
+    else if (*type == e_ind && (opcode == LLD || opcode == LLDI))// sans restriction d adressage
+    {
+        (*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + (*value).u_ind);
+        *type = e_dir;
+    }
+    else if (*type == e_ind && opcode != LLD && opcode != LLDI)// avec restricition d adressage
+    {
+        (*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + ((*value).u_ind) % IDX_MOD);
+        *type = e_dir;
+    }
+}//get value of args se trouve dans ld, and, or, xor, ldi, sti, lld, lldi, fork et lfork
 
 void		op_live(t_process *process, t_args *args) // OK
 {
@@ -92,8 +97,8 @@ void		op_and(t_process *process, t_args *args) // OK
 {
 	int32_t	result;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], AND);
+	get_value_of_arg(process, &args->value[1], &args->type[1], AND);
 	result = args->value[0].u_dir32 & args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
@@ -104,8 +109,8 @@ void		op_or(t_process *process, t_args *args) // OK
 {
 	int32_t	result;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], OR);
+	get_value_of_arg(process, &args->value[1], &args->type[1], OR);
 	result = args->value[0].u_dir32 | args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
@@ -116,8 +121,8 @@ void		op_xor(t_process *process, t_args *args) // OK
 {
 	int32_t	result;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], XOR);
+	get_value_of_arg(process, &args->value[1], &args->type[1], XOR);
 	result = args->value[0].u_dir32 ^ args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
@@ -144,8 +149,8 @@ void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], LDI);
+	get_value_of_arg(process, &args->value[1], &args->type[1], LDI);
 //	address = process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD); // ou (all % IDX_MOD)
 //	process->registers[args->value[2].u_reg] = read4_memory(get_vm(NULL), address); // pas write plutot?
 	args->value[0].u_dir32 = (args->type[0] == e_reg) ? 
@@ -163,8 +168,8 @@ void		op_sti(t_process *process, t_args *args)
 	int32_t address;
 
 	value_to_store = process->registers[args->value[0].u_reg];
-	get_value_of_arg(process, &args->value[1], &args->type[1]);
-	get_value_of_arg(process, &args->value[2], &args->type[2]);
+	get_value_of_arg(process, &args->value[1], &args->type[1], STI);
+	get_value_of_arg(process, &args->value[2], &args->type[2], STI);
 	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
 		process->registers[args->value[1].u_reg] : args->value[1].u_dir32; // atention arg1 peut etre un indirect
 	args->value[2].u_dir32 = (args->type[2] == e_reg) ?
@@ -184,7 +189,7 @@ void		op_lld(t_process *process, t_args *args)
 {
 	int32_t	result;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], LLD);
 	result = args->value[0].u_dir32;
 	process->registers[args->value[1].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
@@ -194,8 +199,8 @@ void		op_lldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
-	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], LLDI);
+	get_value_of_arg(process, &args->value[1], &args->type[1], LLDI);
 	args->value[0].u_dir32 = (args->type[0] == e_reg) ?
 		process->registers[args->value[0].u_reg] : args->value[0].u_dir32;  // atention arg0 peut etre un indirect
 	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
@@ -226,7 +231,7 @@ void		op_fork(t_process *process, t_args *args)
 {
 	t_process 	*new_process;
 	
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], FORK);
 	args->value[0].u_dir32 %= IDX_MOD;
 	new_process = ft_copy_process(process);
 	new_process->program_counter = (process->program_counter + args->value[0].u_dir32) % MEM_SIZE;
@@ -238,7 +243,7 @@ void		op_lfork(t_process *process, t_args *args)
 {
 	t_process *new_process;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	get_value_of_arg(process, &args->value[0], &args->type[0], LFORK);
 	new_process = ft_copy_process(process);
 	new_process->program_counter = (process->program_counter + args->value[0].u_dir32) % MEM_SIZE;
 	if (new_process->program_counter < 0)
