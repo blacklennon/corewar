@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 16:49:58 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 16:57:36 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ t_op	op_tab[17] =
 static void	init_opcode(t_op *op_tab)
 {
 	op_tab[LIVE].func = &op_live;
-//	op_tab[LD].func = &op_ld;
-//	op_tab[ST].func = &op_st;
+	op_tab[LD].func = &op_ld;
+	op_tab[ST].func = &op_st;
 	op_tab[ADD].func = &op_add;
 	op_tab[SUB].func = &op_sub;
-//	op_tab[AND].func = &op_and;
-//	op_tab[OR].func = &op_or;
-//	op_tab[XOR].func = &op_xor;
+	op_tab[AND].func = &op_and;
+	op_tab[OR].func = &op_or;
+	op_tab[XOR].func = &op_xor;
 	op_tab[ZJMP].func = &op_zjmp;
 	op_tab[LDI].func = &op_ldi;
 	op_tab[STI].func = &op_sti;

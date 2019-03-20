@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 16:49:46 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 19:49:44 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 			if (args->type[i] == e_reg)
 			{
 				args->value[i].u_reg = read1_memory(vm, pc) - 1;
-				if (args->value[i].u_reg < 1 || args->value[i].u_reg >= REG_NUMBER)
+				if (args->value[i].u_reg < 0 || args->value[i].u_reg >= REG_NUMBER)
 					crash(process, "invalid register");
 				pc += 1;
 			}
@@ -114,47 +114,64 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 	return (pc);
 }
 
-static void		do_op(t_process *process, t_vm *vm)
+static void		read_op(t_process *process, t_vm *vm)
 {
 	uint8_t		op_code;
-	uint16_t	pc;
-	t_op		*op;
-	t_args		args;
 
 	op_code = (uint8_t)read1_memory(vm, process->program_counter);
 	if (op_code < LIVE || op_code > AFF)
 	{
-		process->next_op = vm->cycle + 1;
+		process->do_op = vm->cycle + 1;
+		process->next_op = NULL;
 		process->program_counter++;
 		printf("Player (%s), bad opcode: 0x%.2x consumming 1 cycle\n", process->name, op_code);
 		return ;
 	}
-	op = &op_tab[op_code];
-	printf("Process %s doing op %s\n", process->name, op->name);
-	pc = read_args(op, process, &args, vm);
-	if (op->func != NULL)
+	process->next_op = &op_tab[op_code];
+	process->do_op = vm->cycle + op_tab[op_code].cycles;
+}
+
+static void		do_op(t_process *process, t_op *op, t_vm *vm)
+{
+	uint16_t	pc;
+	t_args		args;
+
+	if (op != NULL)
+	{
+		printf("Process %s doing op %s\n", process->name, op->name);
+		pc = read_args(op, process, &args, vm);
 		op->func(process, &args);
-	else
-		printf("No func for operation %s :(\n", op->name);
-	process->program_counter = pc;
-	process->next_op = vm->cycle + op->cycles;
+		if (op->code != ZJMP || process->carry == 0)
+			process->program_counter = pc;
+	}
+	read_op(process, vm);
 }
 
 void			launch(t_vm *vm)
 {
 	size_t		i;
 
+	i = 0;
+	while (i < vm->nb_champs)
+	{
+		read_op(&vm->process[i], vm);
+		i++;
+	}
 	while (42)
 	{
-//		printf("cycle: %zu\n", vm->cycle);
+		//printf("\ncylce %zu\n", vm->cycle);
 		if (vm->cycle == 500)
 			break ;
-		i = 0;
-		while (i < vm->nb_champs)
+		// while (vm->fork)
+		// {
+		// 	vm->fork = vm->fork->next;
+		// }
+		i = vm->nb_champs;
+		while (--i >= 0)
 		{
-			if (vm->process[i].next_op == vm->cycle)
-				do_op(&vm->process[i], vm);
-			vm->process[i++].program_counter %= MEM_SIZE;
+			if (vm->process[i].do_op == vm->cycle)
+				do_op(&vm->process[i], vm->process[i].next_op, vm);
+			vm->process[i].program_counter %= MEM_SIZE;
 		}
 		vm->cycle++;
 	}
