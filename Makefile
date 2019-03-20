@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+         #
+#    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/03/20 19:52:01 by jdouniol         ###   ########.fr        #
+#    Updated: 2019/03/20 19:57:46 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIBS		:= libft
 
 corewar_LIB	:= ft
 
-corewar_SRC	:=	corewar/main.c \
+corewar_SRC	:=	op.c \
+				corewar/main.c \
 				corewar/init.c \
 				corewar/utils.c \
 				corewar/execution.c \

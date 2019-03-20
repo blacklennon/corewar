@@ -6,7 +6,11 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/03/20 20:02:26 by jdouniol         ###   ########.fr       */
+=======
+/*   Updated: 2019/03/20 19:57:45 by pcarles          ###   ########.fr       */
+>>>>>>> 226ee6fd0d93d8275080de1d5776b2ccde944616
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +59,7 @@ void		op_ld(t_process *process, t_args *args) // OK
 {
 	int32_t	result;
 
-	get_value_of_arg(process, &args->value[0], &args->type[0], LD);
+	get_value_of_arg(process, &args->value[0], &args->type[0]);
 	result = args->value[0].u_dir32;
 	process->registers[args->value[1].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
@@ -149,6 +153,7 @@ void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 
+<<<<<<< HEAD
 	get_value_of_arg(process, &args->value[0], &args->type[0], LDI);
 	get_value_of_arg(process, &args->value[1], &args->type[1], LDI);
 //	address = process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD); // ou (all % IDX_MOD)
@@ -158,8 +163,13 @@ void		op_ldi(t_process *process, t_args *args)
 	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
 		process->registers[args->value[1].u_reg] : args->value[1].u_dir32;
 	value = (args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste
+=======
+	get_value_of_arg(process, &args->value[0], &args->type[0]);
+	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	value = read4_memory(get_vm(NULL), process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD)); // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste
+>>>>>>> 226ee6fd0d93d8275080de1d5776b2ccde944616
 	process->registers[args->value[2].u_reg] = value;
-	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
+	process->carry = (value == 0) ? 1 : 0; // ou value == 0s
 }
 
 void		op_sti(t_process *process, t_args *args)
@@ -168,12 +178,17 @@ void		op_sti(t_process *process, t_args *args)
 	int32_t address;
 
 	value_to_store = process->registers[args->value[0].u_reg];
+<<<<<<< HEAD
 	get_value_of_arg(process, &args->value[1], &args->type[1], STI);
 	get_value_of_arg(process, &args->value[2], &args->type[2], STI);
 	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
 		process->registers[args->value[1].u_reg] : args->value[1].u_dir32; // atention arg1 peut etre un indirect
 	args->value[2].u_dir32 = (args->type[2] == e_reg) ?
 		process->registers[args->value[2].u_reg] : args->value[2].u_dir32;
+=======
+	get_value_of_arg(process, &args->value[1], &args->type[1]);
+	get_value_of_arg(process, &args->value[2], &args->type[2]);
+>>>>>>> 226ee6fd0d93d8275080de1d5776b2ccde944616
 	address = (args->value[1].u_dir32 + args->value[2].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste 
 	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
 	process->carry = (value_to_store == 0) ? 1 : 0;
