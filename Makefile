@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/03/20 19:57:46 by pcarles          ###   ########.fr        #
+#    Updated: 2019/03/20 20:00:07 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ corewar_SRC	:=	op.c \
 				corewar/utils.c \
 				corewar/execution.c \
 				corewar/op.c \
-				corewar/memory.c \
-				corewar/cycle.c
+				corewar/memory.c
 
 include generic_c.mk

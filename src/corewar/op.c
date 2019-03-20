@@ -153,21 +153,9 @@ void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 
-<<<<<<< HEAD
-	get_value_of_arg(process, &args->value[0], &args->type[0], LDI);
-	get_value_of_arg(process, &args->value[1], &args->type[1], LDI);
-//	address = process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD); // ou (all % IDX_MOD)
-//	process->registers[args->value[2].u_reg] = read4_memory(get_vm(NULL), address); // pas write plutot?
-	args->value[0].u_dir32 = (args->type[0] == e_reg) ? 
-		process->registers[args->value[0].u_reg] : args->value[0].u_dir32; // atention le arg0 peut etre un indirect
-	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
-		process->registers[args->value[1].u_reg] : args->value[1].u_dir32;
-	value = (args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste
-=======
 	get_value_of_arg(process, &args->value[0], &args->type[0]);
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
 	value = read4_memory(get_vm(NULL), process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD)); // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste
->>>>>>> 226ee6fd0d93d8275080de1d5776b2ccde944616
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (value == 0) ? 1 : 0; // ou value == 0s
 }
@@ -178,17 +166,8 @@ void		op_sti(t_process *process, t_args *args)
 	int32_t address;
 
 	value_to_store = process->registers[args->value[0].u_reg];
-<<<<<<< HEAD
-	get_value_of_arg(process, &args->value[1], &args->type[1], STI);
-	get_value_of_arg(process, &args->value[2], &args->type[2], STI);
-	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
-		process->registers[args->value[1].u_reg] : args->value[1].u_dir32; // atention arg1 peut etre un indirect
-	args->value[2].u_dir32 = (args->type[2] == e_reg) ?
-		process->registers[args->value[2].u_reg] : args->value[2].u_dir32;
-=======
 	get_value_of_arg(process, &args->value[1], &args->type[1]);
 	get_value_of_arg(process, &args->value[2], &args->type[2]);
->>>>>>> 226ee6fd0d93d8275080de1d5776b2ccde944616
 	address = (args->value[1].u_dir32 + args->value[2].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste 
 	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
 	process->carry = (value_to_store == 0) ? 1 : 0;
@@ -245,13 +224,10 @@ t_process	*ft_copy_process(t_process *process)
 void		op_fork(t_process *process, t_args *args)
 {
 	t_process 	*new_process;
-	
-	get_value_of_arg(process, &args->value[0], &args->type[0], FORK);
-	args->value[0].u_dir32 %= IDX_MOD;
+
+	args->value[0].u_dir16 %= IDX_MOD;
 	new_process = ft_copy_process(process);
-	new_process->program_counter = (process->program_counter + args->value[0].u_dir32) % MEM_SIZE;
-	if (new_process->program_counter < 0)
-		new_process->program_counter += MEM_SIZE;
+	new_process->program_counter = (process->program_counter + args->value[0].u_dir16) % MEM_SIZE;s
 }
 
 void		op_lfork(t_process *process, t_args *args)

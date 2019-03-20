@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/20 20:07:52 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/20 21:44:38 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ typedef struct			s_process
 	int32_t				registers[REG_NUMBER]; // c est bien ici qu on doit set les valeurs des registres
 	size_t				live_counter;
 	size_t				live_counter_temp; //j1903 ajout pour cycle // par process ou commun a tous?
-	size_t				next_op;
+	struct s_op			*next_op;
+	size_t				do_op;
 	int					is_alive; //j1903 ajout pour cycle
 	struct s_process	*next;
 }						t_process;

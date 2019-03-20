@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 19:49:44 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 20:00:39 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,11 +167,14 @@ void			launch(t_vm *vm)
 		// 	vm->fork = vm->fork->next;
 		// }
 		i = vm->nb_champs;
-		while (--i >= 0)
+		while (42)
 		{
 			if (vm->process[i].do_op == vm->cycle)
 				do_op(&vm->process[i], vm->process[i].next_op, vm);
 			vm->process[i].program_counter %= MEM_SIZE;
+			i--;
+			if (i == 0)
+				break ;
 		}
 		vm->cycle++;
 	}

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 19:57:44 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/20 21:44:48 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	init_process(t_process *process)
 	process->program_counter = 0;
 	process->carry = 0;
 	process->live_counter = 0;
-	process->next_op = 0;
+	process->do_op = 0;
+	process->next_op = NULL;
 	ft_bzero(process->name, sizeof(process->name));
 	ft_bzero(process->comment, sizeof(process->comment));
 	ft_bzero(process->registers, sizeof(process->registers));
