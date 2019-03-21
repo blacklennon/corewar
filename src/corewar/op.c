@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/21 16:02:10 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:14:14 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		op_live(t_process *process, t_args *args) // OK
 	if (arg > 0 && arg <= (int)vm->nb_champs)
 	{
 		vm->process[arg - 1].live_counter++;
-		printf("player %d(%s) is alive\n", arg, vm->process[arg - 1].name);
+		printf("\e[%dmPlayer %d (%s) is alive\e[0m\n", 31 + arg, arg, vm->process[arg - 1].name);
 	}
 	else
 		printf("unknown player %d is alive\n", arg);

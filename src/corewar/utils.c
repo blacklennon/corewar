@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 22:42:59 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:41:18 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		reg_dump(t_process *process, size_t nb_process)
 	while (i < nb_process)
 	{
 		j = 0;
-		printf("\nPlayer %zd (%s)\n", i + 1, process[i].name);
+		printf("\n\e[%lumPlayer %zd (%s)\e[0m\n", 32 + i, i + 1, process[i].name);
 		while (j < REG_NUMBER)
 		{
 			printf("r%-2zd: 0x%x\n", j + 1, process[i].registers[j]);
