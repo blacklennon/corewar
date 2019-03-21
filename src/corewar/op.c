@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 23:37:45 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/21 10:11:45 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 #include "libft.h"
 #include "corewar.h"
 
-static void    get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type, int opcode)
+static void	get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type, int opcode)
 {
-    if (*type == e_reg)
-    {
-        (*value).u_dir32 = process->registers[(*value).u_reg];
-        *type = e_dir;
-    }
-    else if (*type == e_ind && (opcode == LLD || opcode == LLDI))// sans restriction d adressage
-    {
-        (*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + (*value).u_ind);
-        *type = e_dir;
-    }
-    else if (*type == e_ind)// avec restricition d adressage
-    {
-        (*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + ((*value).u_ind) % IDX_MOD);
-        *type = e_dir;
-    }
+	if (*type == e_reg)
+	{
+		(*value).u_dir32 = process->registers[(*value).u_reg];
+		*type = e_dir;
+	}
+	else if (*type == e_ind && (opcode == LLD || opcode == LLDI))// sans restriction d adressage
+	{
+		(*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + (*value).u_ind);
+		*type = e_dir;
+	}
+	else if (*type == e_ind)// avec restricition d adressage
+	{
+		(*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + ((*value).u_ind) % IDX_MOD);
+		*type = e_dir;
+	}
 }//get value of args se trouve dans ld, and, or, xor, ldi, sti, lld, lldi, fork et lfork
 
 void		op_live(t_process *process, t_args *args) // OK
@@ -45,7 +45,7 @@ void		op_live(t_process *process, t_args *args) // OK
 	if (arg > 0 && arg <= (int)vm->nb_champs)
 	{
 		vm->process[arg - 1].live_counter++;
-		printf("player %d is alive\n", arg);
+		printf("player %d(%s) is alive\n", arg, vm->process[arg - 1].name);
 	}
 	else
 		printf("unknown player %d is alive\n", arg);
@@ -191,13 +191,9 @@ void		op_lldi(t_process *process, t_args *args)
 
 	get_value_of_arg(process, &args->value[0], &args->type[0], LLDI);
 	get_value_of_arg(process, &args->value[1], &args->type[1], LLDI);
-	args->value[0].u_dir32 = (args->type[0] == e_reg) ?
-		process->registers[args->value[0].u_reg] : args->value[0].u_dir32;  // atention arg0 peut etre un indirect
-	args->value[1].u_dir32 = (args->type[1] == e_reg) ?
-		process->registers[args->value[1].u_reg] : args->value[1].u_dir32;
-	value = (args->value[0].u_dir32 + args->value[1].u_dir32);
+	value = read4_memory(get_vm(NULL), process->program_counter + (args->value[0].u_dir32 + args->value[1].u_dir32));
 	process->registers[args->value[2].u_reg] = value;
-	process->carry = (process->registers[args->value[2].u_reg] == 0) ? 1 : 0; // ou value == 0
+	process->carry = (value == 0) ? 1 : 0; // ou value == 0
 }
 
 t_process	*fork_process(t_process *process)

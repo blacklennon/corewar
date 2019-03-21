@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/23 17:30:55 by pcarles           #+#    #+#              #
-#    Updated: 2019/02/26 17:13:24 by pcarles          ###   ########.fr        #
+#    Updated: 2019/03/21 13:13:14 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ endif
 # Template to generate linking rule (for each targets)
 define LINKING_RULE_TEMPLATE
 $(1)_BIN := $$(patsubst %.c,%.o,$$(addprefix $(BINDIR)/,$$($(1)_SRC)))
-$(1): $(LIBS) $$($(1)_BIN)
+$(1): $$($(1)_BIN)
 	@$(CC) $(LD_FLAGS) -I$(HDRDIR) -L./$(BINDIR) -o $(1) $$($(1)_BIN) $(addprefix -l,$($(1)_LIB))
 	@echo "\033[32;1mCreated $(1)\033[0m"
 endef
@@ -65,7 +65,7 @@ export DEBUG C_FLAGS LD_FLAGS
 # Rule definition
 ##
 
-all: $(TARGETS)
+all: $(LIBS) $(TARGETS)
 
 # Generate libraries compilation rules
 $(foreach LIB,$(LIBS),$(eval $(call COMPILE_LIB_TEMPLATE,$(strip $(LIB)))))
