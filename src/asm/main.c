@@ -73,7 +73,7 @@ uint8_t	*bytes_conv(uint32_t content, uint8_t *table)
 	return (table);
 }
 
-char	*get_new_name(char *path)
+char	*get_new_path(char *path)
 {
 	char	*newpath;
 	int		i;
@@ -88,19 +88,64 @@ char	*get_new_name(char *path)
 	return (newpath);
 }
 
+char		*get_name(char	**data)
+{
+	int	i;
+	int	b;
+	int	length;
+	char	*line;
+
+	b = 0;
+	i = 0;
+	length = 0;
+	if (!data)
+		return (NULL);
+	while (data[i] && ft_strcmp(NAME_CMD_STRING, data[i]))
+		i++;
+	if (data[i] && !ft_strcmp(NAME_CMD_STRING, data[i]))
+	{
+		i++;
+		if (data[i][0] != '"')
+			return (NULL);
+		while (data[i + b])
+		{
+			if (length > 0 && ft_strchr(data[i + b], '"'))
+				break;
+			length += ft_strlen(data[i + b]);
+			b++;
+		}
+		length = length - 2;
+		printf("\nname length : %d\n", length);
+		line = ft_strnew(length);
+		//ft_bzero(line, length);
+		while (i <= b)
+		{
+			ft_strcat(line, data[i++]);
+			ft_strcat(line, " ");
+		}
+		printf("%s\n", line);
+		return (line);
+	}
+	return (NULL);
+}
+
 int		write_in_file(char *path, char **data)
 {
-	int			fd;
+	int		fd;
 	char		*newpath;
 	uint8_t		tmp[4];
 	uint32_t	*table;
+	char		*champ_name;
 
-	newpath = get_new_name(path);
+	champ_name = get_name(data);
+	newpath = get_new_path(path);
 	if ((fd = open(newpath, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR)))
 	{
 		printf("output file : %s\n", newpath);
 		bytes_conv((uint32_t)COREWAR_EXEC_MAGIC, tmp);
 		write(fd, tmp, 4);
+		write(fd, champ_name, ft_strlen(champ_name));
+		free(champ_name);
 		table = interpret(data, fd);
 	}
 	return (1);
@@ -110,14 +155,21 @@ int		main(int argc, char **argv)
 {
 	char	*file;
 	char	**data;
-	int		i;
+	uint8_t	binary[1024] = {0};
+	int	i;
 
+	(void)binary;
 	i = 0;
 	file = NULL;
 	if (!check_args(argc, argv))
 		return (EXIT_FAILURE);
 	file = read_file(argv[1]);
 	data = split_whitespaces(file);
+	while (data[i])
+	{
+		printf("%s\n", data[i]);
+		i++;
+	}
 	write_in_file(argv[1], data);
 	while (data[i])
 		free(data[i++]);

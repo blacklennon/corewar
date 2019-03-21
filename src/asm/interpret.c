@@ -41,21 +41,12 @@ uint32_t	*interpret(char **program, int fd)
 
 	table = NULL;
 	a = 0;
+	(void)fd;
 	while (program[a])
 	{
 		i = 1;
 		while (i < 17)
 		{
-			if (!ft_strcmp(NAME_CMD_STRING, program[a]))
-			{
-				write(fd, &program[a + 1], ft_strlen(program[a+1])-1);
-				printf("nom : %s\n", program[a + 1]);
-			}
-			else if (!ft_strcmp(op_tab[i].name, program[a]))
-			{
-				printf("%s\n", program[a]);
-				break;
-			}
 			i++;
 		}
 		a++;

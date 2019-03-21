@@ -25,9 +25,7 @@ static int	sws_count_words(char *txt)
 	i = -1;
 	while (txt[++i])
 	{
-		if (txt[i] == '"')
-			count_words++;
-		if (txt[i] == '#' || txt[i] == '"')
+		if (txt[i] == '#')
 			while (txt[i] != '\n')
 				i++;
 		if (ft_strchr(", \t\n", txt[i]))
