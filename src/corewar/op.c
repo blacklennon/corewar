@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/21 10:11:45 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/21 16:02:10 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,26 +134,16 @@ void		op_zjmp(t_process *process, t_args *args) // OK
 	if (process->carry == 1)
 		process->program_counter += args->value[0].u_dir16;
 }
-/* OLD
-int32_t		if_registre(int32_t value, t_process *process, int byte)
-{
-	t_vm *vm;
 
-	vm = get_vm(NULL);
-	value = ((vm->memory[(process->program_counter + 1) % MEM_SIZE] >> byte & 0x03) == 1) ?
-		process->registers[value] : value;
-	return (value);
-}
-*/
 void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 
 	get_value_of_arg(process, &args->value[0], &args->type[0], LDI);
 	get_value_of_arg(process, &args->value[1], &args->type[1], LDI);
-	value = read4_memory(get_vm(NULL), process->program_counter + ((args->value[0].u_dir32 + args->value[1].u_dir32) % IDX_MOD)); // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste
+	value = read4_memory(get_vm(NULL), process->program_counter + ((args->value[0].u_dir16 + args->value[1].u_dir16) % IDX_MOD)); // Probleme ici, valgrind retourne une erreur si on ne lit pas le bon type de parametre (udir16 ou udir32)
 	process->registers[args->value[2].u_reg] = value;
-	process->carry = (value == 0) ? 1 : 0; // ou value == 0s
+	process->carry = (value == 0) ? 1 : 0;
 }
 
 void		op_sti(t_process *process, t_args *args)
@@ -164,18 +154,35 @@ void		op_sti(t_process *process, t_args *args)
 	value_to_store = process->registers[args->value[0].u_reg];
 	get_value_of_arg(process, &args->value[1], &args->type[1], STI);
 	get_value_of_arg(process, &args->value[2], &args->type[2], STI);
-	address = (args->value[1].u_dir32 + args->value[2].u_dir32) % IDX_MOD; // j ai mis u_dir32 a chaque pour eviter les erreurs de compil a voir si c est juste 
+	address = (args->value[1].u_dir16 + args->value[2].u_dir16) % IDX_MOD; // Probleme ici, valgrind retourne une erreur si on ne lit pas le bon type de parametre (udir16 ou udir32)
 	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
 	process->carry = (value_to_store == 0) ? 1 : 0;
 }
 
-void		op_aff(t_process *process, t_args *args)
+t_process	*fork_process(t_process *process)
 {
-	printf("Process %s is saying `%c'\n", process->name, \
-	process->registers[args->value[0].u_reg] % 256);
+	t_process	*new_process;
+
+	if ((new_process = (t_process*)malloc(sizeof(t_process))) == NULL)
+		crash(process, "fork failed :(");
+	ft_memcpy(new_process, process, sizeof(t_process));
+	return (new_process);
 }
 
-void		op_lld(t_process *process, t_args *args)
+void		op_fork(t_process *process, t_args *args) // OK
+{
+	t_vm		*vm;
+	t_process	*new_process;
+
+	args->value[0].u_dir16 %= IDX_MOD;
+	new_process = fork_process(process);
+	new_process->program_counter = (process->program_counter + args->value[0].u_dir16) % MEM_SIZE;
+	vm = get_vm(NULL);
+	new_process->next = vm->forked_process;
+	vm->forked_process = new_process;
+}
+
+void		op_lld(t_process *process, t_args *args) // OK
 {
 	int32_t	result;
 
@@ -193,36 +200,10 @@ void		op_lldi(t_process *process, t_args *args)
 	get_value_of_arg(process, &args->value[1], &args->type[1], LLDI);
 	value = read4_memory(get_vm(NULL), process->program_counter + (args->value[0].u_dir32 + args->value[1].u_dir32));
 	process->registers[args->value[2].u_reg] = value;
-	process->carry = (value == 0) ? 1 : 0; // ou value == 0
+	process->carry = (value == 0) ? 1 : 0;
 }
 
-t_process	*fork_process(t_process *process)
-{
-	t_process	*new_process;
-	t_vm		*vm;
-
-	vm = get_vm(NULL);
-	if ((new_process = (t_process*)malloc(sizeof(t_process))) == NULL)
-		crash(process, "fork failed :(");
-	ft_memcpy(new_process, process, sizeof(t_process)); // faire un parcours des next jusqu a null pour copy le next;
-	return (new_process);
-
-}
-
-void		op_fork(t_process *process, t_args *args)
-{
-	t_vm		*vm;
-	t_process	*new_process;
-
-	args->value[0].u_dir16 %= IDX_MOD;
-	new_process = fork_process(process);
-	new_process->program_counter = (process->program_counter + args->value[0].u_dir16) % MEM_SIZE;
-	vm = get_vm(NULL);
-	new_process->next = vm->forked_process;
-	vm->forked_process = new_process;
-}
-
-void		op_lfork(t_process *process, t_args *args)
+void		op_lfork(t_process *process, t_args *args) // OK
 {
 	t_vm		*vm;
 	t_process	*new_process;
@@ -232,4 +213,13 @@ void		op_lfork(t_process *process, t_args *args)
 	vm = get_vm(NULL);
 	new_process->next = vm->forked_process;
 	vm->forked_process = new_process;
+}
+
+void		op_aff(t_process *process, t_args *args) // OK
+{
+	int32_t	value;
+	
+	value = process->registers[args->value[0].u_reg] % 256;
+	printf("Process %s is saying `%c'\n", process->name, value);
+	process->carry = (value == 0) ? 1 : 0;
 }
