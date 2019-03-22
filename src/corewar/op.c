@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/21 16:14:14 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/22 17:30:04 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ static void	get_value_of_arg(t_process *process, t_int_types *value, t_int_types
 	if (*type == e_reg)
 	{
 		(*value).u_dir32 = process->registers[(*value).u_reg];
-		*type = e_dir;
+		*type = e_result;
 	}
 	else if (*type == e_ind && (opcode == LLD || opcode == LLDI))// sans restriction d adressage
 	{
 		(*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + (*value).u_ind);
-		*type = e_dir;
+		*type = e_result;
 	}
 	else if (*type == e_ind)// avec restricition d adressage
 	{
 		(*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + ((*value).u_ind) % IDX_MOD);
-		*type = e_dir;
+		*type = e_result;
 	}
 }//get value of args se trouve dans ld, and, or, xor, ldi, sti, lld, lldi, fork et lfork
 
@@ -138,10 +138,24 @@ void		op_zjmp(t_process *process, t_args *args) // OK
 void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
+	int32_t	address;
 
 	get_value_of_arg(process, &args->value[0], &args->type[0], LDI);
 	get_value_of_arg(process, &args->value[1], &args->type[1], LDI);
-	value = read4_memory(get_vm(NULL), process->program_counter + ((args->value[0].u_dir16 + args->value[1].u_dir16) % IDX_MOD)); // Probleme ici, valgrind retourne une erreur si on ne lit pas le bon type de parametre (udir16 ou udir32)
+	if (args->type[0] == e_result && args->type[1] != e_result)
+		address = args->value[0].u_dir32 + args->value[1].u_dir16;
+	else if (args->type[0] == e_result && args->type[1] == e_result)
+		address = args->value[0].u_dir32 + args->value[1].u_dir32;
+	else if (args->type[0] != e_result && args->type[1] != e_result)
+		address = args->value[0].u_dir16 + args->value[1].u_dir16;
+	else if (args->type[0] != e_result && args->type[1] == e_result)
+		address = args->value[0].u_dir16 + args->value[1].u_dir32;
+	else
+	{
+		address = 0;
+		printf("NOOOOOOOOON\n");
+	}
+	value = read4_memory(get_vm(NULL), process->program_counter + (address % IDX_MOD)); // Probleme ici, valgrind retourne une erreur si on ne lit pas le bon type de parametre (udir16 ou udir32)
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (value == 0) ? 1 : 0;
 }
@@ -149,13 +163,25 @@ void		op_ldi(t_process *process, t_args *args)
 void		op_sti(t_process *process, t_args *args)
 {
 	int32_t	value_to_store; // est ce que ca serait un int8_t?
-	int32_t address;
+	int32_t	address;
 
 	value_to_store = process->registers[args->value[0].u_reg];
 	get_value_of_arg(process, &args->value[1], &args->type[1], STI);
 	get_value_of_arg(process, &args->value[2], &args->type[2], STI);
-	address = (args->value[1].u_dir16 + args->value[2].u_dir16) % IDX_MOD; // Probleme ici, valgrind retourne une erreur si on ne lit pas le bon type de parametre (udir16 ou udir32)
-	write4_memory(get_vm(NULL), value_to_store, process->program_counter + address);
+	if (args->type[1] == e_result && args->type[2] != e_result)
+		address = args->value[1].u_dir32 + args->value[2].u_dir16;
+	else if (args->type[1] == e_result && args->type[2] == e_result)
+		address = args->value[1].u_dir32 + args->value[2].u_dir32;
+	else if (args->type[1] != e_result && args->type[2] != e_result)
+		address = args->value[1].u_dir16 + args->value[2].u_dir16;
+	else if (args->type[1] != e_result && args->type[2] == e_result)
+		address = args->value[1].u_dir16 + args->value[2].u_dir32;
+	else
+	{
+		address = 0;
+		printf("NOOOOOOOOON\n");
+	}
+	write4_memory(get_vm(NULL), value_to_store, process->program_counter + (address % IDX_MOD));
 	process->carry = (value_to_store == 0) ? 1 : 0;
 }
 
@@ -195,10 +221,24 @@ void		op_lld(t_process *process, t_args *args) // OK
 void		op_lldi(t_process *process, t_args *args)
 {
 	int32_t	value;
+	int32_t	address;
 
 	get_value_of_arg(process, &args->value[0], &args->type[0], LLDI);
 	get_value_of_arg(process, &args->value[1], &args->type[1], LLDI);
-	value = read4_memory(get_vm(NULL), process->program_counter + (args->value[0].u_dir32 + args->value[1].u_dir32));
+	if (args->type[0] == e_result && args->type[1] != e_result)
+		address = args->value[0].u_dir32 + args->value[1].u_dir16;
+	else if (args->type[0] == e_result && args->type[1] == e_result)
+		address = args->value[0].u_dir32 + args->value[1].u_dir32;
+	else if (args->type[0] != e_result && args->type[1] != e_result)
+		address = args->value[0].u_dir16 + args->value[1].u_dir16;
+	else if (args->type[0] != e_result && args->type[1] == e_result)
+		address = args->value[0].u_dir16 + args->value[1].u_dir32;
+	else
+	{
+		address = 0;
+		printf("NOOOOOOOOON\n");
+	}
+	value = read4_memory(get_vm(NULL), process->program_counter + address);
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (value == 0) ? 1 : 0;
 }

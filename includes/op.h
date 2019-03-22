@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/20 21:51:53 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/22 17:14:00 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef union			u_int_types
 
 typedef enum			u_int_types_enum
 {
-	e_none, e_reg, e_ind, e_dir
+	e_none, e_reg, e_ind, e_dir, e_result
 }						t_int_types_enum;
 
 typedef	struct 			s_args
