@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/22 19:59:51 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/22 20:36:20 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		mem_dump(uint8_t *p, size_t size, size_t octet_highlight)
 			printf("0x%.4zx: ", i);
 		}
 		if (i == octet_highlight)
-			printf("\e[31m%.2x\e[0m ", *p);
+			printf("\e[31;1m%.2x\e[0m ", *p);
 		else
 			printf("%.2x ", *p);
 		p++;
@@ -41,23 +41,17 @@ void		mem_dump(uint8_t *p, size_t size, size_t octet_highlight)
 	printf("\n");
 }
 
-void		reg_dump(t_process *process, size_t nb_process)
+void		reg_dump(t_process *process)
 {
-	size_t	i;
 	size_t	j;
 
-	i = 0;
 	printf("\n \e[31m=== REGISTERS DUMP ===\e[0m\n");
-	while (i < nb_process)
+	j = 0;
+	printf("\nFor player %s\n", process->name);
+	while (j < REG_NUMBER)
 	{
-		j = 0;
-		printf("\n\e[%lumPlayer %zd (%s)\e[0m\n", 32 + i, i + 1, process[i].name);
-		while (j < REG_NUMBER)
-		{
-			printf("r%-2zd: 0x%x\n", j + 1, process[i].registers[j]);
-			j++;
-		}
-		i++;
+		printf("r%-2zd: 0x%x\n", j + 1, process->registers[j]);
+		j++;
 	}
 }
 
@@ -88,7 +82,7 @@ void		crash(t_process *process, char *str)
 
 	vm = get_vm(NULL);
 	printf("\n \e[31m=== CRASH error: %s ===\e[0m\n\nProcess: %s\n", str, process->name);
-	reg_dump(process, vm->nb_champs);
+	reg_dump(process);
 	mem_dump(vm->memory, sizeof(vm->memory), process->program_counter);
 	free_process(vm->forked_process);
 	exit(1);
