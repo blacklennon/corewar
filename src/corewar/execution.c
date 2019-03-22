@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/21 16:18:45 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/22 19:49:10 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void			launch(t_vm *vm)
 	while (42)
 	{
 		//printf("\ncylce %zu\n", vm->cycle);
-		if (vm->cycle == 1500)
+		if (vm->cycle == 100000)
 			break ;
 		fork = vm->forked_process;
 		while (fork != NULL)

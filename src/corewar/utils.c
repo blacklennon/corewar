@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/21 16:41:18 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/22 19:59:51 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "ft_printf.h"
 #include "corewar.h"
 
-void		mem_dump(uint8_t *p, size_t size)
+void		mem_dump(uint8_t *p, size_t size, size_t octet_highlight)
 {
 	size_t	i;
 
@@ -31,7 +31,10 @@ void		mem_dump(uint8_t *p, size_t size)
 				printf("\n");
 			printf("0x%.4zx: ", i);
 		}
-		printf("%.2x ", *p);
+		if (i == octet_highlight)
+			printf("\e[31m%.2x\e[0m ", *p);
+		else
+			printf("%.2x ", *p);
 		p++;
 		i++;
 	}
@@ -84,8 +87,10 @@ void		crash(t_process *process, char *str)
 	t_vm	*vm;
 
 	vm = get_vm(NULL);
+	printf("\n \e[31m=== CRASH error: %s ===\e[0m\n\nProcess: %s\n", str, process->name);
+	reg_dump(process, vm->nb_champs);
+	mem_dump(vm->memory, sizeof(vm->memory), process->program_counter);
 	free_process(vm->forked_process);
-	printf("Process %s crash: %s\n", process->name, str);
 	exit(1);
 }
 
