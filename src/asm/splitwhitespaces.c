@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:55:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/19 18:49:04 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/22 14:00:10 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,17 @@ static int	sws_count_words(char *txt)
 	while (txt[++i])
 	{
 		if (txt[i] == '#')
-			while (txt[i] != '\n')
+			while (txt[i] && txt[i] != '\n')
 				i++;
-		if (ft_strchr(", \t\n", txt[i]))
+		if (txt[i] && ft_strchr(", \t\n", txt[i]))
 			continue;
 		count_words++;
-		while (!ft_strchr(", \t\n", txt[i + 1]))
+		printf("\n\tcount_words = %d\n", count_words);
+		while (!ft_strchr(", \"\t\n", txt[i]))
+		{
 			i++;
+			printf("%c", txt[i]);
+		}
 	}
 	return (count_words);
 }
@@ -56,20 +60,10 @@ char		**split_whitespaces(char *txt)
 		if (txt[i] && txt[i] == '#')
 			while (txt[i] && txt[i] != '\n')
 				i++;
-		if (!txt[i] || ft_strchr(", \t\n", txt[i]))
+		if (txt[i] && txt[i] == '"')
 		{
-			if (length)
-			{
-				table[count_words] = (char *)malloc(sizeof(char) * length + 1);
-				ft_strncpy(table[count_words], &txt[i - length], length);
-				table[count_words][length] = 0;
-				length = 0;
-				count_words++;
-			}
-			i++;
-			continue;
+			
 		}
-		length++;
 		i++;
 	}
 	table[count_words] = NULL;

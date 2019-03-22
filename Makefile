@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/03/19 18:22:20 by llopez           ###   ########.fr        #
+#    Updated: 2019/03/21 14:23:07 by llopez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ corewar_SRC	:=	op.c \
 asm_SRC		:=	op.c \
 				asm/interpret.c \
 				asm/main.c \
-				asm/splitwhitespaces.c
+				asm/splitwhitespaces.c \
+				asm/utils.c
 
 include generic_c.mk
