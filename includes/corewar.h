@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/22 20:37:10 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 18:02:47 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		launch(t_vm *vm);
 void		crash(t_process *process, char *str);
 t_vm		*get_vm(t_vm *new_vm);
 void		free_process(t_process *process_list);
+int			check_is_alive(t_vm *vm);
 
 //jac 12032019
 void		op_live(t_process *process, t_args *args);

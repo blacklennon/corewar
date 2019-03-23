@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/20 22:58:29 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 18:04:49 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ static void	init_opcode(t_op *op_tab)
 
 static void	init_process(t_process *process)
 {
-	process->file_path = NULL;
-	process->program_counter = 0;
 	process->carry = 0;
-	process->live_counter = 0;
-	process->do_op = 0;
 	process->next_op = NULL;
-	ft_bzero(process->name, sizeof(process->name));
-	ft_bzero(process->comment, sizeof(process->comment));
+	process->do_op = 0;
 	ft_bzero(process->registers, sizeof(process->registers));
-	process->next = NULL;
+}
+
+static void	init_champion(t_champion *champion)
+{
+	champion->file_path = NULL;
+	champion->live_counter = 0;
+	ft_bzero(champion->name, sizeof(champion->name));
+	ft_bzero(champion->comment, sizeof(champion->comment));
 }
 
 void		init_vm(t_vm *vm)
@@ -61,27 +63,32 @@ void		init_vm(t_vm *vm)
 
 	i = 0;
 	vm->cycle = 0;
-	vm->forked_process = NULL;
+	vm->cycle_to_check = CYCLE_TO_DIE;
+	vm->size_cycle = CYCLE_TO_DIE;
+	vm->last_alive = NULL;
+	vm->process = NULL;
+	vm->nb_check = 0;
 	ft_bzero(vm->memory, sizeof(vm->memory));
 	while (i < MAX_PLAYERS)
-		init_process(&vm->process[i++]);
-	init_opcode(op_tab);
+		init_champion(&vm->champions[i++]);
+	init_opcode(g_op_tab);
 	get_vm(vm);
 }
 
 // TODO protect everything
 void		load_champs(t_vm *vm)
 {
-	t_process	*tmp;
+	t_champion	*tmp_c;
+	t_process	*tmp_p;
 	t_header	header;
 	int			fd;
 	int			i;
 
 	i = 0;
-	while (i < MAX_PLAYERS && (tmp = &(vm->process[i++]))->file_path != NULL)
+	while (i < MAX_PLAYERS && (tmp_c = &(vm->champions[i++]))->file_path != NULL)
 	{
 		errno = 0;
-		if ((fd = open(tmp->file_path, O_RDONLY)) < 0)
+		if ((fd = open(tmp_c->file_path, O_RDONLY)) < 0)
 		{
 			perror("corewar");
 			exit(EXIT_FAILURE);
@@ -98,11 +105,17 @@ void		load_champs(t_vm *vm)
 			exit(EXIT_FAILURE);
 		}
 		read(fd, &vm->memory[(i - 1) * (MEM_SIZE / vm->nb_champs)], header.prog_size);
-		tmp->program_counter = (i - 1) * (MEM_SIZE / vm->nb_champs);
-		tmp->registers[0] = (int32_t)i;
-		ft_strcpy(tmp->name, (char *)&header.prog_name);
-		ft_strcpy(tmp->comment, (char *)&header.comment);
+		if ((tmp_p = (t_process*)malloc(sizeof(t_process))) == NULL)
+			crash(NULL, "failed to malloc process :(");
+		init_process(tmp_p);
+		tmp_p->champion = tmp_c;
+		tmp_p->program_counter = (i - 1) * (MEM_SIZE / vm->nb_champs);
+		tmp_p->registers[0] = (int32_t)i;
+		tmp_p->next = vm->process;
+		vm->process = tmp_p;
+		ft_strcpy(tmp_c->name, (char *)&header.prog_name);
+		ft_strcpy(tmp_c->comment, (char *)&header.comment);
 		close(fd);
-		ft_printf(" \e[%dm=== CHAMP %d ===\e[0m\n     name: %s\n  comment: %s\nprog_size: %d\n\n", 31 + i, i, tmp->name, tmp->comment, header.prog_size);
+		ft_printf(" \e[%dm=== CHAMP %d ===\e[0m\n     name: %s\n  comment: %s\nprog_size: %d\n\n", 31 + i, i, tmp_c->name, tmp_c->comment, header.prog_size);
 	}
 }

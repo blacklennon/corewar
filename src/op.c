@@ -6,13 +6,13 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:50:33 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/16 17:52:42 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 17:32:59 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-t_op	op_tab[17] =
+t_op	g_op_tab[17] =
 {
 	{NULL, 0, {0}, 0, 0, NULL, 0, 0, NULL},
 	{"live", 1, {T_DIR}, LIVE, 10, "alive", 0, 0, NULL},

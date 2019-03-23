@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/22 19:49:10 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 18:16:03 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,11 @@ static void		read_op(t_process *process, t_vm *vm)
 		process->program_counter++;
 		process->next_op = NULL;
 		process->do_op = vm->cycle + 1;
-		printf("Player (%s), bad opcode: 0x%.2x consumming 1 cycle\n", process->name, op_code);
+		printf("Player (%s), bad opcode: 0x%.2x consumming 1 cycle\n", process->champion->name, op_code);
 		return ;
 	}
-	process->next_op = &op_tab[op_code];
-	process->do_op = vm->cycle + op_tab[op_code].cycles;
+	process->next_op = &g_op_tab[op_code];
+	process->do_op = vm->cycle + g_op_tab[op_code].cycles;
 }
 
 static void		do_op(t_process *process, t_vm *vm)
@@ -139,49 +139,43 @@ static void		do_op(t_process *process, t_vm *vm)
 	op = process->next_op;
 	if (op != NULL)
 	{
-		printf("Process %s doing op %s\n", process->name, op->name);
+		//printf("Process %s doing op %s\n", process->champion->name, op->name);
 		pc = read_args(op, process, &args, vm);
 		op->func(process, &args);
 		if (op->code != ZJMP || process->carry == 0)
 			process->program_counter = pc;
 		if (op->code == FORK || op->code == LFORK)
-			read_op(vm->forked_process, vm);
+			read_op(vm->process, vm);
 	}
 	read_op(process, vm);
 }
 
 void			launch(t_vm *vm)
 {
-	size_t		i;
-	t_process	*fork;
+	t_process	*current_process;
 
-	i = 0;
-	while (i < vm->nb_champs)
+	current_process = vm->process;
+	while (current_process != NULL)
 	{
-		read_op(&vm->process[i], vm);
-		i++;
+		read_op(current_process, vm);
+		current_process = current_process->next;
 	}
 	while (42)
 	{
-		//printf("\ncylce %zu\n", vm->cycle);
-		if (vm->cycle == 100000)
-			break ;
-		fork = vm->forked_process;
-		while (fork != NULL)
+		if (vm->cycle == vm->cycle_to_check)
 		{
-			if (fork->do_op == vm->cycle)
-				do_op(fork, vm);
-			fork = fork->next;
-		}
-		i = vm->nb_champs;
-		while (42)
-		{
-			i--;
-			if (vm->process[i].do_op == vm->cycle)
-				do_op(&vm->process[i], vm);
-			vm->process[i].program_counter %= MEM_SIZE;
-			if (i == 0)
+			if (check_is_alive(vm) == 0)
 				break ;
+			vm->cycle_to_check += vm->size_cycle;
+			printf("CYCLE TO CHECK: %zu\n", vm->cycle_to_check);
+		}
+		current_process = vm->process;
+		while (current_process != NULL)
+		{
+			if (current_process->do_op == vm->cycle)
+				do_op(current_process, vm);
+			current_process->program_counter %= MEM_SIZE;
+			current_process = current_process->next;
 		}
 		vm->cycle++;
 	}

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/22 17:14:00 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 18:00:36 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,19 +122,23 @@ typedef	struct 			s_args
 	t_int_types			value[3];
 }						t_args;
 
-typedef struct			s_process
+typedef struct			s_champion
 {
+	unsigned int		id;
 	char				*file_path;
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
+	size_t				live_counter;
+}						t_champion;
+
+typedef struct			s_process
+{
+	struct s_champion	*champion;
 	uint16_t			program_counter;
 	uint8_t				carry;
-	int32_t				registers[REG_NUMBER]; // c est bien ici qu on doit set les valeurs des registres
-	size_t				live_counter;
-	size_t				live_counter_temp; //j1903 ajout pour cycle // par process ou commun a tous?
-	struct s_op			*next_op;
+	int32_t				registers[REG_NUMBER];
 	size_t				do_op;
-	int					is_alive; //j1903 ajout pour cycle
+	struct s_op			*next_op;
 	struct s_process	*next;
 }						t_process;
 
@@ -142,15 +146,13 @@ typedef struct			s_vm
 {
 	uint8_t				memory[MEM_SIZE];
 	size_t				nb_champs;
-	struct s_process	process[MAX_PLAYERS]; // MAX PLAYERS OU MAX_PLAYERS + nb_fork?
+	struct s_champion	champions[MAX_PLAYERS];
 	size_t				cycle;
+	size_t				cycle_to_check;
+	struct s_champion	*last_alive;
 	int					size_cycle; //j1903 ajout pour cycle
-	size_t				live_counter_temp; //j1903 ajout pour cycle
-	int					someone_is_alive; //j1903 ajout pour cycle
-	int					nb_check; //j1903 ajout pour cycle
-	char				*winner_name;//j1903 ajout pour cycle
-	int					finish_first_cycle;//j1903 ajout pour cycle
-	struct s_process	*forked_process; // Liste chainée, un maillon = un process forks
+	size_t				nb_check; //j1903 ajout pour cycle
+	struct s_process	*process; // Liste chainée, un maillon = un process
 }						t_vm;
 
 typedef struct			s_op
@@ -166,6 +168,6 @@ typedef struct			s_op
 	void				(*func)(t_process*, t_args*);
 }						t_op;
 
-extern t_op				op_tab[17];
+extern t_op				g_op_tab[17];
 
 #endif

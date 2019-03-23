@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/22 20:36:26 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 18:02:07 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,17 @@ static void	parse_flags(int ac, char **av, t_vm *vm)
 	i = 1;
 	while (i <= MAX_PLAYERS && i < ac)
 	{
-		vm->process[i - 1].file_path = av[i];
+		vm->champions[i - 1].file_path = av[i];
 		vm->nb_champs = i++;
 	}
+}
+
+static void	anounce_winner(t_vm *vm)
+{
+	if (vm->last_alive != NULL)
+		printf("And the winner is champion %d, %s\n", vm->last_alive->id, vm->last_alive->name);
+	else
+		printf("Nobody wins\n");
 }
 
 int			main(int ac, char **av)
@@ -38,14 +46,8 @@ int			main(int ac, char **av)
 	parse_flags(ac, av, &vm);
 	load_champs(&vm);
 	launch(&vm);
-	reg_dump(vm.process);
-	mem_dump(vm.memory, MEM_SIZE, 0);
-	// tmp = vm.forked_process;
-	// while (tmp != NULL)
-	// {
-	// 	printf("Forked process: %s\n", tmp->name);
-	// 	tmp = tmp->next;
-	// }
-	free_process(vm.forked_process);
+	anounce_winner(&vm);
+	// mem_dump(vm.memory, MEM_SIZE, 0);
+	free_process(vm.process);
 	return (EXIT_SUCCESS);
 }

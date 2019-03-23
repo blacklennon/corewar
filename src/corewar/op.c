@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/22 17:30:04 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 17:46:11 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void		op_live(t_process *process, t_args *args) // OK
 	arg = args->value[0].u_dir32;
 	if (arg > 0 && arg <= (int)vm->nb_champs)
 	{
-		vm->process[arg - 1].live_counter++;
-		printf("\e[%dmPlayer %d (%s) is alive\e[0m\n", 31 + arg, arg, vm->process[arg - 1].name);
+		vm->champions[arg - 1].live_counter++;
+		vm->last_alive = &vm->champions[arg - 1];
+		printf("\e[%dmPlayer %d (%s) is alive\e[0m\n", 31 + arg, arg, vm->champions[arg - 1].name);
 	}
 	else
 		printf("unknown player %d is alive\n", arg);
@@ -204,8 +205,8 @@ void		op_fork(t_process *process, t_args *args) // OK
 	new_process = fork_process(process);
 	new_process->program_counter = (process->program_counter + args->value[0].u_dir16) % MEM_SIZE;
 	vm = get_vm(NULL);
-	new_process->next = vm->forked_process;
-	vm->forked_process = new_process;
+	new_process->next = vm->process;
+	vm->process = new_process;
 }
 
 void		op_lld(t_process *process, t_args *args) // OK
@@ -251,8 +252,8 @@ void		op_lfork(t_process *process, t_args *args) // OK
 	new_process = fork_process(process);
 	new_process->program_counter = (process->program_counter + args->value[0].u_dir16) % MEM_SIZE;
 	vm = get_vm(NULL);
-	new_process->next = vm->forked_process;
-	vm->forked_process = new_process;
+	new_process->next = vm->process;
+	vm->process = new_process;
 }
 
 void		op_aff(t_process *process, t_args *args) // OK
@@ -260,6 +261,6 @@ void		op_aff(t_process *process, t_args *args) // OK
 	int32_t	value;
 	
 	value = process->registers[args->value[0].u_reg] % 256;
-	printf("Process %s is saying `%c'\n", process->name, value);
+	printf("Process %s is saying `%c'\n", process->champion->name, value);
 	process->carry = (value == 0) ? 1 : 0;
 }

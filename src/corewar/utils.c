@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/22 20:36:20 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 17:29:04 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		reg_dump(t_process *process)
 
 	printf("\n \e[31m=== REGISTERS DUMP ===\e[0m\n");
 	j = 0;
-	printf("\nFor player %s\n", process->name);
+	printf("\nFor player %s\n", process->champion->name);
 	while (j < REG_NUMBER)
 	{
 		printf("r%-2zd: 0x%x\n", j + 1, process->registers[j]);
@@ -81,10 +81,10 @@ void		crash(t_process *process, char *str)
 	t_vm	*vm;
 
 	vm = get_vm(NULL);
-	printf("\n \e[31m=== CRASH error: %s ===\e[0m\n\nProcess: %s\n", str, process->name);
+	printf("\n \e[31;1m=== CRASH error: %s ===\e[0m\n\nChampion: %s\n", str, process->champion->name);
 	reg_dump(process);
 	mem_dump(vm->memory, sizeof(vm->memory), process->program_counter);
-	free_process(vm->forked_process);
+	free_process(vm->process);
 	exit(1);
 }
 
