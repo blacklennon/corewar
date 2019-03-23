@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/23 18:16:03 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/24 00:05:53 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ static void		do_op(t_process *process, t_vm *vm)
 	op = process->next_op;
 	if (op != NULL)
 	{
-		//printf("Process %s doing op %s\n", process->champion->name, op->name);
+		printf("Process %s doing op %s\n", process->champion->name, op->name);
 		pc = read_args(op, process, &args, vm);
 		op->func(process, &args);
 		if (op->code != ZJMP || process->carry == 0)
@@ -162,12 +162,13 @@ void			launch(t_vm *vm)
 	}
 	while (42)
 	{
+		//printf("Cycle to die: %d\n", vm->size_cycle);
 		if (vm->cycle == vm->cycle_to_check)
 		{
 			if (check_is_alive(vm) == 0)
 				break ;
 			vm->cycle_to_check += vm->size_cycle;
-			printf("CYCLE TO CHECK: %zu\n", vm->cycle_to_check);
+			//printf("CYCLE TO CHECK: %zu\n", vm->cycle_to_check);
 		}
 		current_process = vm->process;
 		while (current_process != NULL)

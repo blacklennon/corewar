@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/23 17:29:04 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/24 00:15:02 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		crash(t_process *process, char *str)
 	t_vm	*vm;
 
 	vm = get_vm(NULL);
-	printf("\n \e[31;1m=== CRASH error: %s ===\e[0m\n\nChampion: %s\n", str, process->champion->name);
+	printf("\n \e[31;1m=== CRASH error: %s ===\e[0m\n\nChampion: %s\nCycle: %zu", str, process->champion->name, get_vm(NULL)->cycle);
 	reg_dump(process);
 	mem_dump(vm->memory, sizeof(vm->memory), process->program_counter);
 	free_process(vm->process);

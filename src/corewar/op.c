@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/23 17:46:11 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/23 23:27:46 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void		op_and(t_process *process, t_args *args) // OK
 	result = args->value[0].u_dir32 & args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	printf("AND: %x & %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
+	//printf("AND: %x & %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
 }
 
 void		op_or(t_process *process, t_args *args) // OK
@@ -115,7 +115,7 @@ void		op_or(t_process *process, t_args *args) // OK
 	result = args->value[0].u_dir32 | args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	printf(" OR: %x | %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
+	//printf(" OR: %x | %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
 }
 
 void		op_xor(t_process *process, t_args *args) // OK
@@ -127,7 +127,7 @@ void		op_xor(t_process *process, t_args *args) // OK
 	result = args->value[0].u_dir32 ^ args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	printf("XOR: %x ^ %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
+	//printf("XOR: %x ^ %x = %x\n", args->value[0].u_dir32, args->value[1].u_dir32, result);
 }
 
 void		op_zjmp(t_process *process, t_args *args) // OK

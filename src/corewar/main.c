@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/23 18:02:07 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/24 00:08:27 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			main(int ac, char **av)
 	load_champs(&vm);
 	launch(&vm);
 	anounce_winner(&vm);
-	// mem_dump(vm.memory, MEM_SIZE, 0);
+	mem_dump(vm.memory, MEM_SIZE, 0);
 	free_process(vm.process);
 	return (EXIT_SUCCESS);
 }
