@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/24 00:05:53 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/24 22:40:38 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ static void		do_op(t_process *process, t_vm *vm)
 	op = process->next_op;
 	if (op != NULL)
 	{
-		printf("Process %s doing op %s\n", process->champion->name, op->name);
+		//printf("Process %s doing op %s\n", process->champion->name, op->name);
 		pc = read_args(op, process, &args, vm);
 		op->func(process, &args);
 		if (op->code != ZJMP || process->carry == 0)

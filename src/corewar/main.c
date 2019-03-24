@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/24 20:14:05 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/24 22:52:53 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ int			main(int ac, char **av)
 {
 	t_vm	vm;
 
-	if (ac < 1)
+	if (ac < 2)
 		return (EXIT_FAILURE);
 	init_vm(&vm);
 	parse_flags(ac, av, &vm);
 	load_champs(&vm);
+	if (vm.process == NULL)
+		return (EXIT_FAILURE);
 	launch(&vm);
 	anounce_winner(&vm);
 	mem_dump(vm.memory, MEM_SIZE, 0);

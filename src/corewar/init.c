@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/24 20:14:51 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/24 22:29:05 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,31 +89,22 @@ void		load_champs(t_vm *vm)
 	{
 		errno = 0;
 		if ((fd = open(tmp_c->file_path, O_RDONLY)) < 0)
-		{
-			perror("corewar");
-			exit(EXIT_FAILURE);
-		}
+			crash(NULL, strerror(errno));
 		read(fd, &header, sizeof(header));
 		if (swap_int32(header.magic) != COREWAR_EXEC_MAGIC)
-		{
-			ft_putstr_fd("corewar: wrong exec format", 2);
-			exit(EXIT_FAILURE);
-		}
+			crash(NULL, "wrong exec format");
 		if ((header.prog_size = swap_int32(header.prog_size)) > CHAMP_MAX_SIZE)
-		{
-			ft_putstr_fd("corewar: champion too big", 2);
-			exit(EXIT_FAILURE);
-		}
+			crash(NULL, "champion too big");
 		read(fd, &vm->memory[(i - 1) * (MEM_SIZE / vm->nb_champs)], header.prog_size);
 		if ((tmp_p = (t_process*)malloc(sizeof(t_process))) == NULL)
 			crash(NULL, "failed to malloc process :(");
 		init_process(tmp_p);
-		tmp_c->id = i;
 		tmp_p->champion = tmp_c;
 		tmp_p->program_counter = (i - 1) * (MEM_SIZE / vm->nb_champs);
 		tmp_p->registers[0] = (int32_t)i;
 		tmp_p->next = vm->process;
 		vm->process = tmp_p;
+		tmp_c->id = i;
 		ft_strcpy(tmp_c->name, (char *)&header.prog_name);
 		ft_strcpy(tmp_c->comment, (char *)&header.comment);
 		close(fd);

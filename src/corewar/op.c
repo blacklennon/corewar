@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/23 23:27:46 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/24 22:42:27 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		op_live(t_process *process, t_args *args) // OK
 	{
 		vm->champions[arg - 1].live_counter++;
 		vm->last_alive = &vm->champions[arg - 1];
-		printf("\e[%dmPlayer %d (%s) is alive\e[0m\n", 31 + arg, arg, vm->champions[arg - 1].name);
+		//printf("\e[%dmPlayer %d (%s) is alive\e[0m\n", 31 + arg, arg, vm->champions[arg - 1].name);
 	}
 	else
 		printf("unknown player %d is alive\n", arg);
@@ -169,13 +169,13 @@ void		op_sti(t_process *process, t_args *args)
 	value_to_store = process->registers[args->value[0].u_reg];
 	get_value_of_arg(process, &args->value[1], &args->type[1], STI);
 	get_value_of_arg(process, &args->value[2], &args->type[2], STI);
-	if (args->type[1] == e_result && args->type[2] != e_result)
+	if (args->type[1] == e_result && args->type[2] == e_dir)
 		address = args->value[1].u_dir32 + args->value[2].u_dir16;
 	else if (args->type[1] == e_result && args->type[2] == e_result)
 		address = args->value[1].u_dir32 + args->value[2].u_dir32;
-	else if (args->type[1] != e_result && args->type[2] != e_result)
+	else if (args->type[1] == e_dir && args->type[2] == e_dir)
 		address = args->value[1].u_dir16 + args->value[2].u_dir16;
-	else if (args->type[1] != e_result && args->type[2] == e_result)
+	else if (args->type[1] == e_dir && args->type[2] == e_result)
 		address = args->value[1].u_dir16 + args->value[2].u_dir32;
 	else
 	{
