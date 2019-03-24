@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/23 18:04:49 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/24 20:14:51 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void		load_champs(t_vm *vm)
 		if ((tmp_p = (t_process*)malloc(sizeof(t_process))) == NULL)
 			crash(NULL, "failed to malloc process :(");
 		init_process(tmp_p);
+		tmp_c->id = i;
 		tmp_p->champion = tmp_c;
 		tmp_p->program_counter = (i - 1) * (MEM_SIZE / vm->nb_champs);
 		tmp_p->registers[0] = (int32_t)i;
