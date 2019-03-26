@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/24 22:52:53 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 15:11:26 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			main(int ac, char **av)
 		return (EXIT_FAILURE);
 	launch(&vm);
 	anounce_winner(&vm);
-	mem_dump(vm.memory, MEM_SIZE, 0);
+	mem_dump(vm.memory, MEM_SIZE, MEM_SIZE + 1);
 	free_process(vm.process);
 	return (EXIT_SUCCESS);
 }

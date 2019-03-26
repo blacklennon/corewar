@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/24 22:42:27 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 15:10:24 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,13 @@
 static void	get_value_of_arg(t_process *process, t_int_types *value, t_int_types_enum *type, int opcode)
 {
 	if (*type == e_reg)
-	{
 		(*value).u_dir32 = process->registers[(*value).u_reg];
-		*type = e_result;
-	}
 	else if (*type == e_ind && (opcode == LLD || opcode == LLDI))// sans restriction d adressage
-	{
 		(*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + (*value).u_ind);
-		*type = e_result;
-	}
 	else if (*type == e_ind)// avec restricition d adressage
-	{
 		(*value).u_dir32 = read4_memory(get_vm(NULL), process->program_counter + ((*value).u_ind) % IDX_MOD);
-		*type = e_result;
-	}
+	if (*type == e_reg || *type == e_ind)
+		(*type) = e_result;
 }//get value of args se trouve dans ld, and, or, xor, ldi, sti, lld, lldi, fork et lfork
 
 void		op_live(t_process *process, t_args *args) // OK
@@ -258,9 +251,9 @@ void		op_lfork(t_process *process, t_args *args) // OK
 
 void		op_aff(t_process *process, t_args *args) // OK
 {
-	int32_t	value;
+	char	value;
 	
-	value = process->registers[args->value[0].u_reg] % 256;
+	value = (char)(process->registers[args->value[0].u_reg] % 256);
 	printf("Process %s is saying `%c'\n", process->champion->name, value);
 	process->carry = (value == 0) ? 1 : 0;
 }
