@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:23:45 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:40:00 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ static void		read_op(t_process *process, t_vm *vm)
 {
 	uint8_t		op_code;
 
+	process->program_counter %= MEM_SIZE;
 	op_code = (uint8_t)read1_memory(vm, process->program_counter);
 	if (op_code < LIVE || op_code > AFF)
 	{
@@ -167,7 +168,6 @@ void			launch(t_vm *vm)
 		{
 			if (current_process->do_op == vm->cycle)
 				do_op(current_process, vm);
-			current_process->program_counter %= MEM_SIZE;
 			current_process = current_process->next;
 		}
 		vm->cycle++;

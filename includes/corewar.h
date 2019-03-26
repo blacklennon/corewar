@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:32:58 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:44:48 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		mem_dump(uint8_t *p, size_t size, size_t octet_highlight);
 void		reg_dump(t_process *process);
 void		load_champs(t_vm *vm);
 int32_t		swap_int32(int32_t value);
-int16_t 	swap_int16(int16_t value);
+int16_t		swap_int16(int16_t value);
 void		launch(t_vm *vm);
 void		crash(t_process *process, char *str);
 t_vm		*get_vm(t_vm *new_vm);
