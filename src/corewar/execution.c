@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:57:52 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 20:22:03 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ static void		read_op(t_process *process, t_vm *vm)
 		process->program_counter++;
 		process->next_op = NULL;
 		process->do_op = vm->cycle + 1;
-		ft_printf("Player (%s), bad opcode: 0x%.2x consumming 1 cycle\n", \
-		process->champion->name, op_code);
 		return ;
 	}
 	process->next_op = &g_op_tab[op_code];
