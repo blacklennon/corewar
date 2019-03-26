@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:22:39 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 20:13:56 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include "libft.h"
 #include "ft_printf.h"
+#include "common.h"
 #include "corewar.h"
 #include "op.h"
 

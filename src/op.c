@@ -6,10 +6,11 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:50:33 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:26:39 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 20:17:13 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
 #include "op.h"
 
 t_op	g_op_tab[17] =

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/26 19:44:23 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 20:18:19 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # define OP_H
 
 # include <stdint.h>
-# include "typedefs/s_process.h"
 
 # define IND_SIZE				2
 # define REG_SIZE				4
@@ -78,26 +77,6 @@ typedef struct			s_header
 	char				comment[COMMENT_LENGTH + 1];
 }						t_header;
 
-typedef enum			e_op_code
-{
-	LIVE = 1,
-	LD = 2,
-	ST = 3,
-	ADD = 4,
-	SUB = 5,
-	AND = 6,
-	OR = 7,
-	XOR = 8,
-	ZJMP = 9,
-	LDI = 10,
-	STI = 11,
-	FORK = 12,
-	LLD = 13,
-	LLDI = 14,
-	LFORK = 15,
-	AFF = 16
-}						t_op_code;
-
 typedef union			u_int_types
 {
 	int8_t				u_reg;
@@ -150,6 +129,26 @@ typedef struct			s_vm
 	struct s_process	*process;
 }						t_vm;
 
+typedef enum			e_op_code
+{
+	LIVE = 1,
+	LD = 2,
+	ST = 3,
+	ADD = 4,
+	SUB = 5,
+	AND = 6,
+	OR = 7,
+	XOR = 8,
+	ZJMP = 9,
+	LDI = 10,
+	STI = 11,
+	FORK = 12,
+	LLD = 13,
+	LLDI = 14,
+	LFORK = 15,
+	AFF = 16
+}						t_op_code;
+
 typedef struct			s_op
 {
 	char				*name;
@@ -160,7 +159,7 @@ typedef struct			s_op
 	char				*description;
 	uint8_t				ocp;
 	uint8_t				little_dir;
-	void				(*func)(t_process*, t_args*);
+	void				(*func)(struct s_process*, struct s_args*);
 }						t_op;
 
 extern t_op				g_op_tab[17];
