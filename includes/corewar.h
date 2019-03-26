@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/23 18:02:47 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:32:58 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ t_vm		*get_vm(t_vm *new_vm);
 void		free_process(t_process *process_list);
 int			check_is_alive(t_vm *vm);
 
-//jac 12032019
+void		get_value_of_arg(t_process *process, t_int_types *value, \
+			t_int_types_enum *type, int opcode);
 void		op_live(t_process *process, t_args *args);
 void		op_ld(t_process *process, t_args *args);
 void		op_st(t_process *process, t_args *args);
