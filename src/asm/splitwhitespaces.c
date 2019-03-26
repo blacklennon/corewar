@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:55:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/22 14:00:10 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/26 12:28:42 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../lib/libft/includes/libft.h"
-#include "../../includes/asm.h"
+#include "asm.h"
 
-static int	sws_count_words(char *txt)
-{
-	int	i;
-	int	count_words;
-
-	count_words = 0;
-	i = -1;
-	while (txt[++i])
-	{
-		if (txt[i] == '#')
-			while (txt[i] && txt[i] != '\n')
-				i++;
-		if (txt[i] && ft_strchr(", \t\n", txt[i]))
-			continue;
-		count_words++;
-		printf("\n\tcount_words = %d\n", count_words);
-		while (!ft_strchr(", \"\t\n", txt[i]))
-		{
-			i++;
-			printf("%c", txt[i]);
-		}
-	}
-	return (count_words);
-}
-
-char		**split_whitespaces(char *txt)
+char	**split_whitespaces(char *txt)
 {
 	char	**table;
 	int		count_words;
@@ -49,23 +24,39 @@ char		**split_whitespaces(char *txt)
 	int		length;
 
 	length = 0;
-	i = 0;
+	i = -1;
+	count_words = 0;
 	if (!txt)
 		return (NULL);
-	count_words = sws_count_words(txt);
-	table = (char **)malloc(sizeof(char *) * (count_words + 2));
-	count_words = 0;
-	while (i <= (int)ft_strlen(txt))
+	while (txt[++i])
 	{
-		if (txt[i] && txt[i] == '#')
-			while (txt[i] && txt[i] != '\n')
-				i++;
-		if (txt[i] && txt[i] == '"')
+		if (ft_strchr(" \t\n", txt[i]))
+			continue;
+		count_words++;
+		while (!ft_strchr(" \t\n", txt[i + 1]))
+			i++;
+	}
+	table = (char **)malloc(sizeof(char *) * count_words + 2);
+	i = -1;
+	count_words = 0;
+	while (txt[++i])
+	{
+		if (ft_strchr(" \t\n", txt[i]))
 		{
-			
+			if (length)
+			{
+				table[count_words] = (char *)malloc(sizeof(char) * length + 1);
+				ft_strncpy(table[count_words], &txt[i - length], length);
+				table[count_words][length] = 0;
+				printf("%s\n", table[count_words]);
+				length = 0;
+				count_words++;
+			}
+			continue;
 		}
-		i++;
+		length++;
 	}
 	table[count_words] = NULL;
 	return (table);
 }
+

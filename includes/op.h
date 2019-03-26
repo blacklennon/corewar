@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/19 18:43:30 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/26 14:26:55 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,23 @@ typedef enum 			e_op_code
 	LLD		= 13,
 	LLDI	= 14,
 	LFORK	= 15,
-	AFF		= 16
-}						t_op_code;
+	AFF		= 16,
+	REGISTRE	= 17,
+	DIRECT		= 18,
+	INDIRECT	= 19,
+	REG		= 20,
+	LABEL		= 21
+
+}				t_op_code;
+
+typedef struct s_token
+{
+    t_op_code		type;
+    int			valeur;
+    char		*name_of_label;
+    struct s_token	*next;
+    struct s_token	*prev;
+}			t_token;
 
 typedef union			u_int_types
 {

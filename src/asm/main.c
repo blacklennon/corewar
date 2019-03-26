@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/22 14:02:59 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/26 14:33:19 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int		write_in_file(char *path, char **data)
 	int		fd;
 	char		*newpath;
 	uint8_t		tmp[4];
+	t_binary	*table;
 
+	table = NULL;
 	newpath = get_new_path(path);
 	if ((fd = open(newpath, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR)))
 	{
@@ -75,31 +77,42 @@ int		write_in_file(char *path, char **data)
 		write(fd, tmp, 4);
 		write_header(fd, data, NAME_CMD_STRING, PROG_NAME_LENGTH);
 		write_header(fd, data, COMMENT_CMD_STRING, COMMENT_LENGTH);
+		table = interpret(data);
+		print_binary(fd, table);
+		free(table);
 	}
 	return (1);
+}
+
+char		*clean_comments(char *line)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	printf("comment : \t%s\n", line);
+	if (ft_strchr(line, COMMENT_CHAR))
+		tmp = ft_strsub(line, 0, where_is(line, COMMENT_CHAR));
+	if (tmp)
+		free(line);
+	printf("clean comment : %s\n", (tmp) ? tmp : line);
+	return ((tmp) ? tmp : line);
 }
 
 int		main(int argc, char **argv)
 {
 	char	*file;
 	char	**data;
-	uint8_t	binary[1024] = {0};
 	int	i;
 
-	(void)binary;
 	i = 0;
 	file = NULL;
 	if (!check_args(argc, argv))
 		return (EXIT_FAILURE);
 	file = read_file(argv[1]);
 	data = ft_strsplit(file, '\n');
-	while (data[i])
-	{
-		printf("%s\n", data[i]);
-		i++;
-	}
 	write_in_file(argv[1], data);
 	while (data[i])
 		free(data[i++]);
+	usleep(100000);
 	return (EXIT_SUCCESS);
 }
