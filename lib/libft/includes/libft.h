@@ -88,5 +88,7 @@ int					ft_pow(int n, unsigned int pow);
 int					ft_islower(int c);
 int					ft_isupper(int c);
 long				ft_strtol(char const *str, char **endptr, int base);
+long long			ft_atoll(const char *str);
+int 				ft_str_is_number(char *str);
 
 #endif

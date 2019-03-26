@@ -3,18 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 20:18:57 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 23:14:27 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
+# define ERROR_IS_NOT_A_POSITIVE_INTEGER -1
+# define ERROR_IS_NOT_A_VALID_NUMBER -2
+# define ERROR_IS_NOT_A_VALID_VERBOSE_INT -3
+# define ERROR_IS_NOT_A_VALID_OPTION -4
 
 # include <stddef.h>
 # include "op.h"
+# include "libft.h"
+# include "ft_printf.h"
 
 int			main(int ac, char **av);
 void		init_vm(t_vm *vm);
@@ -51,5 +57,11 @@ int16_t		read2_memory(t_vm *vm, size_t index);
 int8_t		read1_memory(t_vm *vm, size_t index);
 void		write4_memory(t_vm *vm, int32_t value, size_t index);
 void		write2_memory(t_vm *vm, int16_t value, size_t index);
+
+/*
+**	Options
+*/
+
+int 		check_options(int ac, char **av, t_vm *vm);
 
 #endif

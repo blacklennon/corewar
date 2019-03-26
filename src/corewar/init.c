@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 20:13:56 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 23:11:01 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void		init_vm(t_vm *vm)
 	vm->last_alive = NULL;
 	vm->process = NULL;
 	vm->nb_check = 0;
+	vm->cycle_limit = 2147483647;
+	vm->nb_options = 0;
+	vm->verbose = 0;
 	ft_bzero(vm->memory, sizeof(vm->memory));
 	while (i < MAX_PLAYERS)
 		init_champion(&vm->champions[i++]);

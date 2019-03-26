@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_str_is_number.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 22:33:31 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/03/26 22:51:29 by jdouniol         ###   ########.fr       */
+/*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
+/*   Updated: 2019/03/26 22:34:28 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strstr(const char *src, const char *to_find)
+int 	ft_str_is_number(char *str)
 {
-	char	*i1;
-	char	*i2;
 
-	if (!*to_find)
-		return ((void *)src);
-	while (*src)
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if (*src == *to_find)
-		{
-			i1 = (void *)src + 1;
-			i2 = (void *)to_find + 1;
-			while (*i1 && *i2 && *i1 == *i2)
-			{
-				++i1;
-				++i2;
-			}
-			if (!*i2)
-				return ((void *)src);
-		}
-		src++;
+		if (str[0] == '-')
+			i++;
+		if (str[i] >= '0' && str[i] <= '9')
+			i++;
+		else
+			return (0);
 	}
-	return (NULL);
+	return (1);
 }

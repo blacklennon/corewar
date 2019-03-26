@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:31:34 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:58:28 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/27 00:41:22 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 #include "libft.h"
 #include "corewar.h"
 
+/*
+**	LDI Reste a commenter, et a appliquer le verbose
+*/
+
 void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 	int32_t	address;
+	t_vm	*vm;
 
+	vm = get_vm(NULL);
 	address = 0;
 	get_value_of_arg(process, &args->value[0], &args->type[0], LDI);
 	get_value_of_arg(process, &args->value[1], &args->type[1], LDI);
@@ -36,13 +42,21 @@ void		op_ldi(t_process *process, t_args *args)
 	process->program_counter + (address % IDX_MOD));
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (value == 0) ? 1 : 0;
+	if (vm->verbose >= 2)
+		ft_printf("Player %d is doing LDI\n", process->champion->id);
 }
+
+/*
+**	STI reste a commenter et a appliquer le verbose
+*/
 
 void		op_sti(t_process *process, t_args *args)
 {
 	int32_t	value_to_store;
 	int32_t	address;
+	t_vm	*vm;
 
+	vm = get_vm(NULL);
 	address = 0;
 	value_to_store = process->registers[args->value[0].u_reg];
 	get_value_of_arg(process, &args->value[1], &args->type[1], STI);
@@ -60,7 +74,14 @@ void		op_sti(t_process *process, t_args *args)
 	write4_memory(get_vm(NULL), value_to_store, \
 	process->program_counter + (address % IDX_MOD));
 	process->carry = (value_to_store == 0) ? 1 : 0;
+	if (vm->verbose >= 2)
+		ft_printf("Player %d is doing STI\n", process->champion->id);
 }
+
+/*
+**	La fonction fork_process nous permet de copier l'ensemble des valeurs
+**	du process copie grace a ft_memcpy, elle est utile pour fork et lfork
+*/
 
 t_process	*fork_process(t_process *process)
 {
@@ -72,6 +93,12 @@ t_process	*fork_process(t_process *process)
 	return (new_process);
 }
 
+/*
+**	La fonction op_fork realise un fork du processus qui l'appelle
+**	et charge ces valeurs a l'adresse envoyee en parametre
+**	avec le modulo IDX_MOD qui en limite la portee
+*/
+
 void		op_fork(t_process *process, t_args *args)
 {
 	t_vm		*vm;
@@ -79,12 +106,20 @@ void		op_fork(t_process *process, t_args *args)
 
 	args->value[0].u_dir16 %= IDX_MOD;
 	new_process = fork_process(process);
-	new_process->program_counter = (process->program_counter \
-	+ args->value[0].u_dir16) % MEM_SIZE;
+	new_process->program_counter = (process->program_counter\
+		+ args->value[0].u_dir16) % MEM_SIZE;
 	vm = get_vm(NULL);
 	new_process->next = vm->process;
 	vm->process = new_process;
+	if (vm->verbose >= 2)
+		ft_printf("Player %d is doing FORK\n", process->champion->id);
 }
+
+/*
+**	La fonction op_lfork realise un fork du processus qui l'appelle
+**	et charge ces valeurs a l'adresse envoyee en parametre
+**	sans le modulo IDX_MOD qui en limiterait la portee
+*/
 
 void		op_lfork(t_process *process, t_args *args)
 {
@@ -97,4 +132,6 @@ void		op_lfork(t_process *process, t_args *args)
 	vm = get_vm(NULL);
 	new_process->next = vm->process;
 	vm->process = new_process;
+	if (vm->verbose >= 2)
+		ft_printf("Player %d is doing LFORK\n", process->champion->id);
 }

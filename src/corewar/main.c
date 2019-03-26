@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 20:21:06 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 22:55:05 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static void	parse_flags(int ac, char **av, t_vm *vm)
 {
 	int		i;
 
-	i = 1;
-	while (i <= MAX_PLAYERS && i < ac)
+	i = 1 + vm->nb_options;
+	while (i <= (MAX_PLAYERS + vm->nb_options) && i < ac)
 	{
-		vm->champions[i - 1].file_path = av[i];
-		vm->nb_champs = i++;
+		vm->champions[i - 1 - vm->nb_options].file_path = av[i];
+		vm->nb_champs = i++ - vm->nb_options;
 	}
 }
 

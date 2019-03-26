@@ -6,12 +6,11 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 22:16:11 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/26 22:59:39 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include "ft_printf.h"
 #include "corewar.h"
 
 static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
@@ -169,5 +168,7 @@ void			launch(t_vm *vm)
 			current_process = current_process->next;
 		}
 		vm->cycle++;
+		if ((int)vm->cycle == vm->cycle_limit)
+			return;
 	}
 }
