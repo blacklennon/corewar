@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   private_ft_printf.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 13:10:13 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/02 19:12:13 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 21:58:29 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include <stdlib.h>
-# include <stdint.h> 
+# include <stdint.h>
 
 typedef struct		s_arg
 {

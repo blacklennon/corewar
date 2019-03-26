@@ -42,6 +42,7 @@ int			main(int ac, char **av)
 	if (ac < 2)
 		return (EXIT_FAILURE);
 	init_vm(&vm);
+	check_options(ac, av, &vm);
 	parse_flags(ac, av, &vm);
 	load_champs(&vm);
 	if (vm.process == NULL)
