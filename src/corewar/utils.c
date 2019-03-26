@@ -6,12 +6,11 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:25:48 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:57:14 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
 #include "ft_printf.h"
@@ -22,35 +21,35 @@ void		mem_dump(uint8_t *p, size_t size, size_t octet_highlight)
 	size_t	i;
 
 	i = 0;
-	printf("\n \e[31m=== MEMORY DUMP ===\e[0m\n\n");
+	ft_printf("\n \e[31m=== MEMORY DUMP ===\e[0m\n\n");
 	while (i < size)
 	{
 		if ((i % 64) == 0)
 		{
 			if (i != 0)
-				printf("\n");
-			printf("0x%.4zx: ", i);
+				ft_printf("\n");
+			ft_printf("0x%.4zx: ", i);
 		}
 		if (i == octet_highlight)
-			printf("\e[31;1m%.2x\e[0m ", *p);
+			ft_printf("\e[31;1m%.2x\e[0m ", *p);
 		else
-			printf("%.2x ", *p);
+			ft_printf("%.2x ", *p);
 		p++;
 		i++;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 void		reg_dump(t_process *process)
 {
 	size_t	i;
 
-	printf("\n \e[31m=== REGISTERS DUMP ===\e[0m\n");
+	ft_printf("\n \e[31m=== REGISTERS DUMP ===\e[0m\n");
 	i = 0;
-	printf("\nFor player %s\n", process->champion->name);
+	ft_printf("\nFor player %s\n", process->champion->name);
 	while (i < REG_NUMBER)
 	{
-		printf("r%-2zd: 0x%x\n", i + 1, process->registers[i]);
+		ft_printf("r%-2zd: 0x%x\n", i + 1, process->registers[i]);
 		i++;
 	}
 }
@@ -85,14 +84,14 @@ void		crash(t_process *process, char *str)
 		str = "Error";
 	if (process != NULL)
 	{
-		printf("\n \e[31;1m=== CRASH error: %s ===\e[0m\n\n"
+		ft_printf("\n \e[31;1m=== CRASH error: %s ===\e[0m\n\n"
 		"Champion: %s\nCycle: %zu", \
 		str, process->champion->name, get_vm(NULL)->cycle);
 		reg_dump(process);
 		mem_dump(vm->memory, sizeof(vm->memory), process->program_counter);
 	}
 	else
-		printf("corewar: %s\n", str);
+		ft_printf("corewar: %s\n", str);
 	free_process(vm->process);
 	exit(EXIT_FAILURE);
 }

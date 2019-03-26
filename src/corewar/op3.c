@@ -6,10 +6,11 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:03 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:37:39 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:58:53 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "corewar.h"
 
 void		op_lldi(t_process *process, t_args *args)
@@ -17,6 +18,7 @@ void		op_lldi(t_process *process, t_args *args)
 	int32_t	value;
 	int32_t	address;
 
+	address = 0;
 	get_value_of_arg(process, &args->value[0], &args->type[0], LLDI);
 	get_value_of_arg(process, &args->value[1], &args->type[1], LLDI);
 	if (args->type[0] == e_result && args->type[1] != e_result)
@@ -28,10 +30,7 @@ void		op_lldi(t_process *process, t_args *args)
 	else if (args->type[0] != e_result && args->type[1] == e_result)
 		address = args->value[0].u_dir16 + args->value[1].u_dir32;
 	else
-	{
-		address = 0;
-		printf("NOOOOOOOOON\n");
-	}
+		crash(process, "This should never been reached op3.c:31");
 	value = read4_memory(get_vm(NULL), process->program_counter + address);
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (value == 0) ? 1 : 0;
@@ -52,6 +51,6 @@ void		op_aff(t_process *process, t_args *args)
 	char	value;
 
 	value = (char)(process->registers[args->value[0].u_reg] % 256);
-	printf("Process %s is saying `%c'\n", process->champion->name, value);
+	ft_printf("Process %s is saying `%c'\n", process->champion->name, value);
 	process->carry = (value == 0) ? 1 : 0;
 }

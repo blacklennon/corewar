@@ -6,13 +6,12 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:21:22 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 20:00:32 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
 #include <stdlib.h>
+#include "ft_printf.h"
 #include "corewar.h"
 
 static void	parse_flags(int ac, char **av, t_vm *vm)
@@ -30,10 +29,10 @@ static void	parse_flags(int ac, char **av, t_vm *vm)
 static void	anounce_winner(t_vm *vm)
 {
 	if (vm->last_alive != NULL)
-		printf("And the winner is champion %d, %s\n", \
+		ft_printf("And the winner is champion %d, %s\n", \
 		vm->last_alive->id, vm->last_alive->name);
 	else
-		printf("Nobody wins\n");
+		ft_printf("Nobody wins\n");
 }
 
 int			main(int ac, char **av)

@@ -6,11 +6,12 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 19:35:43 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:54:46 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "ft_printf.h"
 #include "corewar.h"
 
 void		get_value_of_arg(t_process *process, t_int_types *value, \
@@ -40,11 +41,11 @@ void		op_live(t_process *process, t_args *args)
 	{
 		vm->champions[arg - 1].live_counter++;
 		vm->last_alive = &vm->champions[arg - 1];
-		printf("\e[%dmPlayer %d (%s) is alive\e[0m\n", \
+		ft_printf("\e[%dmPlayer %d (%s) is alive\e[0m\n", \
 		31 + arg, arg, vm->champions[arg - 1].name);
 	}
 	else
-		printf("unknown player %d is alive\n", arg);
+		ft_printf("unknown player %d is alive\n", arg);
 }
 
 void		op_ld(t_process *process, t_args *args)
