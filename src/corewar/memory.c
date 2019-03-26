@@ -6,14 +6,14 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 16:49:53 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/23 23:57:16 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:24:16 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "corewar.h"
 
-int32_t			read4_memory(t_vm *vm, size_t index)
+int32_t		read4_memory(t_vm *vm, size_t index)
 {
 	int32_t		*tmp;
 	uint8_t		tab[4];
@@ -38,7 +38,7 @@ int32_t			read4_memory(t_vm *vm, size_t index)
 	return (swap_int32(*tmp));
 }
 
-int16_t			read2_memory(t_vm *vm, size_t index)
+int16_t		read2_memory(t_vm *vm, size_t index)
 {
 	int16_t		*tmp;
 	uint8_t		tab[2];

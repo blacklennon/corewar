@@ -6,18 +6,15 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/24 22:40:38 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:23:45 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// debug
 #include <stdio.h>
 
 #include <stddef.h>
 #include "corewar.h"
 
-// This function read the OCP, and fill up the arg struct, it return 0 if the
-// current operation has a bad OCP. (the check is done with the op_tab values)
 static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 {
 	uint8_t		mask;
@@ -58,7 +55,7 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 
 	i = 0;
 	pc = process->program_counter + 1;
-	if (op->ocp == 1) // If OCP we parse it and then we read arguments from memory
+	if (op->ocp == 1)
 	{
 		ocp = read1_memory(vm, pc++);
 		if (parse_ocp(op, ocp, args) == 0)
@@ -89,10 +86,8 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 			else
 				crash(process, "wtf this should never be reached, you can go hang yourself");
 			i++;
-			// Don't forget to increment program counter correctly
 		}
 	}
-	// special cases, operations with no OCP
 	else if (op->params[0] == T_DIR && op->little_dir == 1)
 	{
 		args->value[0].u_dir16 = read2_memory(vm, pc);
@@ -139,7 +134,6 @@ static void		do_op(t_process *process, t_vm *vm)
 	op = process->next_op;
 	if (op != NULL)
 	{
-		//printf("Process %s doing op %s\n", process->champion->name, op->name);
 		pc = read_args(op, process, &args, vm);
 		op->func(process, &args);
 		if (op->code != ZJMP || process->carry == 0)
@@ -162,13 +156,11 @@ void			launch(t_vm *vm)
 	}
 	while (42)
 	{
-		//printf("Cycle to die: %d\n", vm->size_cycle);
 		if (vm->cycle == vm->cycle_to_check)
 		{
 			if (check_is_alive(vm) == 0)
 				break ;
 			vm->cycle_to_check += vm->size_cycle;
-			//printf("CYCLE TO CHECK: %zu\n", vm->cycle_to_check);
 		}
 		current_process = vm->process;
 		while (current_process != NULL)

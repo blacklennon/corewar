@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 15:11:26 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:21:22 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	parse_flags(int ac, char **av, t_vm *vm)
 static void	anounce_winner(t_vm *vm)
 {
 	if (vm->last_alive != NULL)
-		printf("And the winner is champion %d, %s\n", vm->last_alive->id, vm->last_alive->name);
+		printf("And the winner is champion %d, %s\n", \
+		vm->last_alive->id, vm->last_alive->name);
 	else
 		printf("Nobody wins\n");
 }

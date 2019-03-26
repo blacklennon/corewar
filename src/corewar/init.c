@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/24 22:29:05 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:22:39 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include "corewar.h"
 #include "op.h"
 
-//jac 12032019
 static void	init_opcode(t_op *op_tab)
 {
 	op_tab[LIVE].func = &op_live;
@@ -75,7 +74,6 @@ void		init_vm(t_vm *vm)
 	get_vm(vm);
 }
 
-// TODO protect everything
 void		load_champs(t_vm *vm)
 {
 	t_champion	*tmp_c;

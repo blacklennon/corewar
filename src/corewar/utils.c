@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 15:13:49 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/26 19:25:48 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void		crash(t_process *process, char *str)
 		str = "Error";
 	if (process != NULL)
 	{
-		printf("\n \e[31;1m=== CRASH error: %s ===\e[0m\n\nChampion: %s\nCycle: %zu", str, process->champion->name, get_vm(NULL)->cycle);
+		printf("\n \e[31;1m=== CRASH error: %s ===\e[0m\n\n"
+		"Champion: %s\nCycle: %zu", \
+		str, process->champion->name, get_vm(NULL)->cycle);
 		reg_dump(process);
 		mem_dump(vm->memory, sizeof(vm->memory), process->program_counter);
 	}
@@ -93,15 +95,4 @@ void		crash(t_process *process, char *str)
 		printf("corewar: %s\n", str);
 	free_process(vm->process);
 	exit(EXIT_FAILURE);
-}
-
-int32_t		swap_int32(int32_t value)
-{
-	value = ((value << 8) & 0xFF00FF00) | ((value >> 8) & 0xFF00FF);
-	return ((value << 16) | ((value >> 16) & 0xFFFF));
-}
-
-int16_t		swap_int16(int16_t value)
-{
-	return ((int16_t)(value << 8) + ((uint16_t)value >> 8));
 }
