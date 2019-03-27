@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_02_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 01:08:25 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/27 16:47:57 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 {
-	uint8_t		mask;
 	uint8_t		tmp;
-	int			i;
+	uint8_t		mask;
+	size_t		i;
 
 	mask = 0xc0;
 	i = 0;
-	while (i < op->nb_params)
+	while (i < MAX_ARGS_NUMBER)
 	{
 		tmp = (ocp & mask) >> ((3 - i) * 2);
 		if (tmp == REG_CODE && (op->params[i] & T_REG) != 0)
@@ -30,14 +30,9 @@ static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 			args->type[i] = e_ind;
 		else if (tmp == DIR_CODE && (op->params[i] & T_DIR) != 0)
 			args->type[i] = e_dir;
+		else if (tmp == 0 && op->params[i] == 0)
+			;
 		else
-			return (0);
-		mask >>= 2;
-		i++;
-	}
-	while (i < MAX_ARGS_NUMBER)
-	{
-		if ((ocp & mask) >> ((3 - i) * 2) != 0)
 			return (0);
 		mask >>= 2;
 		i++;
