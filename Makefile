@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
+#    By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/03/27 18:39:50 by pcarles          ###   ########.fr        #
+#    Updated: 2019/03/27 22:20:49 by jdouniol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ corewar_SRC	:=	op.c \
 				corewar/cw_05d_op3.c \
 				corewar/cw_09a_options.c \
 				corewar/cw_09b_utils.c \
-				corewar/cw_09c_memory.c 
+				corewar/cw_09c_memory.c \
+				corewar/cw_09d_ocp_tools.c
 
 include generic_c.mk

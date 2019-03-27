@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_04_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 18:39:12 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/27 22:32:40 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,29 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 
 	i = 0;
 	pc = process->program_counter + 1;
+	args->false_ocp = 0;
+	args->false_reg = 0;
 	if (op->ocp == 1)
 	{
 		ocp = read1_memory(vm, pc++);
 		if (parse_ocp(op, ocp, args) == 0)
-			crash(process, "bad ocp");
+		{
+			args->false_ocp = 1;
+			ft_printf("bad ocp: %d, going to the next operation.\n", ocp);
+			return (go_to_next_valid_op(vm, pc)); // cf cw_09d_ocp_tools, il retourne l offset de la prochaine operation valide
+			//	crash(process, "bad ocp"); // DEPRECIATED
+		}
 		while (i < op->nb_params)
 		{
 			if (args->type[i] == e_reg)
 			{
 				args->value[i].u_reg = read1_memory(vm, pc++) - 1;
 				if (args->value[i].u_reg < 0 || args->value[i].u_reg >= REG_NUMBER)
-					crash(process, "invalid register");
+				{
+					args->false_reg = 1;
+					ft_printf("bad registrer number: %d, going to the next operation.\n", args->value[i].u_reg);
+				//	crash(process, "invalid register"); // DEPRECIATED
+				}
 			}
 			else if (args->type[i] == e_ind)
 			{
@@ -130,7 +141,8 @@ static void		do_op(t_process *process, t_vm *vm)
 		pc = read_args(op, process, &args, vm);
 		if (vm->verbose >= 2)
 			ft_printf("Player %d is doing %s\n", process->champion->id, op->name);
-		op->func(process, &args);
+		if (!(args.false_ocp) && !(args.false_reg)) // ajout de la condition, les registres et les ocp doivent etre bons pour executer l operation
+			op->func(process, &args);
 		if (op->code != ZJMP || process->carry == 0)
 			process->program_counter = pc;
 		if (op->code == FORK || op->code == LFORK)

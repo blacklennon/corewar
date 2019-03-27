@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/27 17:47:25 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/27 20:16:00 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ typedef	struct			s_args
 {
 	t_int_types_enum	type[3];
 	t_int_types			value[3];
+	int					false_ocp;
+	int					false_reg;
 }						t_args;
 
 typedef struct			s_champion

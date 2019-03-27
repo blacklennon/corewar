@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_09a_options.c                                   :+:      :+:    :+:   */
+/*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/03/27 22:27:32 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/26 23:09:34 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,8 @@ void		ft_options_usage(char *av, int error)
 	else if (error == ERROR_IS_NOT_A_VALID_OPTION)
 		ft_printf("Please put a valid option (-dump + int or -n + int) \
 			not :%s\n", av);
-	else if (error == ERROR_IS_NOT_A_VALID_VERBOSE_INT)
-		ft_printf("For Verbose (-v) you can only put option 1 (show only live\
-			), 2 (show all op), 3 (show all op and values)");
 }
 
-int			ft_verbose(char *av, t_vm *vm)
-{
-	long long	tmp;
-
-	if (ft_str_is_number(av))
-	{
-		if (ft_strlen(av) < 12)
-		{
-			tmp = ft_atoll(av);
-			if (tmp >= 1 && tmp <= 3)
-			{
-				if (tmp == 1)
-					vm->verbose = 1;
-				if (tmp == 2)
-					vm->verbose = 2;
-				if (tmp == 3)
-					vm->verbose = 3;
-				vm->nb_options += 2;
-			}
-		}
-		else
-			ft_options_usage(av, ERROR_IS_NOT_A_VALID_VERBOSE_INT);
-	}
-	else
-		ft_options_usage(av, ERROR_IS_NOT_A_VALID_NUMBER);
-	return (1);
-}
 
 int			ft_attribute_number(char *av, t_vm *vm)
 {
@@ -64,7 +34,7 @@ int			ft_attribute_number(char *av, t_vm *vm)
 		if (ft_strlen(av) < 12)
 		{
 			tmp = ft_atoll(av);
-			if (tmp >= -2147483648 && tmp <= 2147483647)
+			if (tmp >= 1 && tmp <= 2147483647)
 			{
 				//	ft_set_champion_number(ft_atoi(av), vm);
 				vm->nb_options += 2;
@@ -77,6 +47,7 @@ int			ft_attribute_number(char *av, t_vm *vm)
 		ft_options_usage(av, ERROR_IS_NOT_A_VALID_NUMBER);
 	return (1);
 }
+
 
 int			ft_cycle_dump(char *av, t_vm *vm)
 {
@@ -114,7 +85,9 @@ int			check_options(int ac, char **av, t_vm *vm)
 		else if (ft_strcmp(av[i], "-n") == 0)
 			i++ && ft_attribute_number(av[i], vm);
 		else if (ft_strcmp(av[i], "-v") == 0)
-			i++ && ft_verbose(av	[i], vm);
+		{
+			i++ && ft_verbose(av[i], vm);
+		}
 		else if (ft_strstr(av[i], ".cor"))
 			i++;
 		else
