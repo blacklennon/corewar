@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.c                                               :+:      :+:    :+:   */
+/*   cw_05a_op.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 00:40:08 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:41:24 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,9 @@ void		op_ld(t_process *process, t_args *args)
 	result = args->value[0].u_dir32;
 	process->registers[args->value[1].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
-	{
-		ft_printf("Player N %d is doing LD\n", process->champion->id);
-		if (vm->verbose == 3)
-			ft_printf("Value of LD : %d loaded in reg %d\n",\
-				result, args->value[1].u_reg);
-	}
+	if (vm->verbose == 3)
+		ft_printf("Value of LD : %d loaded in reg %d\n",\
+			result, args->value[1].u_reg);
 }
 
 /*
@@ -104,25 +100,17 @@ void		op_st(t_process *process, t_args *args)
 	{
 		write4_memory(get_vm(NULL), value_to_store,\
 		process->program_counter + (args->value[1].u_ind % IDX_MOD));
-		if (vm->verbose >= 2)
-		{	
-			ft_printf("Player N %d is doing ST\n", process->champion->id);
-			if (vm->verbose == 3)
-				ft_printf("Value of ST : %d loaded in memory at %d\n",\
-					value_to_store, process->program_counter\
-						+ (args->value[1].u_ind % IDX_MOD));
-		}
+		if (vm->verbose == 3)
+			ft_printf("Value of ST : %d loaded in memory at %d\n",\
+				value_to_store, process->program_counter\
+					+ (args->value[1].u_ind % IDX_MOD));
 	}
 	else if (args->type[1] == e_reg)
 	{
 		process->registers[args->value[1].u_reg] = value_to_store;
-		if (vm->verbose >= 2)
-		{
-			ft_printf("Player N %d is doing ST\n", process->champion->id);
-			if (vm->verbose == 3)
-				ft_printf("Value of ST : %d loaded in reg %d\n",\
-					value_to_store, args->value[1].u_reg);
-		}
+		if (vm->verbose == 3)
+			ft_printf("Value of ST : %d loaded in reg %d\n",\
+				value_to_store, args->value[1].u_reg);
 	}
 	process->carry = (value_to_store == 0) ? 1 : 0;
 }
@@ -143,14 +131,10 @@ void		op_add(t_process *process, t_args *args)
 		+ process->registers[args->value[1].u_reg];
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
+	if (vm->verbose == 3)
 	{
-		ft_printf("Player N %d is doing ADD\n", process->champion->id);
-		if (vm->verbose == 3)
-		{
-			ft_printf("Value is %d, (%d + %d), stored in reg %d\n", result,\
-				process->registers[args->value[0].u_reg],\
-				process->registers[args->value[1].u_reg], args->value[2].u_reg);
-		}
+		ft_printf("Value is %d, (%d + %d), stored in reg %d\n", result,\
+			process->registers[args->value[0].u_reg],\
+			process->registers[args->value[1].u_reg], args->value[2].u_reg);
 	}
 }

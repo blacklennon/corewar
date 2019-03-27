@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op1.c                                              :+:      :+:    :+:   */
+/*   cw_05b_op1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:30:17 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 00:29:38 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:42:23 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,11 @@ void		op_sub(t_process *process, t_args *args)
 		- process->registers[args->value[1].u_reg];
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
+	if (vm->verbose == 3)
 	{
-		ft_printf("Player N %d is doing SUB\n", process->champion->id);
-		if (vm->verbose == 3)
-		{
-			ft_printf("Value is %d, (%d - %d), stored in reg %d\n", result,\
-				process->registers[args->value[0].u_reg],\
-				process->registers[args->value[1].u_reg], args->value[2].u_reg);
-		}
+		ft_printf("Value is %d, (%d - %d), stored in reg %d\n", result,\
+			process->registers[args->value[0].u_reg],\
+			process->registers[args->value[1].u_reg], args->value[2].u_reg);
 	}
 }
 
@@ -57,15 +53,11 @@ void		op_and(t_process *process, t_args *args)
 	result = args->value[0].u_dir32 & args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
+	if (vm->verbose == 3)
 	{
-		ft_printf("Player N %d is doing AND\n", process->champion->id);
-		if (vm->verbose == 3)
-		{
-			ft_printf("Value is %d, (%d & %d), stored in reg %d\n", result,\
-				process->registers[args->value[0].u_reg],\
-				process->registers[args->value[1].u_reg], args->value[2].u_reg);
-		}
+		ft_printf("Value is %d, (%d & %d), stored in reg %d\n", result,\
+			process->registers[args->value[0].u_reg],\
+			process->registers[args->value[1].u_reg], args->value[2].u_reg);
 	}
 }
 
@@ -86,15 +78,11 @@ void		op_or(t_process *process, t_args *args)
 	result = args->value[0].u_dir32 | args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
+	if (vm->verbose == 3)
 	{
-		ft_printf("Player N %d is doing OR\n", process->champion->id);
-		if (vm->verbose == 3)
-		{
-			ft_printf("Value is %d, (%d | %d), stored in reg %d\n", result,\
-				process->registers[args->value[0].u_reg],\
-				process->registers[args->value[1].u_reg], args->value[2].u_reg);
-		}
+		ft_printf("Value is %d, (%d | %d), stored in reg %d\n", result,\
+			process->registers[args->value[0].u_reg],\
+			process->registers[args->value[1].u_reg], args->value[2].u_reg);
 	}
 }
 
@@ -115,15 +103,11 @@ void		op_xor(t_process *process, t_args *args)
 	result = args->value[0].u_dir32 ^ args->value[1].u_dir32;
 	process->registers[args->value[2].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
+	if (vm->verbose == 3)
 	{
-		ft_printf("Player N %d is doing XOR\n", process->champion->id);
-		if (vm->verbose == 3)
-		{
-			ft_printf("Value is %d, (%d ^ %d), stored in reg %d\n", result,\
-				process->registers[args->value[0].u_reg],\
-				process->registers[args->value[1].u_reg], args->value[2].u_reg);
-		}
+		ft_printf("Value is %d, (%d ^ %d), stored in reg %d\n", result,\
+			process->registers[args->value[0].u_reg],\
+			process->registers[args->value[1].u_reg], args->value[2].u_reg);
 	}
 }
 
@@ -139,13 +123,9 @@ void		op_zjmp(t_process *process, t_args *args)
 	vm = get_vm(NULL);
 	if (process->carry == 1)
 		process->program_counter += args->value[0].u_dir16;
-	if (vm->verbose >= 2)
+	if (vm->verbose == 3)
 	{
-		ft_printf("Player N %d is doing ZJMP\n", process->champion->id);
-		if (vm->verbose == 3)
-		{
-			ft_printf("PC is advancing of %d bytes,then new pc is %d\n",\
-				args->value[0].u_dir16, process->program_counter);
-		}
+		ft_printf("PC is advancing of %d bytes,then new pc is %d\n",\
+			args->value[0].u_dir16, process->program_counter);
 	}
 }

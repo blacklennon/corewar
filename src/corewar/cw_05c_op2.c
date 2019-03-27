@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op2.c                                              :+:      :+:    :+:   */
+/*   cw_05c_op2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:31:34 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 00:41:22 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:42:47 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void		op_ldi(t_process *process, t_args *args)
 	process->program_counter + (address % IDX_MOD));
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (value == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
-		ft_printf("Player %d is doing LDI\n", process->champion->id);
 }
 
 /*
@@ -74,8 +72,6 @@ void		op_sti(t_process *process, t_args *args)
 	write4_memory(get_vm(NULL), value_to_store, \
 	process->program_counter + (address % IDX_MOD));
 	process->carry = (value_to_store == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
-		ft_printf("Player %d is doing STI\n", process->champion->id);
 }
 
 /*
@@ -111,8 +107,6 @@ void		op_fork(t_process *process, t_args *args)
 	vm = get_vm(NULL);
 	new_process->next = vm->process;
 	vm->process = new_process;
-	if (vm->verbose >= 2)
-		ft_printf("Player %d is doing FORK\n", process->champion->id);
 }
 
 /*
@@ -132,6 +126,4 @@ void		op_lfork(t_process *process, t_args *args)
 	vm = get_vm(NULL);
 	new_process->next = vm->process;
 	vm->process = new_process;
-	if (vm->verbose >= 2)
-		ft_printf("Player %d is doing LFORK\n", process->champion->id);
 }

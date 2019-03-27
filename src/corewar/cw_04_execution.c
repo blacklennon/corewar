@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_02_execution.c                                  :+:      :+:    :+:   */
+/*   cw_04_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 17:29:05 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/27 18:39:12 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ static void		do_op(t_process *process, t_vm *vm)
 	if (op != NULL)
 	{
 		pc = read_args(op, process, &args, vm);
+		if (vm->verbose >= 2)
+			ft_printf("Player %d is doing %s\n", process->champion->id, op->name);
 		op->func(process, &args);
 		if (op->code != ZJMP || process->carry == 0)
 			process->program_counter = pc;

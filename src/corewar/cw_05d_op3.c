@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op3.c                                              :+:      :+:    :+:   */
+/*   cw_05d_op3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:03 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 01:08:46 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:43:07 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,9 @@ void		op_lld(t_process *process, t_args *args)
 	result = args->value[0].u_dir32;
 	process->registers[args->value[1].u_reg] = result;
 	process->carry = (result == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
-	{
-		ft_printf("Player N %d is doing LLD\n", process->champion->id);
-		if (vm->verbose == 3)
-			ft_printf("Value of LLD : %d loaded in reg %d\n",\
-				result, args->value[1].u_reg);
-	}
+	if (vm->verbose == 3)
+		ft_printf("Value of LLD : %d loaded in reg %d\n",\
+			result, args->value[1].u_reg);
 }
 
 /*
@@ -81,6 +77,4 @@ void		op_aff(t_process *process, t_args *args)
 	value = (char)(process->registers[args->value[0].u_reg] % 256);
 	ft_printf("Process %s is saying `%c'\n", process->champion->name, value);
 	process->carry = (value == 0) ? 1 : 0;
-	if (vm->verbose >= 2)
-		ft_printf("Player N %d is doing AFF\n", process->champion->id);
 }
