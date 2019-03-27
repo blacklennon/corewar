@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 23:14:27 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:24:30 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void		write2_memory(t_vm *vm, int16_t value, size_t index);
 **	Options
 */
 
-int 		check_options(int ac, char **av, t_vm *vm);
+int			check_options(int ac, char **av, t_vm *vm);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/26 23:10:42 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/03/27 17:47:25 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct			s_vm
 	struct s_champion	*last_alive;
 	int					size_cycle;
 	size_t				nb_check;
-	int					cycle_limit;
+	size_t				cycle_limit;
 	int					nb_options;
 	int					verbose;
 	struct s_process	*process;
