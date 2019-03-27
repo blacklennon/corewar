@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 18:41:24 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/27 18:44:00 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void		op_ld(t_process *process, t_args *args)
 void		op_st(t_process *process, t_args *args)
 {
 	int32_t	value_to_store;
-	t_vm 	*vm;
+	t_vm	*vm;
 
 	vm = get_vm(NULL);
 	value_to_store = process->registers[args->value[0].u_reg];
