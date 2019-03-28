@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 18:22:22 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/03/28 18:33:17 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	new_process(t_vm *vm, int id, t_champion *champion)
 
 	if ((new_process = (t_process*)malloc(sizeof(t_process))) == NULL)
 		crash(NULL, "failed to malloc process :(");
-	champion->id = id;
 	new_process->carry = 0;
 	new_process->next_op = NULL;
 	new_process->do_op = 0;
@@ -38,14 +37,18 @@ static void	new_process(t_vm *vm, int id, t_champion *champion)
 	vm->process = new_process;
 }
 
-static void	init_champ(t_champion *champion, char *name, char *comment)
+static void	init_champ(t_champion *champion, int id, char *name, char *comment)
 {
+	champion->id = id;
 	ft_strcpy(champion->name, name);
 	ft_strcpy(champion->comment, comment);
 }
 
-static void	print_champ(t_champion *champion, int id, unsigned int prog_size)
+static void	print_champ(t_champion *champion, unsigned int prog_size)
 {
+	int		id;
+
+	id = champion->id;
 	ft_printf(" \e[%dm=== CHAMP %d ===\e[0m\n     name: %s\n"
 		"  comment: %s\nprog_size: %d\n\n", \
 		31 + id, id, champion->name, champion->comment, prog_size);
@@ -74,8 +77,8 @@ void		load_champs(t_vm *vm)
 			header.prog_size) != (int)header.prog_size)
 			crash(NULL, "bad file size");
 		new_process(vm, i, tmp);
-		init_champ(tmp, header.prog_name, header.comment);
-		print_champ(tmp, i, header.prog_size);
+		init_champ(tmp, i, header.prog_name, header.comment);
+		print_champ(tmp, header.prog_size);
 		close(fd);
 	}
 }
