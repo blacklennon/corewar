@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 10:45:59 by llopez            #+#    #+#             */
-/*   Updated: 2017/11/11 12:17:23 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/29 11:16:14 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,14 @@ char	*ft_strstr(char const *str, char const *search)
 	i = 0;
 	if (!*search)
 		return ((char *)str);
-	while (str[i] != '\0')
+	while (str[i])
 	{
-		if (str[i] == search[b])
-		{
-			while (search[b] == str[i + b])
-			{
-				if (search[b + 1] == '\0')
-					return ((char *)str + i);
-				b++;
-			}
-			b = 0;
-		}
+		b = 0;
+		while (search[b] == str[i + b])
+			b++;
+		if (b == ft_strlen(search))
+			return ((char *)&str[i]);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

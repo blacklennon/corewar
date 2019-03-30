@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/26 14:33:19 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/30 18:42:17 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ void		save_label(char *data, int arg, char *name_of_label);
 int		ft_str_is_number(char *str);
 int		ft_ratoi(char const *s);
 void		addlist_opcode(int type, t_token *token, t_token *token_new);
+char		*ft_strjstr(char const *str, char const *search);
+uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab);
+int32_t		swap_int32(int32_t value);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/26 14:33:19 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/30 18:46:35 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 char	*read_file(char	*path)
 {
-	int		fd;
-	int		i;
+	int	fd;
+	int	i;
 	char	buff[4096];
 	char	*tmp;
 	char	*content;
@@ -64,20 +64,27 @@ int		check_args(int argc, char **argv)
 int		write_in_file(char *path, char **data)
 {
 	int		fd;
-	char		*newpath;
-	uint8_t		tmp[4];
+	char		*tmp;
 	t_binary	*table;
+	t_header	header;
 
 	table = NULL;
-	newpath = get_new_path(path);
-	if ((fd = open(newpath, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR)))
+	tmp = get_new_path(path);
+	if ((fd = open(tmp, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR)))
 	{
-		printf("output file : %s\n", newpath);
-		bytes_conv((uint32_t)COREWAR_EXEC_MAGIC, tmp);
-		write(fd, tmp, 4);
-		write_header(fd, data, NAME_CMD_STRING, PROG_NAME_LENGTH);
-		write_header(fd, data, COMMENT_CMD_STRING, COMMENT_LENGTH);
+		printf("output file : %s\n", tmp);
+		free(tmp);
 		table = interpret(data);
+		header.magic = swap_int32(COREWAR_EXEC_MAGIC);
+		tmp = get_header(data, NAME_CMD_STRING);
+		ft_bzero(header.prog_name, PROG_NAME_LENGTH + 1);
+		ft_bzero(header.comment, COMMENT_LENGTH + 1);
+		ft_strcpy(header.prog_name, tmp);
+		free(tmp);
+		tmp = get_header(data, COMMENT_CMD_STRING);
+		ft_strcpy(header.comment, tmp);
+		header.prog_size = swap_int32(table->size);
+		write(fd, &header, sizeof(header));
 		print_binary(fd, table);
 		free(table);
 	}
@@ -89,12 +96,10 @@ char		*clean_comments(char *line)
 	char	*tmp;
 
 	tmp = NULL;
-	printf("comment : \t%s\n", line);
 	if (ft_strchr(line, COMMENT_CHAR))
 		tmp = ft_strsub(line, 0, where_is(line, COMMENT_CHAR));
 	if (tmp)
 		free(line);
-	printf("clean comment : %s\n", (tmp) ? tmp : line);
 	return ((tmp) ? tmp : line);
 }
 
@@ -110,9 +115,11 @@ int		main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	file = read_file(argv[1]);
 	data = ft_strsplit(file, '\n');
+	while (data[i])
+		clean_comments(data[i++]);
 	write_in_file(argv[1], data);
+	i = 0;
 	while (data[i])
 		free(data[i++]);
-	usleep(100000);
 	return (EXIT_SUCCESS);
 }

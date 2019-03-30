@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/25 23:30:38 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/30 18:24:59 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,39 +64,15 @@ char		*get_header(char **data, char *cmd_string)
 	i = 0;
 	if (!data)
 		return (NULL);
-	while (data[i] && !ft_strstr(cmd_string, data[i]))
+	while (data[i] && !ft_strstr(data[i], cmd_string))
 		i++;
-	if (data[i] && ft_strstr(cmd_string, data[i]))
+	if (data[i] && ft_strstr(data[i], cmd_string))
 	{
 		line = ft_strsub(data[i], (uint32_t)where_is(data[i], '"') + 1,\
 		(size_t)where_is(&data[i][where_is(data[i], '"') + 1], '"'));
 		return (line);
 	}
 	return (NULL);
-}
-
-uint32_t		get_prog_size(char **data)
-{
-	uint32_t	size;
-	int		i;
-	int		b;
-
-	i = 0;
-	size = 0;
-	while (data[i])
-	{
-		b = 1;
-		while (b < 17)
-		{
-			if (ft_strstr(op_tab[b].name, data[i]))
-				size += (op_tab[b].little_dir) ? 2 : 4;
-			b++;
-		}
-		i++;
-	}
-	size *= 4;
-	printf("program size = %u\n", size);
-	return (size);
 }
 
 int		write_header(int fd, char **data, char *cmd_str, int size)
@@ -146,6 +122,64 @@ uint8_t		*add_byte(uint8_t content, t_binary *bin)
 	return (tmp);
 }
 
+uint8_t		param_encode(char **param)
+{
+	int	i;
+	uint8_t	content;
+
+	content = 0x0;
+	i = 0;
+	while (param[i])
+	{
+		content = content << (i+1);
+		printf("reading param |%s|\n", param[i]);
+		if (param[i][0] == DIRECT_CHAR)
+			content |= DIR_CODE;
+		if (ft_isdigit(param[i][0]))
+			content |= IND_CODE;
+		if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
+			content |= REG_CODE;
+		i++;
+	}
+	printf("param encode = %x\n", content);
+	return (content);
+}
+
+uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab)
+{
+	int	i;
+	int	value;
+
+	value = 0;
+	(void)i_op_tab;
+	i = 0;
+	while (param[i])
+	{
+		if (param[i][0] == DIRECT_CHAR)
+		{
+			/*if (param[i][1] == LABEL_CHAR)
+				bin->table = 
+			else*/
+			value = ft_atoi(&param[i][1]);
+			printf("value : %d\n", value);
+			bin->table = add_byte((value & 0xFF000000) >> 24, bin);
+			bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
+			bin->table = add_byte((value & 0x0000FF00) >> 8, bin);
+			bin->table = add_byte((value & 0x000000FF), bin);
+		}
+		if (ft_isdigit(param[i][0]))
+		{
+			value = ft_atoi(param[i]);
+			bin->table = add_byte((value & 0xFF00) >> 8, bin);
+			bin->table = add_byte((value & 0x00FF), bin);
+		}
+		if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
+			bin->table = add_byte((uint8_t)ft_atoi(&param[i][1]), bin);
+		i++;
+	}
+	return (bin->table);
+}
+
 uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin)
 {
 	int	i;
@@ -154,12 +188,10 @@ uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin)
 	char	*tmp;
 
 	i = 0;
-	str = ft_strstr(str, op_tab[i_op_tab].name);
+	str = ft_strjstr(str, op_tab[i_op_tab].name);
 	str += ft_strlen(op_tab[i_op_tab].name) + 1;
-	while (*str && (*str == ' ' || *str == '\t'))
-		str++;
 	clean = ft_strtrim(str);
-	param = ft_strsplit(str, ',');
+	param = ft_strsplit(clean, ',');
 	free(clean);
 	while (param[i])
 	{
@@ -168,24 +200,17 @@ uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin)
 		param[i] = tmp;
 		i++;
 	}
-	if (i > op_tab[i_op_tab])
+	if (i-1 > op_tab[i_op_tab].nb_params)
 	{
-		printf("Too many arguments.\n");
+		i = 0;
+		while (param[i])
+			free(param[i++]);
 		return (bin->table);
 	}
-	i = 0;
-	while (param[i])
-	{
-		if (param[i][0] == DIRECT_CHAR)
-		{
-			bin->table = add_byte(, bin);
-			bin->table = add_byte(, bin);
-			bin->table = add_byte(, bin);
-			bin->table = add_byte(, bin);
-			bin->table = add_byte(, bin);
-		}
-		i++;
-	}
+	if (op_tab[i_op_tab].nb_params > 1)
+		bin->table = add_byte((param_encode(param) << \
+			(8 - op_tab[i_op_tab].nb_params * 2)), bin);
+	bin->table = add_data(param, bin, i_op_tab);
 	i = 0;
 	while (param[i])
 		free(param[i++]);
@@ -213,8 +238,9 @@ t_binary	*interpret(char **data)
 		j = 1;
 		while (j < 17)
 		{
-			if (ft_strstr(data[i], op_tab[j].name))
+			if (ft_strjstr(data[i], op_tab[j].name))
 			{
+				printf("found op_code %s\n", op_tab[j].name);
 				table->table = add_byte(op_tab[j].code, table);
 				table->table = add_param(data[i], j, table);
 			}
@@ -223,4 +249,26 @@ t_binary	*interpret(char **data)
 		i++;
 	}
 	return (table);
+}
+
+char	*ft_strjstr(char const *str, char const *search)
+{
+	int i;
+	int b;
+
+	b = 0;
+	i = 0;
+	if (!*search)
+		return ((char *)str);
+	while (str[i])
+	{
+		b = 0;
+		while (search[b] == str[i + b])
+			b++;
+		if ((size_t)b == ft_strlen(search) && (!i \
+			|| !ft_isalpha(str[i - 1])))
+			return ((char *)&str[i]);
+		i++;
+	}
+	return (NULL);
 }
