@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/30 18:46:35 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/30 19:24:50 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*read_file(char	*path)
 				tmp = ft_strdup(content);
 				if (content)
 					free(content);
-				content = (char *)malloc((i + ft_strlen(tmp) + 1));
+				content = (char *)malloc(i + ft_strlen(tmp) + 1);
 				content = ft_strcpy(content, tmp);
 				content = ft_strcat(content, buff);
 			}

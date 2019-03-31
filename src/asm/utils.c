@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/30 18:24:59 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/31 21:50:26 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab)
 				bin->table = 
 			else*/
 			value = ft_atoi(&param[i][1]);
+			printf("sent to atoi : %s\n", &param[i][1]);
 			printf("value : %d\n", value);
 			bin->table = add_byte((value & 0xFF000000) >> 24, bin);
 			bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
@@ -263,10 +264,11 @@ char	*ft_strjstr(char const *str, char const *search)
 	while (str[i])
 	{
 		b = 0;
-		while (search[b] == str[i + b])
+		while (str[i + b] && search[b] && search[b] == str[i + b])
 			b++;
-		if ((size_t)b == ft_strlen(search) && (!i \
-			|| !ft_isalpha(str[i - 1])))
+		if ((size_t)b == ft_strlen(search) && ((!i\
+			 || !ft_isalpha(str[i - 1]))\
+			 && !ft_isalpha(str[i + b])))
 			return ((char *)&str[i]);
 		i++;
 	}
