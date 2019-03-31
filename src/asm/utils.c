@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/31 21:50:26 by llopez           ###   ########.fr       */
+/*   Updated: 2019/03/31 22:06:46 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,14 +131,23 @@ uint8_t		param_encode(char **param)
 	i = 0;
 	while (param[i])
 	{
-		content = content << (i+1);
+		content = content << i;
 		printf("reading param |%s|\n", param[i]);
 		if (param[i][0] == DIRECT_CHAR)
+		{
+			printf("\t\033[41m%d param : DIRECT\033[0m\n", i+1);	
 			content |= DIR_CODE;
+		}
 		if (ft_isdigit(param[i][0]))
+		{
+			printf("\t\033[41m%d param : INDIRECT\033[0m\n", i+1);	
 			content |= IND_CODE;
+		}
 		if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
+		{
+			printf("\t\033[41m%d param : REGISTER\033[0m\n", i+1);	
 			content |= REG_CODE;
+		}
 		i++;
 	}
 	printf("param encode = %x\n", content);
@@ -162,7 +171,6 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab)
 			else*/
 			value = ft_atoi(&param[i][1]);
 			printf("sent to atoi : %s\n", &param[i][1]);
-			printf("value : %d\n", value);
 			bin->table = add_byte((value & 0xFF000000) >> 24, bin);
 			bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
 			bin->table = add_byte((value & 0x0000FF00) >> 8, bin);
