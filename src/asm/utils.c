@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/31 22:06:46 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/01 13:21:09 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,32 @@ int32_t	swap_int32(int32_t value)
 {
 	value = ((value << 8) & 0xFF00FF00) | ((value >> 8) & 0xFF00FF);
 	return ((value << 16) | ((value >> 16) & 0xFFFF));
+}
+
+long		ft_latoi(char const *s)
+{
+	int		flag;
+	long		res;
+
+	flag = 0;
+	res = 0;
+	while ((*s >= 9 && *s <= 13) || *s == ' ')
+		s++;
+	if (*s == '-' || *s == '+')
+	{
+		if (*s == '-')
+			flag = 1;
+		s++;
+	}
+	while (*s <= '9' && *s >= '0')
+	{
+		res *= 10;
+		res += *s - '0';
+		s++;
+	}
+	if (flag)
+		res = -res;
+	return (res);
 }
 
 uint8_t	*bytes_conv(uint32_t content, uint8_t *table)
@@ -131,7 +157,6 @@ uint8_t		param_encode(char **param)
 	i = 0;
 	while (param[i])
 	{
-		content = content << i;
 		printf("reading param |%s|\n", param[i]);
 		if (param[i][0] == DIRECT_CHAR)
 		{
@@ -149,6 +174,8 @@ uint8_t		param_encode(char **param)
 			content |= REG_CODE;
 		}
 		i++;
+		if (param[i])
+			content = content << 2;
 	}
 	printf("param encode = %x\n", content);
 	return (content);
@@ -157,7 +184,7 @@ uint8_t		param_encode(char **param)
 uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab)
 {
 	int	i;
-	int	value;
+	long	value;
 
 	value = 0;
 	(void)i_op_tab;
@@ -170,9 +197,12 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab)
 				bin->table = 
 			else*/
 			value = ft_atoi(&param[i][1]);
-			printf("sent to atoi : %s\n", &param[i][1]);
-			bin->table = add_byte((value & 0xFF000000) >> 24, bin);
-			bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
+			printf("sent to atoi : %s (return %ld (%lx))\n", &param[i][1], value, value);
+			if (value >= 0)
+			{
+				bin->table = add_byte((value & 0xFF000000) >> 24, bin);
+				bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
+			}
 			bin->table = add_byte((value & 0x0000FF00) >> 8, bin);
 			bin->table = add_byte((value & 0x000000FF), bin);
 		}
@@ -249,7 +279,7 @@ t_binary	*interpret(char **data)
 		{
 			if (ft_strjstr(data[i], op_tab[j].name))
 			{
-				printf("found op_code %s\n", op_tab[j].name);
+				printf("found op_code %s (%x)\n", op_tab[j].name, op_tab[j].code);
 				table->table = add_byte(op_tab[j].code, table);
 				table->table = add_param(data[i], j, table);
 			}
