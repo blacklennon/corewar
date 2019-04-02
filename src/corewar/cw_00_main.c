@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cw_00_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/26 22:55:05 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:27:04 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,20 @@
 #include "ft_printf.h"
 #include "corewar.h"
 
-static void	parse_flags(int ac, char **av, t_vm *vm)
+static void	set_nb_champs(t_vm *vm)
 {
-	int		i;
+	int i;
+	int res;
 
-	i = 1 + vm->nb_options;
-	while (i <= (MAX_PLAYERS + vm->nb_options) && i < ac)
+	i = 0;
+	res = 0;
+	while (i < MAX_PLAYERS)
 	{
-		vm->champions[i - 1 - vm->nb_options].file_path = av[i];
-		vm->nb_champs = i++ - vm->nb_options;
+		if (vm->champions[i].file_path != NULL)
+			res++;
+		i++;
 	}
+	vm->nb_champs = res;
 }
 
 static void	anounce_winner(t_vm *vm)
@@ -43,12 +47,16 @@ int			main(int ac, char **av)
 		return (EXIT_FAILURE);
 	init_vm(&vm);
 	check_options(ac, av, &vm);
-	parse_flags(ac, av, &vm);
+	set_nb_champs(&vm);
 	load_champs(&vm);
+	vm.verbose= 3;
 	if (vm.process == NULL)
 		return (EXIT_FAILURE);
+	ft_printf("process:%d\n",vm.process->champion->id);
+	mem_dump(vm.memory, MEM_SIZE, MEM_SIZE + 1);
 	launch(&vm);
 	anounce_winner(&vm);
+	ft_printf("cycle: %d\n",vm.cycle);
 	free_process(vm.process);
 	return (EXIT_SUCCESS);
 }

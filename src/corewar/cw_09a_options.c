@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_09a_options.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/02 18:19:01 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/02 19:05:08 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void		ft_options_usage(char *av, int error)
 	else if (error == ERROR_IS_NOT_A_VALID_VERBOSE_INT)
 		ft_printf("For Verbose (-v) you can only put option 1 (show only live\
 			), 2 (show all op), 3 (show all op and values)");
+	crash(NULL, NULL);
 }
 
 int			ft_verbose(char *av, t_vm *vm)
@@ -55,27 +56,32 @@ int			ft_verbose(char *av, t_vm *vm)
 	return (1);
 }
 
-int			ft_attribute_number(char *av, t_vm *vm)
+int			ft_attribute_number(char **av, int ac, int i, t_vm *vm)
 {
 	long long tmp;
 
-	if (ft_str_is_number(av))
+	if (ft_str_is_number(av[i]))
 	{
-		if (ft_strlen(av) < 12)
+		if (ft_strlen(av[i]) < 12)
 		{
-			tmp = ft_atoll(av);
-			if (tmp >= -2147483648 && tmp <= 2147483647)
+			tmp = ft_atoll(av[i]);
+			if (tmp >= 1 && tmp <= MAX_PLAYERS)
 			{
-				//	ft_set_champion_number(ft_atoi(av), vm);
+				if (i + 1 >= ac)
+					crash(NULL, "missing player after -n option");
+				if (vm->champions[tmp - 1].file_path == NULL)
+					vm->champions[tmp - 1].file_path = av[i + 1];
+				else
+					crash(NULL, "player redefinition");
 				vm->nb_options += 2;
 			}
 		}
 		else
-			ft_options_usage(av, ERROR_IS_NOT_A_POSITIVE_INTEGER);
+			ft_options_usage(av[i], ERROR_IS_NOT_A_POSITIVE_INTEGER);
 	}
 	else
-		ft_options_usage(av, ERROR_IS_NOT_A_VALID_NUMBER);
-	return (1);
+		ft_options_usage(av[i], ERROR_IS_NOT_A_VALID_NUMBER);
+	return (2);
 }
 
 int			ft_cycle_dump(char *av, t_vm *vm)
@@ -102,26 +108,40 @@ int			ft_cycle_dump(char *av, t_vm *vm)
 	return (1);
 }
 
+void		add_player(char *file_path, t_vm *vm)
+{
+	int		i;
+
+	i = 0;
+	while (i < MAX_ARGS_NUMBER)
+	{
+		if (vm->champions[i].file_path == NULL)
+		{
+			vm->champions[i].file_path = file_path;
+			return ;
+		}
+		i++;
+	}
+	crash(NULL, "too many players");
+}
+
 int			check_options(int ac, char **av, t_vm *vm)
 {
 	int i;
 
-	i = 0;
-	while (++i < ac)
+	i = 1;
+	while (i < ac)
 	{
 		if (ft_strcmp(av[i], "-dump") == 0)
-			ft_cycle_dump(av[i + 1], vm);
+			i += ft_cycle_dump(av[i + 1], vm);
 		else if (ft_strcmp(av[i], "-n") == 0)
-			ft_attribute_number(av[i + 1], vm);
+			i += ft_attribute_number(av, ac, i + 1, vm);
 		else if (ft_strcmp(av[i], "-v") == 0)
-			ft_verbose(av[i + 1], vm);
+			i += ft_verbose(av[i + 1], vm);
 		else if (ft_strstr(av[i], ".cor"))
-			;
+			add_player(av[i], vm);
 		else
-		{
 			ft_options_usage(av[i], ERROR_IS_NOT_A_VALID_OPTION);
-			continue ;
-		}
 		i++;
 	}
 	return (i);

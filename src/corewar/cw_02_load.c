@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 17:33:10 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/02 19:10:54 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ void		load_champs(t_vm *vm)
 	int			i;
 
 	i = 0;
-	while (i < MAX_PLAYERS && (tmp = &(vm->champions[i++]))->file_path != NULL)
+	while (i < MAX_PLAYERS && (tmp = &(vm->champions[i++])))
 	{
+		if (tmp->file_path == NULL)
+			continue ;
 		errno = 0;
 		if ((fd = open(tmp->file_path, O_RDONLY)) < 0)
 			crash(NULL, strerror(errno));
