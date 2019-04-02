@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 22:11:57 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/02 03:40:28 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,5 @@ void		write2_memory(t_vm *vm, int16_t value, size_t index);
 */
 
 int			check_options(int ac, char **av, t_vm *vm);
-
-/*
-**	Ocp_tools
-*/
-
-int			ft_is_ocp_of_st(t_vm *vm, int offset);
-int			ft_is_ocp_of_ld(t_vm *vm, int offset);
-int     	ft_is_ocp_of_lld(t_vm *vm, int offset);
-int     	ft_is_ocp_of_sti(t_vm *vm, int offset);
-int			ft_is_ocp_of_ldi_lldi(t_vm *vm, int offset);
-int			ft_is_ocp_of_and_or_xor(t_vm *vm, int offset);
-int			go_to_next_valid_op(t_vm *vm, uint16_t program_counter);
 
 #endif

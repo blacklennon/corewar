@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 22:32:40 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/02 01:56:07 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 		if (parse_ocp(op, ocp, args) == 0)
 		{
 			args->false_ocp = 1;
-			ft_printf("bad ocp: %d, going to the next operation.\n", ocp);
-			return (go_to_next_valid_op(vm, pc)); // cf cw_09d_ocp_tools, il retourne l offset de la prochaine operation valide
+			if (vm->verbose == 3)
+				ft_printf("bad ocp: %d, going to the next operation.\n", ocp);
+			return (pc + 1); // donc un cran apres l ocp
 			//	crash(process, "bad ocp"); // DEPRECIATED
 		}
 		while (i < op->nb_params)
@@ -68,7 +69,9 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 				if (args->value[i].u_reg < 0 || args->value[i].u_reg >= REG_NUMBER)
 				{
 					args->false_reg = 1;
-					ft_printf("bad registrer number: %d, going to the next operation.\n", args->value[i].u_reg);
+					if (vm->verbose == 3)
+						ft_printf("bad registrer number: %d, going to the next operation.\n", args->value[i].u_reg);
+					return (pc + 1); // 
 				//	crash(process, "invalid register"); // DEPRECIATED
 				}
 			}
@@ -141,7 +144,7 @@ static void		do_op(t_process *process, t_vm *vm)
 		pc = read_args(op, process, &args, vm);
 		if (vm->verbose >= 2)
 			ft_printf("Player %d is doing %s\n", process->champion->id, op->name);
-		if (!(args.false_ocp) && !(args.false_reg)) // ajout de la condition, les registres et les ocp doivent etre bons pour executer l operation
+		if (args.false_ocp == 0 && args.false_reg == 0) // ajout de la condition, les registres et les ocp doivent etre bons pour executer l operation
 			op->func(process, &args);
 		if (op->code != ZJMP || process->carry == 0)
 			process->program_counter = pc;
