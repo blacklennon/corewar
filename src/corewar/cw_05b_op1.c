@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_05b_op1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:30:17 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 17:59:46 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/02 18:20:49 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void		op_and(t_process *process, t_args *args)
 	if (vm->verbose == 3)
 	{
 		ft_printf("Value is %d, (%d & %d), stored in reg %d\n", result,\
-			process->registers[args->value[0].u_reg],\
-			process->registers[args->value[1].u_reg], args->value[2].u_reg);
+			args->value[0].u_dir32,\
+			args->value[1].u_dir32, args->value[2].u_reg);
 	}
 }
 
@@ -81,8 +81,8 @@ void		op_or(t_process *process, t_args *args)
 	if (vm->verbose == 3)
 	{
 		ft_printf("Value is %d, (%d | %d), stored in reg %d\n", result,\
-			process->registers[args->value[0].u_reg],\
-			process->registers[args->value[1].u_reg], args->value[2].u_reg);
+			args->value[0].u_dir32,\
+			args->value[1].u_dir32, args->value[2].u_reg);
 	}
 }
 
