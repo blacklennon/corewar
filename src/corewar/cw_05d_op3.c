@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:03 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 18:43:07 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/02 17:26:33 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ void		op_lld(t_process *process, t_args *args)
 void		op_aff(t_process *process, t_args *args)
 {
 	char	value;
-	t_vm	*vm;
 
-	vm = get_vm(NULL);
 	value = (char)(process->registers[args->value[0].u_reg] % 256);
 	ft_printf("Process %s is saying `%c'\n", process->champion->name, value);
 	process->carry = (value == 0) ? 1 : 0;

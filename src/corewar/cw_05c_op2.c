@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:31:34 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 18:42:47 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/02 17:26:18 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void		op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 	int32_t	address;
-	t_vm	*vm;
 
-	vm = get_vm(NULL);
 	address = 0;
 	get_value_of_arg(process, &args->value[0], &args->type[0], LDI);
 	get_value_of_arg(process, &args->value[1], &args->type[1], LDI);
@@ -52,9 +50,7 @@ void		op_sti(t_process *process, t_args *args)
 {
 	int32_t	value_to_store;
 	int32_t	address;
-	t_vm	*vm;
 
-	vm = get_vm(NULL);
 	address = 0;
 	value_to_store = process->registers[args->value[0].u_reg];
 	get_value_of_arg(process, &args->value[1], &args->type[1], STI);

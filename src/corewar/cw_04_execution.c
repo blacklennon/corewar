@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_04_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 01:56:07 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:09:15 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 			args->false_ocp = 1;
 			if (vm->verbose == 3)
 				ft_printf("bad ocp: %d, going to the next operation.\n", ocp);
-			return (pc + 1); // donc un cran apres l ocp
+			return (pc); // donc un cran apres l ocp
 			//	crash(process, "bad ocp"); // DEPRECIATED
 		}
 		while (i < op->nb_params)
@@ -71,7 +71,7 @@ static uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 					args->false_reg = 1;
 					if (vm->verbose == 3)
 						ft_printf("bad registrer number: %d, going to the next operation.\n", args->value[i].u_reg);
-					return (pc + 1); // 
+					return (pc); // 
 				//	crash(process, "invalid register"); // DEPRECIATED
 				}
 			}
@@ -166,6 +166,7 @@ void			launch(t_vm *vm)
 	}
 	while (42)
 	{
+		vm->cycle++;
 		if (vm->cycle == vm->cycle_to_check || vm->cycle == vm->cycle_limit)
 		{
 			if (check_is_alive(vm) == 0 || vm->cycle == vm->cycle_limit)
@@ -179,6 +180,5 @@ void			launch(t_vm *vm)
 				do_op(current_process, vm);
 			current_process = current_process->next;
 		}
-		vm->cycle++;
 	}
 }

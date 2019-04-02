@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/28 18:33:17 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/02 17:33:10 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	print_champ(t_champion *champion, unsigned int prog_size)
 	int		id;
 
 	id = champion->id;
-	ft_printf(" \e[%dm=== CHAMP %d ===\e[0m\n     name: %s\n"
+	ft_printf(" \e[%dm=== CHAMPION %d ===\e[0m\n     name: %s\n"
 		"  comment: %s\nprog_size: %d\n\n", \
 		31 + id, id, champion->name, champion->comment, prog_size);
 }

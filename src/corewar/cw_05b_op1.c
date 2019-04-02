@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:30:17 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/27 18:42:23 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/02 17:59:46 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void		op_xor(t_process *process, t_args *args)
 	if (vm->verbose == 3)
 	{
 		ft_printf("Value is %d, (%d ^ %d), stored in reg %d\n", result,\
-			process->registers[args->value[0].u_reg],\
-			process->registers[args->value[1].u_reg], args->value[2].u_reg);
+			args->value[0].u_dir32,\
+			args->value[1].u_dir32, args->value[2].u_reg);
 	}
 }
 
@@ -122,10 +122,12 @@ void		op_zjmp(t_process *process, t_args *args)
 
 	vm = get_vm(NULL);
 	if (process->carry == 1)
-		process->program_counter += args->value[0].u_dir16;
-	if (vm->verbose == 3)
 	{
-		ft_printf("PC is advancing of %d bytes,then new pc is %d\n",\
+		process->program_counter += args->value[0].u_dir16;
+		if (vm->verbose == 3)
+		{
+			ft_printf("PC is advancing of %d bytes,then new pc is %d\n",\
 			args->value[0].u_dir16, process->program_counter);
+		}
 	}
 }
