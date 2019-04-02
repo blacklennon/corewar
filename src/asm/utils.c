@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/01 13:21:09 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/02 11:27:39 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,8 @@ uint8_t		param_encode(char **param)
 			printf("\t\033[41m%d param : DIRECT\033[0m\n", i+1);	
 			content |= DIR_CODE;
 		}
-		if (ft_isdigit(param[i][0]))
+		if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
+					&& ft_isdigit(param[i][1])))
 		{
 			printf("\t\033[41m%d param : INDIRECT\033[0m\n", i+1);	
 			content |= IND_CODE;
@@ -198,7 +199,7 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab)
 			else*/
 			value = ft_atoi(&param[i][1]);
 			printf("sent to atoi : %s (return %ld (%lx))\n", &param[i][1], value, value);
-			if (value >= 0)
+			if (param[i][0] != '-')
 			{
 				bin->table = add_byte((value & 0xFF000000) >> 24, bin);
 				bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
@@ -206,7 +207,8 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab)
 			bin->table = add_byte((value & 0x0000FF00) >> 8, bin);
 			bin->table = add_byte((value & 0x000000FF), bin);
 		}
-		if (ft_isdigit(param[i][0]))
+		if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
+					&& ft_isdigit(param[i][1])))
 		{
 			value = ft_atoi(param[i]);
 			bin->table = add_byte((value & 0xFF00) >> 8, bin);
