@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_09a_options.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/02 17:29:14 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/02 18:19:01 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,11 @@ int			check_options(int ac, char **av, t_vm *vm)
 	while (++i < ac)
 	{
 		if (ft_strcmp(av[i], "-dump") == 0)
-			ft_cycle_dump(av[i], vm);
+			ft_cycle_dump(av[i + 1], vm);
 		else if (ft_strcmp(av[i], "-n") == 0)
-			ft_attribute_number(av[i], vm);
+			ft_attribute_number(av[i + 1], vm);
 		else if (ft_strcmp(av[i], "-v") == 0)
-			ft_verbose(av	[i], vm);
+			ft_verbose(av[i + 1], vm);
 		else if (ft_strstr(av[i], ".cor"))
 			;
 		else
