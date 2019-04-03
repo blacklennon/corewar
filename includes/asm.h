@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/30 18:42:17 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/03 14:45:28 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,17 @@ int			write_in_file(char *path, char **data);
 t_binary	*interpret(char **data);
 char		*get_header(char **data, char *cmd_string);
 char		*get_new_path(char *path);
-int		write_header(int fd, char **data, char *cmd_str, int size);
 uint32_t	get_prog_size(char **data);
-int		print_binary(int fd, t_binary *bin);
+int			print_binary(int fd, t_binary *bin);
 uint8_t		*add_byte(uint8_t content, t_binary *bin);
-int		where_is(char *str, int c);
-int		lexer(char **data);
-int		tokenisation(int i, char **data, t_token *token,\
-			 t_token *token_new);
-int		is_label(char  *str);
-void		addlist(t_token *token, t_token *token_new, int arg,\
-			 char *data);
+int			where_is(char *str, int c);
 void		save_label(char *data, int arg, char *name_of_label);
-int		ft_str_is_number(char *str);
-int		ft_ratoi(char const *s);
 void		addlist_opcode(int type, t_token *token, t_token *token_new);
 char		*ft_strjstr(char const *str, char const *search);
-uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab);
 int32_t		swap_int32(int32_t value);
+void		replace_by_space(unsigned int i, char *str);
+int			label_pos(char *label, char **data);
+uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data);
+uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data);
 
 #endif

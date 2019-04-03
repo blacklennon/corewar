@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/03/26 15:00:27 by llopez           ###   ########.fr        #
+#    Updated: 2019/04/03 14:52:58 by llopez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ asm_SRC		:=	op.c \
 				asm/interpret.c \
 				asm/main.c \
 				asm/splitwhitespaces.c \
-				asm/utils.c
+				asm/utils.c \
+				asm/label_pos.c \
+				asm/translate.c
 
 include generic_c.mk

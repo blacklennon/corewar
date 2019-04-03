@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/03/30 19:24:50 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/03 16:34:26 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,16 @@ int		write_in_file(char *path, char **data)
 	tmp = get_new_path(path);
 	if ((fd = open(tmp, O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR)))
 	{
-		printf("output file : %s\n", tmp);
+		write(1, "Writing output program to ", 26);
+		write(1, tmp, ft_strlen(tmp));
+		write(1, "\n", 1);
 		free(tmp);
+		printf("filling uint8_t array\n");
 		table = interpret(data);
+		printf("done.\n");
 		header.magic = swap_int32(COREWAR_EXEC_MAGIC);
 		tmp = get_header(data, NAME_CMD_STRING);
-		ft_bzero(header.prog_name, PROG_NAME_LENGTH + 1);
+		ft_bzero(header.prog_name, PROG_NAME_LENGTH + 2);
 		ft_bzero(header.comment, COMMENT_LENGTH + 1);
 		ft_strcpy(header.prog_name, tmp);
 		free(tmp);
@@ -88,6 +92,8 @@ int		write_in_file(char *path, char **data)
 		print_binary(fd, table);
 		free(table);
 	}
+	else
+		return (0);
 	return (1);
 }
 
@@ -108,6 +114,7 @@ int		main(int argc, char **argv)
 	char	*file;
 	char	**data;
 	int	i;
+	char	*tmp;
 
 	i = 0;
 	file = NULL;
@@ -116,10 +123,17 @@ int		main(int argc, char **argv)
 	file = read_file(argv[1]);
 	data = ft_strsplit(file, '\n');
 	while (data[i])
-		clean_comments(data[i++]);
+	{
+		data[i] = clean_comments(data[i]);
+		tmp = ft_strtrim(data[i]);
+		free(data[i]);
+		data[i] = tmp;
+		i++;
+	}
 	write_in_file(argv[1], data);
 	i = 0;
 	while (data[i])
 		free(data[i++]);
+	free(file);
 	return (EXIT_SUCCESS);
 }
