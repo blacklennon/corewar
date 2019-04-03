@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/03/27 20:16:00 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:37:21 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ typedef struct			s_vm
 	int					size_cycle;
 	size_t				nb_check;
 	size_t				cycle_limit;
-	int					nb_options;
 	int					verbose;
 	struct s_process	*process;
 }						t_vm;

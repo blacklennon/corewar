@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 15:53:34 by pcarles           #+#    #+#             */
-/*   Updated: 2018/11/30 10:40:16 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/03 16:34:55 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void				ft_putnstr(char const *s, int len);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
 int					ft_atoi(char const *s);
+long				ft_atol(char const *s);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);

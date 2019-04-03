@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 19:27:04 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/03 18:07:29 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ static void	set_nb_champs(t_vm *vm)
 	while (i < MAX_PLAYERS)
 	{
 		if (vm->champions[i].file_path != NULL)
-			res++;
+			vm->champions[i].id = ++res;
+		else
+			break ;
 		i++;
 	}
 	vm->nb_champs = res;
@@ -37,26 +39,25 @@ static void	anounce_winner(t_vm *vm)
 		vm->last_alive->id, vm->last_alive->name);
 	else
 		ft_printf("Nobody wins\n");
+	ft_printf("Game ended at cylce %d\n", vm->cycle);
 }
 
 int			main(int ac, char **av)
 {
 	t_vm	vm;
 
-	if (ac < 2)
-		return (EXIT_FAILURE);
 	init_vm(&vm);
-	check_options(ac, av, &vm);
+	parse_arguments(ac, av, &vm);
 	set_nb_champs(&vm);
+	if (vm.nb_champs < 1)
+		crash(NULL, "not enough players");
 	load_champs(&vm);
-	vm.verbose= 3;
 	if (vm.process == NULL)
 		return (EXIT_FAILURE);
-	ft_printf("process:%d\n",vm.process->champion->id);
-	mem_dump(vm.memory, MEM_SIZE, MEM_SIZE + 1);
 	launch(&vm);
+	if (vm.cycle_limit != 0)
+		mem_dump(vm.memory, MEM_SIZE, MEM_SIZE + 1);
 	anounce_winner(&vm);
-	ft_printf("cycle: %d\n",vm.cycle);
 	free_process(vm.process);
 	return (EXIT_SUCCESS);
 }

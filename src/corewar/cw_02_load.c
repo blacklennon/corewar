@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 19:10:54 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/03 18:12:06 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ static void	new_process(t_vm *vm, int id, t_champion *champion)
 	vm->process = new_process;
 }
 
-static void	init_champ(t_champion *champion, int id, char *name, char *comment)
+static void	init_champ(t_champion *champion, char *name, char *comment)
 {
-	champion->id = id;
 	ft_strcpy(champion->name, name);
 	ft_strcpy(champion->comment, comment);
 }
@@ -62,7 +61,7 @@ void		load_champs(t_vm *vm)
 	int			i;
 
 	i = 0;
-	while (i < MAX_PLAYERS && (tmp = &(vm->champions[i++])))
+	while (i < MAX_PLAYERS && (tmp = &(vm->champions[i++]))->file_path != NULL)
 	{
 		if (tmp->file_path == NULL)
 			continue ;
@@ -75,11 +74,11 @@ void		load_champs(t_vm *vm)
 			crash(NULL, "wrong exec format");
 		if ((header.prog_size = swap_int32(header.prog_size)) > CHAMP_MAX_SIZE)
 			crash(NULL, "champion too big");
-		if (read(fd, &vm->memory[(i - 1) * (MEM_SIZE / vm->nb_champs)], \
+		if (read(fd, &vm->memory[(tmp->id - 1) * (MEM_SIZE / vm->nb_champs)], \
 			header.prog_size) != (int)header.prog_size)
 			crash(NULL, "bad file size");
-		new_process(vm, i, tmp);
-		init_champ(tmp, i, header.prog_name, header.comment);
+		new_process(vm, tmp->id, tmp);
+		init_champ(tmp, header.prog_name, header.comment);
 		print_champ(tmp, header.prog_size);
 		close(fd);
 	}

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/03/28 16:56:54 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/03 18:05:19 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void		init_vm(t_vm *vm)
 	vm->last_alive = NULL;
 	vm->process = NULL;
 	vm->nb_check = 0;
-	vm->cycle_limit = 2147483647;
-	vm->nb_options = 0;
+	vm->cycle_limit = 0;
 	vm->verbose = 0;
 	ft_bzero(vm->memory, sizeof(vm->memory));
 	while (i < MAX_PLAYERS)

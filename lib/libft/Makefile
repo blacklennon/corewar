@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+         #
+#    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 15:41:57 by pcarles           #+#    #+#              #
-#    Updated: 2019/03/26 22:46:53 by jdouniol         ###   ########.fr        #
+#    Updated: 2019/04/03 16:49:13 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ C_FILES		= ft_putchar.c \
 			ft_putendl.c \
 			ft_putnbr.c \
 			ft_atoi.c \
+			ft_atol.c \
 			ft_putchar_fd.c \
 			ft_putstr_fd.c \
 			ft_putendl_fd.c \
