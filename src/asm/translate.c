@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/03 13:20:05 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/04 17:36:34 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ uint8_t		param_encode(char **param)
 	{
 		if (param[i][0] == DIRECT_CHAR)
 			content |= DIR_CODE;
-		if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
+		else if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
 					&& ft_isdigit(param[i][1])))
 			content |= IND_CODE;
-		if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
+		else if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
 			content |= REG_CODE;
 		i++;
 		if (param[i])
@@ -61,8 +61,8 @@ uint8_t		param_encode(char **param)
 
 uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 {
-	int	i;
-	long	value;
+	int		i;
+	int		value;
 
 	value = 0;
 	i = 0;
@@ -71,9 +71,12 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 		if (param[i][0] == DIRECT_CHAR)
 		{
 			if (param[i][1] == LABEL_CHAR)
+			{
 				value = (where_is(&param[i][1], ',') > 0) ?\
-			label_pos(ft_strsub(param[i], 2, where_is(&param[i][1], ',')), data) : \
-			label_pos(ft_strsub(param[i], 2, ft_strlen(param[i])-2), data);
+			label_pos(ft_strsub(param[i], 2, where_is(&param[i][1], ',')), data, bin) : \
+			label_pos(ft_strsub(param[i], 2, ft_strlen(param[i]) - 2), data, bin);
+				printf("\t\033[44m full value : %d \033[0m\n", value - (int)bin->size);
+			}
 			else
 				value = ft_atoi(&param[i][1]);
 			if (!op_tab[i_op_tab].little_dir)

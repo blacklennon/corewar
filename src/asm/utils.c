@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/03 15:01:34 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/04 11:37:21 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,33 +105,6 @@ int		print_binary(int fd, t_binary *bin)
 	return (write(fd, bin->table, bin->size));
 }
 
-t_binary	*interpret(char **data)
-{
-	int		i;
-	int		j;
-	t_binary	*table;
-
-	table = (t_binary *)malloc(sizeof(t_binary));
-	table->size = 0;
-	table->table = NULL;
-	i = 0;
-	while (data[i])
-	{
-		j = 1;
-		while (j < 17)
-		{
-			if (ft_strjstr(data[i], op_tab[j].name))
-			{
-				table->table = add_byte(op_tab[j].code, table);
-				table->table = add_param(data[i], j, table, data);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (table);
-}
-
 char	*ft_strjstr(char const *str, char const *search)
 {
 	int i;
@@ -139,7 +112,7 @@ char	*ft_strjstr(char const *str, char const *search)
 
 	b = 0;
 	i = 0;
-	if (!*search)
+	if (!search)
 		return ((char *)str);
 	while (str && str[i])
 	{

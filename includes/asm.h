@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/03 14:45:28 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/04 12:59:14 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ void		addlist_opcode(int type, t_token *token, t_token *token_new);
 char		*ft_strjstr(char const *str, char const *search);
 int32_t		swap_int32(int32_t value);
 void		replace_by_space(unsigned int i, char *str);
-int			label_pos(char *label, char **data);
+int			label_pos(char *label, char **data, t_binary *bin);
 uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data);
 uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data);
+int			find_op(char *str);
 
 #endif
