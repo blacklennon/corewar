@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 15:53:34 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/03 16:34:55 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/05 20:33:42 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ int					ft_islower(int c);
 int					ft_isupper(int c);
 long				ft_strtol(char const *str, char **endptr, int base);
 long long			ft_atoll(const char *str);
-int 				ft_str_is_number(char *str);
+int					ft_str_is_number(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/03 16:37:21 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/05 22:24:19 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define OP_H
 
 # include <stdint.h>
+# include <stddef.h>
 
 # define IND_SIZE				2
 # define REG_SIZE				4

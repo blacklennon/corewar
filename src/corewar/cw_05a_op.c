@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:21:51 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 19:20:19 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/05 20:34:46 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		op_live(t_process *process, t_args *args)
 	(void)process;
 	vm = get_vm(NULL);
 	arg = args->value[0].u_dir32;
-	if (arg > 0 && arg <= MAX_PLAYERS && vm->champions[arg - 1].file_path != NULL)
+	if (arg > 0 && arg <= MAX_PLAYERS \
+		&& vm->champions[arg - 1].file_path != NULL)
 	{
 		vm->champions[arg - 1].live_counter++;
 		vm->last_alive = &vm->champions[arg - 1];

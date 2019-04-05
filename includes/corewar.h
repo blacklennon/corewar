@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/03 16:47:40 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/05 20:54:37 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int			check_is_alive(t_vm *vm);
 
 void		get_value_of_arg(t_process *process, t_int_types *value, \
 			t_int_types_enum *type, int opcode);
+uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm);
 void		op_live(t_process *process, t_args *args);
 void		op_ld(t_process *process, t_args *args);
 void		op_st(t_process *process, t_args *args);
