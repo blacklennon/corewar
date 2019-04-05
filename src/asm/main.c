@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/05 15:17:19 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/05 17:00:34 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int		write_in_file(char *path, char **data)
 	if (name)
 	{
 		table = interpret(data);
-		header.magic = swap_int32(COREWAR_EXEC_MAGIC);
 		tmp = get_header(data, NAME_CMD_STRING);
 		ft_bzero(&header.magic, sizeof(header));
+		header.magic = swap_int32(COREWAR_EXEC_MAGIC);
 		ft_strcpy(header.prog_name, tmp);
 		tmp = get_header(data, COMMENT_CMD_STRING);
 		ft_strcpy(header.comment, tmp);

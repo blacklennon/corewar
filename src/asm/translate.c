@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/05 13:52:09 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/05 18:02:58 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 	int		value;
 	size_t	b_bytes;
 
-	b_bytes = bin->size;
+	b_bytes = bin->size - op_tab[i_op_tab].ocp;
 	value = 0;
 	i = 0;
 	while (param[i])
@@ -77,8 +77,8 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 				value = (where_is(&param[i][1], ',') > 0) ?\
 			label_pos(ft_strsub(param[i], 2, where_is(&param[i][1], ',')), data) : \
 			label_pos(ft_strsub(param[i], 2, ft_strlen(param[i]) - 2), data);
-				value -= (int)b_bytes-1;
-				printf("\t\033[44m full value : %d \033[0m\n", value);
+				value -= (int)b_bytes;
+				printf("\t\033[44m full value : %d \033[0m (current position %zu o)\n", value, b_bytes);
 			}
 			else
 				value = ft_atoi(&param[i][1]);
