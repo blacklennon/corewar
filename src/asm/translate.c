@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/04 17:36:34 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/05 13:52:09 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 {
 	int		i;
 	int		value;
+	size_t	b_bytes;
 
+	b_bytes = bin->size;
 	value = 0;
 	i = 0;
 	while (param[i])
@@ -73,9 +75,10 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 			if (param[i][1] == LABEL_CHAR)
 			{
 				value = (where_is(&param[i][1], ',') > 0) ?\
-			label_pos(ft_strsub(param[i], 2, where_is(&param[i][1], ',')), data, bin) : \
-			label_pos(ft_strsub(param[i], 2, ft_strlen(param[i]) - 2), data, bin);
-				printf("\t\033[44m full value : %d \033[0m\n", value - (int)bin->size);
+			label_pos(ft_strsub(param[i], 2, where_is(&param[i][1], ',')), data) : \
+			label_pos(ft_strsub(param[i], 2, ft_strlen(param[i]) - 2), data);
+				value -= (int)b_bytes-1;
+				printf("\t\033[44m full value : %d \033[0m\n", value);
 			}
 			else
 				value = ft_atoi(&param[i][1]);

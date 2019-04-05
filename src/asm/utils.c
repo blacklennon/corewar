@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/04 11:37:21 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/05 15:15:15 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	*get_new_path(char *path)
 	i = ft_strlen(path);
 	while (path[i] != '.')
 		i--;
+	if (!ft_strstr(&path[i], ".s"))
+		return (NULL);
 	newpath = malloc(sizeof(char) * (i + 5));
 	ft_strncpy(newpath, path, i);
 	newpath[i] = 0;

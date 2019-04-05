@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:51:35 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/04 13:30:13 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/05 15:09:39 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ size_t	param_size(char *str)
 		str++;
 	while (str[i])
 	{
-		if (str[0] == DIRECT_CHAR)
+		if (str[i] == DIRECT_CHAR)
 			size += (op_tab[op].little_dir) ? 2 : 4;
 		else if (ft_isdigit(str[i]) || (str[i] == '-'\
 					&& ft_isdigit(str[i])))
@@ -65,28 +65,20 @@ int		find_op(char *str)
 	return (0);
 }
 
-int		label_pos(char *label, char **data, t_binary *bin)
+int		label_pos(char *label, char **data)
 {
 	int		i;
 	size_t	distance;
 
 	distance = 0;
 	i = 0;
-	(void)bin;
 	while (data[i])
 	{
 		if (where_is(data[i], LABEL_CHAR) >= 0 \
 				&& !ft_strncmp(label, data[i], ft_strlen(label)))
-		{
-			printf("\t\033[41mFOUND LABEL |%s| ! (%zu bytes from start) \033[0m\n", label, distance);
 			break;
-		}
 		if (find_op(data[i]))
-		{
-			printf("%s = %lu o\n", data[i], 1 + op_tab[find_op(data[i])].ocp + param_size(data[i]));
 			distance += 1 + op_tab[find_op(data[i])].ocp + param_size(data[i]);
-		}
-		
 		i++;
 	}
 	return (distance);
