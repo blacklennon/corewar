@@ -23,6 +23,7 @@ t_binary	*interpret(char **data)
 	int		i;
 	int		j;
 	t_binary	*table;
+	size_t		tmp;
 
 	table = (t_binary *)malloc(sizeof(t_binary));
 	table->size = 0;
@@ -35,8 +36,10 @@ t_binary	*interpret(char **data)
 		{
 			if (ft_strjstr(data[i], op_tab[j].name))
 			{
+				tmp = table->size;
 				table->table = add_byte(op_tab[j].code, table);
 				table->table = add_param(data[i], j, table, data);
+				break;
 			}
 			j++;
 		}

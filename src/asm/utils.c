@@ -114,8 +114,8 @@ char	*ft_strjstr(char const *str, char const *search)
 
 	b = 0;
 	i = 0;
-	if (!search)
-		return ((char *)str);
+	if (!search || !str)
+		return (NULL);
 	while (str && str[i])
 	{
 		b = 0;

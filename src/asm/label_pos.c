@@ -37,6 +37,8 @@ size_t	param_size(char *str)
 		str++;
 	while (str[i])
 	{
+		while (str[i] == ' ' || str[i] == '\t')
+			i++;
 		if (str[i] == DIRECT_CHAR)
 			size += (op_tab[op].little_dir) ? 2 : 4;
 		else if (ft_isdigit(str[i]) || (str[i] == '-'\
@@ -65,27 +67,51 @@ int		find_op(char *str)
 	return (0);
 }
 
+int		ft_labelcmp(char *label, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (label[i])
+	{
+		if (str[i] != label[i])
+			return (1);
+		i++;
+	}
+	return (str[i] != LABEL_CHAR);
+}
+
 int		label_pos(char *label, char **data)
 {
 	int		i;
 	size_t	distance;
 
+	int	tmp;
+
 	distance = 0;
 	i = 0;
-	printf("searching %s\n", label);
+	(void)label;
 	while (data[i])
 	{
-		if (where_is(data[i], LABEL_CHAR) >= 0 \
-				&& !ft_strncmp(label, data[i], ft_strlen(label)))
+		if (!ft_labelcmp(label, data[i]))
 			break;
 		if (find_op(data[i]))
 		{
-			printf("%d\n");
+			printf("%x ", op_tab[find_op(data[i])].code);
+			if (op_tab[find_op(data[i])].ocp)
+				printf("0 ");
+			tmp = 0;
+			while (tmp < (int)param_size(data[i]))
+			{
+				printf("0 ");
+				tmp++;
+			}
+			printf("\n");
 			distance += 1 + op_tab[find_op(data[i])].ocp + param_size(data[i]);
 		}
 		i++;
 	}
 	distance++;
-	printf("\t\033[41m position %zu \033[0m\n", distance);
+	//printf("\t\033[41m position %zu \033[0m\n", distance);
 	return (distance);
 }

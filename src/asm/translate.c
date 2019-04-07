@@ -78,7 +78,7 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 			label_pos(ft_strsub(param[i], 2, where_is(&param[i][1], ',')), data) : \
 			label_pos(ft_strsub(param[i], 2, ft_strlen(param[i]) - 2), data);
 				value -= (int)b_bytes;
-				printf("\t\033[44m full value : %d \033[0m (current position %zu o)\n", value, b_bytes);
+				//printf("\t\033[44m full value : %d \033[0m (current position %zu o)\n", value, b_bytes);
 			}
 			else
 				value = ft_atoi(&param[i][1]);
