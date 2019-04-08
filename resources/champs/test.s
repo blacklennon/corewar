@@ -1,5 +1,5 @@
-.name "test mdr iiiiiii"
+.name "test mdr iiiiiiiiiiiiiiiii"
 .comment "just testing"
 
-live %0,9
+live %0
 st r1,13

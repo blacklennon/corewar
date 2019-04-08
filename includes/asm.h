@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/05 13:36:30 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 17:11:35 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int			label_pos(char *label, char **data);
 uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data);
 uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data);
 int			find_op(char *str);
+int			check_file(char *file);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 14:36:19 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 18:28:42 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,19 +103,6 @@ int		write_in_file(char *path, char **data)
 	return ((name)?1:0);
 }
 
-char		*clean_comments(char *line)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (ft_strchr(line, COMMENT_CHAR))
-	{
-		tmp = ft_strsub(line, 0, where_is(line, COMMENT_CHAR));
-		free(line);
-	}
-	return ((tmp) ? tmp : line);
-}
-
 int		main(int argc, char **argv)
 {
 	char	*file;
@@ -128,10 +115,15 @@ int		main(int argc, char **argv)
 	if (!check_args(argc, argv))
 		return (EXIT_FAILURE);
 	file = read_file(argv[1]);
+	if (!check_file(file))
+	{
+		printf("\033[41m\tINVALID FILE\t\033[0m\n");
+		free(file);
+		return (EXIT_FAILURE);
+	}
 	data = ft_strsplit(file, '\n');
 	while (data[i])
 	{
-		data[i] = clean_comments(data[i]);
 		tmp = ft_strtrim(data[i]);
 		free(data[i]);
 		data[i] = tmp;

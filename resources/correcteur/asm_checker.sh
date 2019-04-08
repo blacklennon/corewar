@@ -4,8 +4,6 @@ mkdir -p tests
 rm -rf tests/*.cor
 rm -rf correct/*.cor
 
-$correct_asm_path = ../asm
-
 if [ $# -ne 2 ]
 then
 	printf "asm_checker\tUsage:\n\t\tsh asm_checker [path_to_executable] [path_to_tests_dir]\n";
@@ -17,7 +15,7 @@ else
 	mv $2/*.cor tests/
 	for f in $2/*.s
 	do
-		 $correct_asm_path ${f} >> log
+		../asm ${f} >> log
 	done
 	mv $2/*.cor correct/
 	for f in tests/*.cor
