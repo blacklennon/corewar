@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/05 15:15:15 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:29:44 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include "../../lib/libft/includes/libft.h"
-#include "../../includes/op.h"
-#include "../../includes/asm.h"
-
-int32_t		swap_int32(int32_t value)
-{
-	value = ((value << 8) & 0xFF00FF00) | ((value >> 8) & 0xFF00FF);
-	return ((value << 16) | ((value >> 16) & 0xFFFF));
-}
+#include "libft.h"
+#include "common.h"
+#include "op.h"
+#include "asm.h"
 
 long		ft_latoi(char const *s)
 {

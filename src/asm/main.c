@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 19:04:01 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:29:14 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include "../../lib/libft/includes/libft.h"
-#include "../../includes/op.h"
-#include "../../includes/asm.h"
+#include "libft.h"
+#include "common.h"
+#include "op.h"
+#include "asm.h"
 
 char	*read_file(char	*path)
 {
