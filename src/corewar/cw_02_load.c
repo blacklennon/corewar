@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/03 20:32:23 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/08 20:26:07 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,17 @@ static void	new_process(t_vm *vm, int id, t_champion *champion)
 	vm->process = new_process;
 }
 
-static void	init_champ(t_champion *champion, char *name, char *comment)
+static void	init_champ(t_champion *champion, t_header *header, int fd)
 {
-	ft_strcpy(champion->name, name);
-	ft_strcpy(champion->comment, comment);
-}
+	int id;
 
-static void	print_champ(t_champion *champion, unsigned int prog_size)
-{
-	int		id;
-
+	ft_strcpy(champion->name, header->prog_name);
+	ft_strcpy(champion->comment, header->comment);
 	id = champion->id;
 	ft_printf(" \e[%dm=== CHAMPION %d ===\e[0m\n     name: %s\n"
 		"  comment: %s\nprog_size: %d\n\n", \
-		31 + id, id, champion->name, champion->comment, prog_size);
+		31 + id, id, champion->name, champion->comment, header->prog_size);
+	close(fd);
 }
 
 void		load_champs(t_vm *vm)
@@ -78,8 +75,6 @@ void		load_champs(t_vm *vm)
 			header.prog_size) != (int)header.prog_size)
 			crash(NULL, "bad file size");
 		new_process(vm, tmp->id, tmp);
-		init_champ(tmp, header.prog_name, header.comment);
-		print_champ(tmp, header.prog_size);
-		close(fd);
+		init_champ(tmp, &header, fd);
 	}
 }

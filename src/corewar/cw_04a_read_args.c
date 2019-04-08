@@ -6,14 +6,14 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/05 22:33:18 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/08 20:57:35 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 #include "corewar.h"
 
-static int	parse_ocp(t_op *op, uint8_t ocp, t_args *args)
+static int		parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 {
 	uint8_t		tmp;
 	uint8_t		mask;
@@ -40,7 +40,7 @@ static int	parse_ocp(t_op *op, uint8_t ocp, t_args *args)
 	return (1);
 }
 
-static void	read_reg(t_int_types *arg, t_args *args, uint16_t pc, t_vm *vm)
+static void		read_reg(t_int_types *arg, t_args *args, uint16_t pc, t_vm *vm)
 {
 	uint8_t	reg;
 
@@ -56,56 +56,51 @@ static void	read_reg(t_int_types *arg, t_args *args, uint16_t pc, t_vm *vm)
 		(*arg).u_reg = reg;
 }
 
-static uint16_t	read_mem(t_vm *vm, uint16_t pc, t_int_types_enum type, t_int_types *arg)
+static uint16_t	return_bad_ocp(t_args *args, t_vm *vm, uint16_t pc, uint8_t ocp)
 {
-	if (type == e_ind)
-		*arg;
+	args->false_ocp = 1;
+	if (vm->verbose == 3)
+		ft_printf("bad ocp: %d, going to the next operation.\n", ocp);
+	return (pc);
 }
 
-uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
+static uint16_t	get_params_ocp(uint16_t pc, t_vm *vm, t_op *op, t_args *args)
 {
-	uint8_t		ocp;
-	uint16_t	pc;
-	int			i;
+	uint8_t	ocp;
+	int		i;
 
+	ocp = read1_memory(vm, pc++);
 	i = 0;
+	if (parse_ocp(op, ocp, args) == 0)
+		return (return_bad_ocp(args, vm, pc, ocp));
+	while (i < op->nb_params)
+	{
+		if (args->type[i] == e_reg)
+			read_reg(&args->value[i], args, pc++, vm);
+		else if (args->type[i] == e_ind)
+			args->value[i].u_ind = read2_memory(vm, pc);
+		else if (args->type[i] == e_dir && op->little_dir == 1)
+			args->value[i].u_dir16 = read2_memory(vm, pc);
+		else if (args->type[i] == e_dir && op->little_dir == 0)
+			args->value[i].u_dir32 = read4_memory(vm, pc);
+		else
+			crash(NULL, "wtf this should never be reached");
+		if (args->type[i] != e_reg)
+			pc += (args->type[i] == e_dir && op->little_dir == 0) ? 4 : 2;
+		i++;
+	}
+	return (pc);
+}
+
+uint16_t		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
+{
+	uint16_t	pc;
+
 	pc = process->program_counter + 1;
 	args->false_ocp = 0;
 	args->false_reg = 0;
 	if (op->ocp == 1)
-	{
-		ocp = read1_memory(vm, pc++);
-		if (parse_ocp(op, ocp, args) == 0)
-		{
-			args->false_ocp = 1;
-			if (vm->verbose == 3)
-				ft_printf("bad ocp: %d, going to the next operation.\n", ocp);
-			return (pc);
-		}
-		while (i < op->nb_params)
-		{
-			if (args->type[i] == e_reg)
-				read_reg(&args->value[i], args, pc++, vm);
-			else if (args->type[i] == e_ind)
-			{
-				args->value[i].u_ind = read2_memory(vm, pc);
-				pc += 2;
-			}
-			else if (args->type[i] == e_dir && op->little_dir == 1)
-			{
-				args->value[i].u_dir16 = read2_memory(vm, pc);
-				pc += 2;
-			}
-			else if (args->type[i] == e_dir && op->little_dir == 0)
-			{
-				args->value[i].u_dir32 = read4_memory(vm, pc);
-				pc += 4;
-			}
-			else
-				crash(process, "wtf this should never be reached, you can go hang yourself");
-			i++;
-		}
-	}
+		pc = get_params_ocp(pc, vm, op, args);
 	else if (op->params[0] == T_DIR && op->little_dir == 1)
 	{
 		args->value[0].u_dir16 = read2_memory(vm, pc);
@@ -117,8 +112,8 @@ uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 		pc += 4;
 	}
 	else if (op->params[0] == T_REG)
-		read_reg(&args->value[i], args, pc++, vm);
+		read_reg(&args->value[0], args, pc++, vm);
 	else
-		crash(process, "wtf this should never be reached, you can go hang yourself");
+		crash(process, "wtf this should never be reached");
 	return (pc);
 }

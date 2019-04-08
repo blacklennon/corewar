@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/05 20:55:43 by pcarles          ###   ########.fr        #
+#    Updated: 2019/04/08 22:13:21 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ corewar_SRC	:=	op.c \
 				corewar/cw_02_load.c \
 				corewar/cw_03_cycle.c \
 				corewar/cw_04_execution.c \
-				corewar/read_args.c \
+				corewar/cw_04a_read_args.c \
 				corewar/cw_05a_op.c \
 				corewar/cw_05b_op1.c \
 				corewar/cw_05c_op2.c \
