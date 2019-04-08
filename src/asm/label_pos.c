@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:51:35 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/05 18:43:26 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 13:27:16 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ size_t	param_size(char *str)
 			size += 2;
 		else if (str[i] == 'r')
 			size++;
+		else
+			return (0);
 		while (str[i] && str[i] != ',')
 			i++;
 		i += (str[i] == ',') ? 1 : 0;
@@ -81,37 +83,30 @@ int		ft_labelcmp(char *label, char *str)
 	return (str[i] != LABEL_CHAR);
 }
 
-int		label_pos(char *label, char **data)
+int		label_pos(char *param, char **data)
 {
 	int		i;
 	size_t	distance;
-
-	int	tmp;
+	char	*label;
 
 	distance = 0;
 	i = 0;
-	(void)label;
+	label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 2,\
+		where_is(&param[1], ',')) : ft_strsub(param, 2, ft_strlen(param) - 2);
 	while (data[i])
 	{
 		if (!ft_labelcmp(label, data[i]))
 			break;
 		if (find_op(data[i]))
-		{
-			printf("%x ", op_tab[find_op(data[i])].code);
-			if (op_tab[find_op(data[i])].ocp)
-				printf("0 ");
-			tmp = 0;
-			while (tmp < (int)param_size(data[i]))
-			{
-				printf("0 ");
-				tmp++;
-			}
-			printf("\n");
 			distance += 1 + op_tab[find_op(data[i])].ocp + param_size(data[i]);
+		if (find_op(data[i]) && !param_size(data[i]))
+		{
+			printf("error in param line %d\n", i);
+			return (-1);
 		}
 		i++;
 	}
 	distance++;
-	//printf("\t\033[41m position %zu \033[0m\n", distance);
+	free(label);
 	return (distance);
 }

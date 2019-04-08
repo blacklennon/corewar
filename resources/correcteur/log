@@ -41644,3 +41644,2186 @@ Lexical error at [3:1]
 Writing output program to ../champs/test.cor
 Writing output program to ../champs/test_label.cor
 Writing output program to ../champs/toto.cor
+searching bite
+	[41m position 306 [0m
+	[44m full value : 286 [0m (current position 20 o)
+searching tirb
+	[41m position 158 [0m
+	[44m full value : 135 [0m (current position 23 o)
+searching tirop
+	[41m position 132 [0m
+	[44m full value : 69 [0m (current position 63 o)
+searching top
+	[41m position 453 [0m
+	[44m full value : 377 [0m (current position 76 o)
+searching tirvd
+	[41m position 303 [0m
+	[44m full value : 217 [0m (current position 86 o)
+searching tirf
+	[41m position 58 [0m
+	[44m full value : -71 [0m (current position 129 o)
+searching tirop
+	[41m position 132 [0m
+	[44m full value : -58 [0m (current position 190 o)
+searching tirb
+	[41m position 158 [0m
+	[44m full value : -42 [0m (current position 200 o)
+searching infi
+	[41m position 496 [0m
+	[44m full value : 293 [0m (current position 203 o)
+searching p32deb
+	[41m position 206 [0m
+	[44m full value : -64 [0m (current position 270 o)
+searching tirvd2
+	[41m position 679 [0m
+	[44m full value : 376 [0m (current position 303 o)
+searching copie
+	[41m position 639 [0m
+	[44m full value : 333 [0m (current position 306 o)
+searching copie
+	[41m position 639 [0m
+	[44m full value : 326 [0m (current position 313 o)
+searching entree
+	[41m position 1 [0m
+	[44m full value : -319 [0m (current position 320 o)
+searching copie
+	[41m position 639 [0m
+	[44m full value : 312 [0m (current position 327 o)
+searching entree
+	[41m position 1 [0m
+	[44m full value : -333 [0m (current position 334 o)
+searching p32li
+	[41m position 282 [0m
+	[44m full value : -59 [0m (current position 341 o)
+searching b0
+	[41m position 383 [0m
+	[44m full value : 35 [0m (current position 348 o)
+searching tart
+	[41m position 646 [0m
+	[44m full value : 253 [0m (current position 393 o)
+searching b1
+	[41m position 428 [0m
+	[44m full value : 32 [0m (current position 396 o)
+searching b0
+	[41m position 383 [0m
+	[44m full value : -42 [0m (current position 425 o)
+searching b0
+	[41m position 383 [0m
+	[44m full value : -67 [0m (current position 450 o)
+searching p32deb
+	[41m position 206 [0m
+	[44m full value : -259 [0m (current position 465 o)
+searching p32deb
+	[41m position 206 [0m
+	[44m full value : -273 [0m (current position 479 o)
+searching topd
+	[41m position 682 [0m
+	[44m full value : 189 [0m (current position 493 o)
+searching l0
+	[41m position 573 [0m
+	[44m full value : 77 [0m (current position 496 o)
+searching l1
+	[41m position 578 [0m
+	[44m full value : 75 [0m (current position 503 o)
+searching l2
+	[41m position 583 [0m
+	[44m full value : 73 [0m (current position 510 o)
+searching l3
+	[41m position 588 [0m
+	[44m full value : 71 [0m (current position 517 o)
+searching l4
+	[41m position 593 [0m
+	[44m full value : 69 [0m (current position 524 o)
+searching l5
+	[41m position 598 [0m
+	[44m full value : 67 [0m (current position 531 o)
+searching l6
+	[41m position 603 [0m
+	[44m full value : 65 [0m (current position 538 o)
+searching l7
+	[41m position 608 [0m
+	[44m full value : 63 [0m (current position 545 o)
+searching l8
+	[41m position 613 [0m
+	[44m full value : 61 [0m (current position 552 o)
+searching l9
+	[41m position 618 [0m
+	[44m full value : 59 [0m (current position 559 o)
+searching l10
+	[41m position 623 [0m
+	[44m full value : 57 [0m (current position 566 o)
+searching l0
+	[41m position 573 [0m
+	[44m full value : -55 [0m (current position 628 o)
+searching infi
+	[41m position 496 [0m
+	[44m full value : -135 [0m (current position 631 o)
+searching p64li
+	[41m position 910 [0m
+	[44m full value : 264 [0m (current position 646 o)
+searching p64
+	[41m position 720 [0m
+	[44m full value : 62 [0m (current position 658 o)
+searching p32
+	[41m position 206 [0m
+	[44m full value : -460 [0m (current position 666 o)
+searching infi
+	[41m position 496 [0m
+	[44m full value : -180 [0m (current position 676 o)
+searching tirdow
+	[41m position 925 [0m
+	[44m full value : 246 [0m (current position 679 o)
+searching fin
+	[41m position 994 [0m
+	[44m full value : 305 [0m (current positioWriting output program to ../champs/42.cor
+n 689 o)
+searching fin
+	[41m position 994 [0m
+	[44m full value : 291 [0m (current position 703 o)
+searching infi
+	[41m position 496 [0m
+	[44m full value : -221 [0m (current position 717 o)
+searching cont
+	[41m position 875 [0m
+	[44m full value : 15 [0m (current position 860 o)
+searching p64deb
+	[41m position 720 [0m
+	[44m full value : -174 [0m (current position 894 o)
+searching fin
+	[41m position 994 [0m
+	[44m full value : 43 [0m (current position 951 o)
+searching fin
+	[41m position 994 [0m
+	[44m full value : 37 [0m (current position 957 o)
+searching tirdow
+	[41m position 925 [0m
+	[44m full value : -53 [0m (current position 978 o)
+searching tird
+	[41m position 925 [0m
+	[44m full value : -63 [0m (current position 988 o)
+searching p1
+	[41m position 631 [0m
+	[44m full value : -360 [0m (current position 991 o)
+Writing output program to ../champs/Backward.cor
+searching l1 - :l2
+	[41m position 39 [0m
+	[44m full value : 23 [0m (current position 16 o)
+searching l2
+	[41m position 39 [0m
+	[44m full value : 16 [0m (current position 23 o)
+searching l2 - 100
+	[41m position 39 [0m
+	[44m full value : 10 [0m (current position 29 o)
+searching l1 - 100
+	[41m position 39 [0m
+	[44m full value : -2 [0m (current position 41 o)
+searching l3
+	[41m position 22 [0m
+	[44m full value : -27 [0m (current position 49 o)
+Writing output program to ../champs/Car.cor
+searching label00
+	[41m position 107 [0m
+	[44m full value : 106 [0m (current position 1 o)
+searching label01
+	[41m position 63 [0m
+	[44m full value : 47 [0m (current position 16 o)
+searching label02
+	[41m position 46 [0m
+	[44m full value : 20 [0m (current position 26 o)
+searching label03
+	[41m position 182 [0m
+	[44m full value : 139 [0m (current position 43 o)
+searching label03
+	[41m position 182 [0m
+	[44m full value : 122 [0m (current position 60 o)
+searching label04
+	[41m position 90 [0m
+	[44m full value : 20 [0m (current position 70 o)
+searching label05
+	[41m position 234 [0m
+	[44m full value : 147 [0m (current position 87 o)
+searching label05
+	[41m position 234 [0m
+	[44m full value : 130 [0m (current position 104 o)
+searching label06
+	[41m position 159 [0m
+	[44m full value : 40 [0m (current position 119 o)
+searching label07
+	[41m position 142 [0m
+	[44m full value : 20 [0m (current position 122 o)
+searching label08
+	[41m position 208 [0m
+	[44m full value : 69 [0m (current position 139 o)
+searching label08
+	[41m position 208 [0m
+	[44m full value : 52 [0m (current position 156 o)
+searching label09
+	[41m position 172 [0m
+	[44m full value : 13 [0m (current position 159 o)
+searching label10
+	[41m position 260 [0m
+	[44m full value : 91 [0m (current position 169 o)
+searching label11
+	[41m position 271 [0m
+	[44m full value : 92 [0m (current position 179 o)
+searching label12
+	[41m position 200 [0m
+	[44m full value : 18 [0m (current position 182 o)
+searching label13
+	[41m position 226 [0m
+	[44m full value : 18 [0m (current position 208 o)
+searching label14
+	[41m position 252 [0m
+	[44m full value : 18 [0m (current position 234 o)
+searching label10
+	[41m position 260 [0m
+	[44m full value : -5 [0m (current position 265 o)
+searching label10
+	[41m position 260 [0m
+	[44m full value : -8 [0m (current position 268 o)
+searching label11
+	[41m position 271 [0m
+	[44m full value : -5 [0m (current position 276 o)
+searching label11
+	[41m position 271 [0m
+	[44m full value : -8 [0m (current position 279 o)
+Writing output program to ../champs/Death.cor
+searching f1
+	[41m position 85 [0m
+	[44m full value : 58 [0m (current position 27 o)
+searching golive
+	[41m position 49 [0m
+	[44m full value : 0 [0m (current position 49 o)
+searching loop
+	[41m position 37 [0m
+	[44m full value : -20 [0m (current position 57 o)
+searching nolock
+	[41m position 78 [0m
+	[44m full value : -6 [0m (current position 84 o)
+searching lock
+	[41m position 66 [0m
+	[44m full value : -26 [0m (current position 92 o)
+searching f2
+	[41m position 88 [0m
+	[44m full value : -18 [0m (current position 106 o)
+searching f3
+	[41m position 91 [0m
+	[44m full value : -18 [0m (current position 109 o)
+searching f4
+	[41m position 94 [0m
+	[44m full value : -18 [0m (current position 112 o)
+searching f5
+	[41m position 97 [0m
+	[44m full value : -18 [0m (current position 115 o)
+searching f6
+	[41m position 100 [0m
+	[44m full value : -18 [0m (current position 118 o)
+searching f7
+	[41m position 103 [0m
+	[44m full value : -18 [0m (current position 121 o)
+searching f8
+	[41m position 106 [0m
+	[44m full value : -18 [0m (current position 124 o)
+searching f9
+	[41m position 109 [0m
+	[44m full value : -18 [0m (current position 127 o)
+searching f10
+	[41m position 112 [0m
+	[44m full value : -18 [0m (current position 130 o)
+searching l1
+	[41m position 112 [0m
+	[44m full value : -41 [0m (current position 153 o)
+Writing output program to ../champs/Gagnant.cor
+searching avantdebut
+	[41m position 88 [0m
+	[44m full value : 80 [0m (current position 8 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -74 [0m (current position 88 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -81 [0m (current position 95 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -88 [0m (current position 102 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -95 [0m (current position 109 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -102 [0m (current position 116 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -109 [0m (current position 123 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -155 [0m (current position 163 o)
+searching init
+	[41m position 106 [0m
+	[44m full value : -74 [0m (current position 180 o)
+searching debut
+	[41m position 133 [0m
+	[44m full value : -50 [0m (current position 183 o)
+searching level10
+	[41m position 200 [0m
+	[44m full value : 9 [0m (current position 191 o)
+searching level111
+	[41m position 235 [0m
+	[44m full value : 36 [0m (current position 199 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -193 [0m (current position 207 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -220 [0m (current position 228 o)
+searching level100
+	[41m position 263 [0m
+	[44m full value : 27 [0m (current position 236 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -230 [0m (current position 244 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -257 [0m (current position 265 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -259 [0m (current position 273 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -286 [0m (current position 294 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -288 [0m (current position 302 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -315 [0m (current position 323 o)
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+searching xxx
+	[41m position 19 [0m
+	[44m full value : 6 [0m (current position 13 o)
+searching torp
+	[41m position 412 [0m
+	[44m full value : 396 [0m (current position 16 o)
+searching torp
+	[41m position 412 [0m
+	[44m full value : 388 [0m (current position 24 o)
+searching xxx
+	[41m position 19 [0m
+	[44m full value : -8 [0m (current position 27 o)
+searching zork2
+	[41m position 58 [0m
+	[44m full value : 23 [0m (current position 35 o)
+searching zork3
+	[41m position 86 [0m
+	[44m full value : 23 [0m (current position 63 o)
+searching zork4
+	[41m position 114 [0m
+	[44m full value : 23 [0m (current position 91 o)
+searching zork
+	[41m position 30 [0m
+	[44m full value : -89 [0m (current position 119 o)
+searching back_wall
+	[41m position 142 [0m
+	[44m full value : -267 [0m (current position 409 o)
+searching torp1
+	[41m position 460 [0m
+	[44m full value : 43 [0m (current position 417 o)
+searching torp2
+	[41m position 507 [0m
+	[44m full value : 82 [0m (current position 425 o)
+searching torp3
+	[41m position 553 [0m
+	[44m full value : 120 [0m (current position 433 o)
+searching launch
+	[41m position 595 [0m
+	[44m full value : 138 [0m (current position 457 o)
+searching torp
+	[41m position 412 [0m
+	[44m full value : -53 [0m (current position 465 o)
+searching zork
+	[41m position 30 [0m
+	[44m full value : -443 [0m (current position 473 o)
+searching launch
+	[41m position 595 [0m
+	[44m full value : 91 [0m (current position 504 o)
+searching back_wall
+	[41m position 142 [0m
+	[44m full value : -370 [0m (current position 512 o)
+searching launch
+	[41m position 595 [0m
+	[44m full value : 45 [0m (current position 550 o)
+searching launch
+	[41m position 595 [0m
+	[44m full value : 3 [0m (current position 592 o)
+Writing output program to ../champs/Survivor.cor
+searching f1
+	[41m position 12 [0m
+	[44m full value : 6 [0m (current position 6 o)
+searching j1
+	[41m position 27 [0m
+	[44m full value : 18 [0m (current position 9 o)
+searching run
+	[41m position 27 [0m
+	[44m full value : 1 [0m (current position 26 o)
+searching l1
+	[41m position 30 [0m
+	[44m full value : -14 [0m (current position 44 o)
+Writing output program to ../champs/Torpille.cor
+searching debut2
+	[41m position 66 [0m
+	[44m full value : 60 [0m (current position 6 o)
+searching t2
+	[41m position 123 [0m
+	[44m full value : 102 [0m (current position 21 o)
+searching live1b
+	[41m position 51 [0m
+	[44m full value : 2 [0m (current position 49 o)
+searching live1
+	[41m position 36 [0m
+	[44m full value : -22 [0m (current position 58 o)
+searching t2
+	[41m position 123 [0m
+	[44m full value : 61 [0m (current position 62 o)
+searching live1
+	[41m position 36 [0m
+	[44m full value : -42 [0m (current position 78 o)
+searching t1
+	[41m position 123 [0m
+	[44m full value : 30 [0m (current position 93 o)
+searching live2b
+	[41m position 108 [0m
+	[44m full value : -13 [0m (current position 121 o)
+searching live2
+	[41m position 93 [0m
+	[44m full value : -37 [0m (current position 130 o)
+searching t1
+	[41m position 123 [0m
+	[44m full value : -11 [0m (current position 134 o)
+searching live2
+	[41m position 93 [0m
+	[44m full value : -57 [0m (current position 150 o)
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+searching init
+	[41m position 184 [0m
+	[44m full value : 175 [0m (current position 9 o)
+searching arriere
+	[41m position 7 [0m
+	[44m full value : -27 [0m (current position 34 o)
+searching arriere
+	[41m position 7 [0m
+	[44m full value : -38 [0m (current position 45 o)
+searching arriere
+	[41m position 7 [0m
+	[44m full value : -49 [0m (current position 56 o)
+searching arriere
+	[41m position 7 [0m
+	[44m full value : -60 [0m (current position 67 o)
+searching arriere
+	[41m position 7 [0m
+	[44m full value : -71 [0m (current position 78 o)
+searching arriere2
+	[41m position 20 [0m
+	[44m full value : -77 [0m (current position 97 o)
+searching arriere_live
+	[41m position 26 [0m
+	[44m full value : -83 [0m (current position 109 o)
+searching arriere
+	[41m position 7 [0m
+	[44m full value : -111 [0m (current position 118 o)
+searching fork_arriere
+	[41m position 72 [0m
+	[44m full value : -49 [0m (current position 121 o)
+searching live100
+	[41m position 242 [0m
+	[44m full value : 112 [0m (current position 130 o)
+searching live102
+	[41m position 248 [0m
+	[44m full value : 108 [0m (current position 140 o)
+searching live104
+	[41m position 254 [0m
+	[44m full value : 104 [0m (current position 150 o)
+searching live106
+	[41m position 260 [0m
+	[44m full value : 100 [0m (current position 160 o)
+searching live108
+	[41m position 266 [0m
+	[44m full value : 96 [0m (current position 170 o)
+searching live110
+	[41m position 272 [0m
+	[44m full value : 92 [0m (current position 180 o)
+searching live112
+	[41m position 278 [0m
+	[44m full value : 88 [0m (current position 190 o)
+searching live114
+	[41m position 284 [0m
+	[44m full value : 84 [0m (current position 200 o)
+searching live116
+	[41m position 290 [0m
+	[44m full value : 80 [0m (current position 210 o)
+searching live118
+	[41m position 296 [0m
+	[44m full value : 76 [0m (current position 220 o)
+searching live120
+	[41m position 302 [0m
+	[44m full value : 72 [0m (current position 230 o)
+searching live122
+	[41m position 308 [0m
+	[44m full value : 68 [0m (current position 240 o)
+searching live124
+	[41m position 314 [0m
+	[44m full value : 64 [0m (current position 250 o)
+searching live126
+	[41m position 320 [0m
+	[44m full value : 60 [0m (current position 260 o)
+searching live128
+	[41m position 326 [0m
+	[44m full value : 56 [0m (current position 270 o)
+searching live130
+	[41m position 332 [0m
+	[44m full value : 52 [0m (current position 280 o)
+searching live132
+	[41m position 338 [0m
+	[44m full value : 48 [0m (current position 290 o)
+searching live134
+	[41m position 344 [0m
+	[44m full value : 44 [0m (current position 300 o)
+searching live136
+	[41m position 350 [0m
+	[44m full value : 40 [0m (current position 310 o)
+searching live138
+	[41m position 356 [0m
+	[44m full value : 36 [0m (current position 320 o)
+searching live140
+	[41m position 362 [0m
+	[44m full value : 32 [0m (current position 330 o)
+searching live142
+	[41m position 368 [0m
+	[44m full value : 28 [0m (current position 340 o)
+searching live144
+	[41m position 374 [0m
+	[44m full value : 24 [0m (current position 350 o)
+searching live146
+	[41m position 380 [0m
+	[44m full value : 20 [0m (current position 360 o)
+searching live148
+	[41m position 386 [0m
+	[44m full value : 16 [0m (current position 370 o)
+searching fork_live
+	[41m position 226 [0m
+	[44m full value : -159 [0m (current position 385 o)
+searching live_live
+	[41m position 83 [0m
+	[44m full value : -322 [0m (current position 405 o)
+searching kmissile
+	[41m position 471 [0m
+	[44m full value : 63 [0m (current position 408 o)
+searching arriere_live
+	[41m position 26 [0m
+	[44m full value : -395 [0m (current position 421 o)
+searching fork_arriere
+	[41m position 72 [0m
+	[44m full value : -356 [0m (current position 428 o)
+searching avant_live
+	[41m position 424 [0m
+	[44m full value : -17 [0m (current position 441 o)
+searching fork_avant
+	[41m position 395 [0m
+	[44m full value : -53 [0m (current position 448 o)
+searching live_live
+	[41m position Writing output program to ../champs/barriere.cor
+83 [0m
+	[44m full value : -389 [0m (current position 472 o)
+searching live100
+	[41m position 242 [0m
+	[44m full value : -238 [0m (current position 480 o)
+searching fork_live
+	[41m position 226 [0m
+	[44m full value : -263 [0m (current position 489 o)
+searching fork_live
+	[41m position 226 [0m
+	[44m full value : -272 [0m (current position 498 o)
+searching live101
+	[41m position 245 [0m
+	[44m full value : -410 [0m (current position 655 o)
+searching avant
+	[41m position 406 [0m
+	[44m full value : -258 [0m (current position 664 o)
+searching fork_avant
+	[41m position 395 [0m
+	[44m full value : -272 [0m (current position 667 o)
+searching fin
+	[41m position 470 [0m
+	[44m full value : -223 [0m (current position 693 o)
+searching fin
+	[41m position 470 [0m
+	[44m full value : -234 [0m (current position 704 o)
+searching fin
+	[41m position 470 [0m
+	[44m full value : -245 [0m (current position 715 o)
+searching fin
+	[41m position 470 [0m
+	[44m full value : -256 [0m (current position 726 o)
+searching fin
+	[41m position 470 [0m
+	[44m full value : -267 [0m (current position 737 o)
+searching avant2
+	[41m position 418 [0m
+	[44m full value : -338 [0m (current position 756 o)
+searching avant_live
+	[41m position 424 [0m
+	[44m full value : -344 [0m (current position 768 o)
+searching avant_live
+	[41m position 424 [0m
+	[44m full value : -348 [0m (current position 772 o)
+searching kfork1
+	[41m position 520 [0m
+	[44m full value : -260 [0m (current position 780 o)
+searching kfork2
+	[41m position 561 [0m
+	[44m full value : -227 [0m (current position 788 o)
+searching kfork4
+	[41m position 632 [0m
+	[44m full value : -164 [0m (current position 796 o)
+searching kdebut
+	[41m position 707 [0m
+	[44m full value : -114 [0m (current position 821 o)
+searching kfork3
+	[41m position 599 [0m
+	[44m full value : -230 [0m (current position 829 o)
+searching kfork6
+	[41m position 682 [0m
+	[44m full value : -155 [0m (current position 837 o)
+searching kdebut
+	[41m position 707 [0m
+	[44m full value : -155 [0m (current position 862 o)
+searching kfork5
+	[41m position 657 [0m
+	[44m full value : -213 [0m (current position 870 o)
+searching kdebut
+	[41m position 707 [0m
+	[44m full value : -193 [0m (current position 900 o)
+searching live100
+	[41m position 242 [0m
+	[44m full value : -669 [0m (current position 911 o)
+searching kdebut
+	[41m position 707 [0m
+	[44m full value : -229 [0m (current position 936 o)
+searching kdebut
+	[41m position 707 [0m
+	[44m full value : -254 [0m (current position 961 o)
+searching kdebut
+	[41m position 707 [0m
+	[44m full value : -279 [0m (current position 986 o)
+searching kdebut
+	[41m position 707 [0m
+	[44m full value : -304 [0m (current position 1011 o)
+searching kdebut
+	[41m position 707 [0m
+	[44m full value : -307 [0m (current position 1014 o)
+searching kfin
+	[41m position 732 [0m
+	[44m full value : -288 [0m (current position 1020 o)
+Writing output program to ../champs/ex.cor
+searching live
+	[41m position 14 [0m
+	[44m full value : 8 [0m (current position 6 o)
+searching live
+	[41m position 14 [0m
+	[44m full value : -9 [0m (current position 23 o)
+Writing output program to ../champs/jumper.cor
+searching suite
+	[41m position 74 [0m
+	[44m full value : 55 [0m (current position 19 o)
+searching finboucle0
+	[41m position 62 [0m
+	[44m full value : 13 [0m (current position 49 o)
+searching goboucle0
+	[41m position 22 [0m
+	[44m full value : -37 [0m (current position 59 o)
+searching livel
+	[41m position 81 [0m
+	[44m full value : 7 [0m (current position 74 o)
+searching debut
+	[41m position 12 [0m
+	[44m full value : -74 [0m (current position 86 o)
+searching goboucle0
+	[41m position 22 [0m
+	[44m full value : -90 [0m (current position 112 o)
+searching goboucle1
+	[41m position 259 [0m
+	[44m full value : 140 [0m (current position 119 o)
+searching live0
+	[41m position 161 [0m
+	[44m full value : 30 [0m (current position 131 o)
+searching live1
+	[41m position 164 [0m
+	[44m full value : 21 [0m (current position 143 o)
+searching live2
+	[41m position 167 [0m
+	[44m full value : 12 [0m (current position 155 o)
+searching live3
+	[41m position 170 [0m
+	[44m full value : 3 [0m (current position 167 o)
+searching live4
+	[41m position 173 [0m
+	[44m full value : -6 [0m (current position 179 o)
+searching live0
+	[41m position 161 [0m
+	[44m full value : -31 [0m (current position 192 o)
+searching livex
+	[41m position 191 [0m
+	[44m full value : -9 [0m (current position 200 o)
+searching live0
+	[41m position 161 [0m
+	[44m full value : -52 [0m (current position 213 o)
+searching boucle
+	[41m position 227 [0m
+	[44m full value : 11 [0m (current position 216 o)
+searching boucle
+	[41m position 227 [0m
+	[44m full value : 4 [0m (current position 223 o)
+searching boucle
+	[41m position 227 [0m
+	[44m full value : -3 [0m (current position 230 o)
+searching boucle
+	[41m position 227 [0m
+	[44m full value : -10 [0m (current position 237 o)
+searching goboucle0
+	[41m position 22 [0m
+	[44m full value : -227 [0m (current position 249 o)
+searching boucle
+	[41m position 227 [0m
+	[44m full value : -30 [0m (current position 257 o)
+searching goboucle1
+	[41m position 259 [0m
+	[44m full value : -6 [0m (current position 265 o)
+searching goboucle0
+	[41m position 22 [0m
+	[44m full value : -251 [0m (current position 273 o)
+searching finboucle1
+	[41m position 299 [0m
+	[44m full value : -4 [0m (current position 303 o)
+searching goboucle1
+	[41m position 259 [0m
+	[44m full value : -54 [0m (current position 313 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 391 [0m (current position 8 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 384 [0m (current position 15 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 377 [0m (current position 22 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 370 [0m (current position 29 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 363 [0m (current position 36 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 356 [0m (current position 43 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 349 [0m (current position 50 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 342 [0m (current position 57 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 335 [0m (current position 64 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 328 [0m (current position 71 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 321 [0m (current position 78 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : 314 [0m (current position 85 o)
+searching decal2
+	[41m position 148 [0m
+	[44m full value : 51 [0m (current position 97 o)
+searching decal
+	[41m position 148 [0m
+	[44m full value : 36 [0m (current position 112 o)
+searching suite
+	[41m position 383 [0m
+	[44m full value : 230 [0m (current position 153 o)
+searching separ2
+	[41m position 305 [0m
+	[44m full value : 60 [0m (current position 245 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 209 [0m (current position 260 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 202 [0m (current position 267 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 195 [0m (current position 274 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 188 [0m (current position 281 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 181 [0m (current position 288 o)
+searching toto
+	[41m position 115 [0m
+	[44m full value : -187 [0m (current position 302 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 152 [0m (current position 317 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 145 [0m (current position 324 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 138 [0m (current position 331 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 131 [0m (current position 338 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 124 [0m (current position 345 o)
+searching toto
+	[41m position 115 [0m
+	[44m full value : -242 [0m (current position 357 o)
+searching suite
+	[41m position 383 [0m
+	[44m full value : 18 [0m (current position 365 o)
+searching decal
+	[41m position 148 [0m
+	[44m full value : -232 [0m (current position 380 o)
+searching hop
+	[41m position 92 [0m
+	[44m full value : -296 [0m (current position 388 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : 73 [0m (current position 396 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : -67 [0m (current position 466 o)
+searching middle
+	[41m position 469 [0m
+	[44m full value : -57 [0m (current position 526 o)
+searching fuite
+	[41m position 779 [0m
+	[44m full value : 245 [0m (current position 534 o)
+searching sepa
+	[41m position 305 [0m
+	[44m full value : -321 [0m (current position 626 o)
+searching tot
+	[41m position 115 [0m
+	[44m full value : -533 [0m (current position 648 o)
+searching tot
+	[41m position 115 [0m
+	[44m full value : -553 [0m (current position 668 o)
+searching separe
+	[41m position 809 [0m
+	[44m full value : 25 [0m (current position 784 o)
+searching debut
+	[41m position 829 [0m
+	[44m full value : 23 [0m (current position 806 o)
+searching debut
+	[41m position 829 [0m
+	[44m full value : 3 [0m (current position 826 o)
+Writing output program to ../champs/leeloo.cor
+searching deb
+	[41m position 94 [0m
+	[44m full value : 86 [0m (current position 8 o)
+searching pare
+	[41m position 11 [0m
+	[44m full value : -47 [0m (current position 58 o)
+searching decal2
+	[41m position 170 [0m
+	[44m full value : 39 [0m (current position 131 o)
+searching decal
+	[41m position 170 [0m
+	[44m full value : 24 [0m (current position 146 o)
+searching toto
+	[41m position 61 [0m
+	[44m full value : -88 [0m (current position 149 o)
+searching pare
+	[41m position 11 [0m
+	[44m full value : -148 [0m (current position 159 o)
+searching suite
+	[41m position 338 [0m
+	[44m full value : 171 [0m (current position 167 o)
+searching separ2
+	[41m position 292 [0m
+	[44m full value : 33 [0m (current position 259 o)
+searching toto
+	[41m position 61 [0m
+	[44m full value : -220 [0m (current position 281 o)
+searching toto
+	[41m position 61 [0m
+	[44m full value : -240 [0m (current position 301 o)
+searching suite
+	[41m position 338 [0m
+	[44m full value : 29 [0m (current position 309 o)
+searching decal
+	[41m position 170 [0m
+	[44m full value : -154 [0m (current position 324 o)
+searching catch
+	[41m position 335 [0m
+	[44m full value : 8 [0m (current position 327 o)
+searching hop
+	[41m position 134 [0m
+	[44m full value : -201 [0m (current position 335 o)
+searching just
+	[41m position 354 [0m
+	[44m full value : 11 [0m (current position 343 o)
+searching just2
+	[41m position 362 [0m
+	[44m full value : 11 [0m (current position 351 o)
+searching just3
+	[41m position 370 [0m
+	[44m full value : 11 [0m (current position 359 o)
+searching just4
+	[41m position 383 [0m
+	[44m full value : 16 [0m (current position 367 o)
+searching just5
+	[41m position 396 [0m
+	[44m full value : 16 [0m (current position 380 o)
+searching middle
+	[41m position 455 [0m
+	[44m full value : 67 [0m (current position 388 o)
+searching suitb
+	[41m position 399 [0m
+	[44m full value : -41 [0m (current position 440 o)
+searching middle
+	[41m position 455 [0m
+	[44m full value : -34 [0m (current position 489 o)
+searching pare1
+	[41m position 160 [0m
+	[44m full value : -337 [0m (current position 497 o)
+searching fuite
+	[41m position 733 [0m
+	[44m full value : 228 [0m (current position 505 o)
+searching sepa
+	[41m position 292 [0m
+	[44m full value : -305 [0m (current position 597 o)
+searching tot
+	[41m position 61 [0m
+	[44m full value : -558 [0m (current position 619 o)
+searching tot
+	[41m position 61 [0m
+	[44m full value : -578 [0m (current position 639 o)
+searching catch
+	[41m position 335 [0m
+	[44m full value : -379 [0m (current position 714 o)
+searching separe
+	[41m position 763 [0m
+	[44m full value : 41 [0m (current position 722 o)
+searching debut
+	[41m position 816 [0m
+	[44m full value : 72 [0m (current position 744 o)
+searching debut
+	[41m position 816 [0m
+	[44m full value : 52 [0m (current position 764 o)
+Writing output program to ../champs/mat.cor
+searching deb1
+	[41m position 514 [0m
+	[44m full value : 508 [0m (current position 6 o)
+searching deb
+	[41m position 514 [0m
+	[44m full value : 0 [0m (current position 514 o)
+Writing output program to ../champs/maxidef.cor
+searching init
+	[41m position 180 [0m
+	[44m full value : 144 [0m (current position 36 o)
+searching defm
+	[41m position 57 [0m
+	[44m full value : -120 [0m (current position 177 o)
+searching loop
+	[41m position 1 [0m
+	[44m full value : -186 [0m (current position 187 o)
+searching source
+	[41m position 260 [0m
+	[44m full value : 66 [0m (current position 194 o)
+searching source
+	[41m position 260 [0m
+	[44m full value : 59 [0m (current position 201 o)
+searching arbre
+	[41m position 276 [0m
+	[44m full value : 68 [0m (current position 208 o)
+searching gen21
+	[41m position 284 [0m
+	[44m full value : 69 [0m (current position 215 o)
+searching gen22
+	[41m position 292 [0m
+	[44m full value : 70 [0m (current position 222 o)
+searching deflv
+	[41m position 172 [0m
+	[44m full value : -57 [0m (current position 229 o)
+searching slide1
+	[41m position 42 [0m
+	[44m full value : -194 [0m (current position 236 o)
+searching deflv
+	[41m position 172 [0m
+	[44m full value : -74 [0m (current position 246 o)
+searching arbre
+	[41m position 276 [0m
+	[44m full value : 3 [0m (current position 273 o)
+searching gen22
+	[41m position 292 [0m
+	[44m full value : 11 [0m (current position 281 o)
+searching slide1
+	[41m position 42 [0m
+	[44m full value : -247 [0m (current position 289 o)
+searching slide2
+	[41m position 39 [0m
+	[44m full value : -258 [0m (current position 297 o)
+Writing output program to ../champs/mortel.cor
+searching live1
+	[41m position 43 [0m
+	[44m full value : 2 [0m (current position 41 o)
+searching fork0
+	[41m position 106 [0m
+	[44m full value : 57 [0m (current position 49 o)
+searching fork1
+	[41m position 114 [0m
+	[44m full value : 55 [0m (current position 59 o)
+searching fork2
+	[41m position 122 [0m
+	[44m full value : 53 [0m (current position 69 o)
+searching wait
+	[41m position 228 [0m
+	[44m full value : 149 [0m (current position 79 o)
+searching master
+	[41m position 127 [0m
+	[44m full value : 41 [0m (current position 86 o)
+searching numero1
+	[41m position 156 [0m
+	[44m full value : 63 [0m (current position 93 o)
+searching numero2
+	[41m position 185 [0m
+	[44m full value : 85 [0m (current position 100 o)
+searching live
+	[41m position 43 [0m
+	[44m full value : -69 [0m (current position 112 o)
+searching live
+	[41m position 43 [0m
+	[44m full value : -82 [0m (current position 125 o)
+searching numero1
+	[41m position 156 [0m
+	[44m full value : 18 [0m (current position 138 o)
+searching numero2
+	[41m position 185 [0m
+	[44m full value : 38 [0m (current position 147 o)
+searching ready
+	[41m position 222 [0m
+	[44m full value : 40 [0m (current position 182 o)
+searching ready
+	[41m position 222 [0m
+	[44m full value : 11 [0m (current position 211 o)
+searching ready
+	[41m position 222 [0m
+	[44m full value : -18 [0m (current position 240 o)
+searching ecriture
+	[41m position 236 [0m
+	[44m full value : -18 [0m (current position 254 o)
+searching ecriture
+	[41m position 236 [0m
+	[44m full value : -29 [0m (current position 265 o)
+searching wait
+	[41m position 228 [0m
+	[44m full value : -40 [0m (current position 268 o)
+Writing output program to ../champs/new.cor
+Writing output program to ../champs/sebc.cor
+searching leon_live
+	[41m position 269 [0m
+	[44m full value : 263 [0m (current position 6 o)
+searching fork1
+	[41m position 230 [0m
+	[44m full value : 217 [0m (current position 13 o)
+searching fork2
+	[41m position 236 [0m
+	[44m full value : 213 [0m (current position 23 o)
+searching roger_live
+	[41m position 309 [0m
+	[44m full value : 271 [0m (current position 38 o)
+searching torp
+	[41m position 342 [0m
+	[44m full value : 297 [0m (current position 45 o)
+searching torp_
+	[41m position 350 [0m
+	[44m full value : 298 [0m (current position 52 o)
+searching fork3
+	[41m position 244 [0m
+	[44m full value : 185 [0m (current position 59 o)
+searching fork_live
+	[41m position 485 [0m
+	[44m full value : 411 [0m (current position 74 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 279 [0m (current position 89 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 267 [0m (current position 101 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 255 [0m (current position 113 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 243 [0m (current position 125 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 231 [0m (current position 137 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 219 [0m (current position 149 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 207 [0m (current position 161 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 195 [0m (current position 173 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 183 [0m (current position 185 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 171 [0m (current position 197 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 159 [0m (current position 209 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 147 [0m (current position 221 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 135 [0m (current position 233 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 123 [0m (current position 245 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 111 [0m (current position 257 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 99 [0m (current position 269 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 87 [0m (current position 281 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 75 [0m (current position 293 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 63 [0m (current position 305 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 51 [0m (current position 317 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 39 [0m (current position 329 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 27 [0m (current position 341 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 15 [0m (current position 353 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : 3 [0m (current position 365 o)
+searching leon_ecrit
+	[41m position 301 [0m
+	[44m full value : -99 [0m (current position 400 o)
+searching roger
+	[41m position 302 [0m
+	[44m full value : -117 [0m (current position 419 o)
+searching fork_live
+	[41m position 485 [0m
+	[44m full value : 47 [0m (current position 438 o)
+searching leon
+	[41m position 262 [0m
+	[44m full value : -185 [0m (current position 447 o)
+searching roger
+	[41m position 302 [0m
+	[44m full value : -154 [0m (current position 456 o)
+searching torp
+	[41m position 342 [0m
+	[44m full value : -124 [0m (current position 466 o)
+searching leon
+	[41m position 262 [0m
+	[44m full value : -215 [0m (current position 477 o)
+searching leon_live
+	[41m position 269 [0m
+	[44m full value : -240 [0m (current position 509 o)
+searching roger
+	[41m position 302 [0m
+	[44m full value : -218 [0m (current position 520 o)
+searching roger_live
+	[41m position 309 [0m
+	[44m full value : -243 [0m (current position 552 o)
+searching leon
+	[41m position 262 [0m
+	[44m full value : -298 [0m (current position 560 o)
+searching roger
+	[41Writing output program to ../champs/slider2.cor
+m position 302 [0m
+	[44m full value : -266 [0m (current position 568 o)
+searching torp
+	[41m position 342 [0m
+	[44m full value : -236 [0m (current position 578 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : -330 [0m (current position 698 o)
+searching live
+	[41m position 368 [0m
+	[44m full value : -336 [0m (current position 704 o)
+searching fork_live
+	[41m position 485 [0m
+	[44m full value : -230 [0m (current position 715 o)
+Writing output program to ../champs/tdc2.cor
+searching liver1
+	[41m position 29 [0m
+	[44m full value : -7 [0m (current position 36 o)
+searching liver2
+	[41m position 65 [0m
+	[44m full value : 19 [0m (current position 46 o)
+searching boucle
+	[41m position 73 [0m
+	[44m full value : 19 [0m (current position 54 o)
+searching rboucle
+	[41m position 116 [0m
+	[44m full value : 54 [0m (current position 62 o)
+searching liver1
+	[41m position 29 [0m
+	[44m full value : -36 [0m (current position 65 o)
+searching liver2
+	[41m position 65 [0m
+	[44m full value : -8 [0m (current position 73 o)
+searching boucle
+	[41m position 73 [0m
+	[44m full value : -8 [0m (current position 81 o)
+searching end
+	[41m position 171 [0m
+	[44m full value : 82 [0m (current position 89 o)
+searching boucle2
+	[41m position 107 [0m
+	[44m full value : 2 [0m (current position 105 o)
+searching no
+	[41m position 81 [0m
+	[44m full value : -34 [0m (current position 115 o)
+searching no
+	[41m position 81 [0m
+	[44m full value : -44 [0m (current position 125 o)
+searching rboucle
+	[41m position 116 [0m
+	[44m full value : -17 [0m (current position 133 o)
+searching begin
+	[41m position 1 [0m
+	[44m full value : -140 [0m (current position 141 o)
+searching rboucle2
+	[41m position 151 [0m
+	[44m full value : -6 [0m (current position 157 o)
+searching rno
+	[41m position 124 [0m
+	[44m full value : -43 [0m (current position 167 o)
+searching rno
+	[41m position 124 [0m
+	[44m full value : -53 [0m (current position 177 o)
+searching toto
+	[41m position 160 [0m
+	[44m full value : -30 [0m (current position 190 o)
+Writing output program to ../champs/tdc3.cor
+searching ok
+	[41m position 42 [0m
+	[44m full value : 0 [0m (current position 42 o)
+searching no
+	[41m position 62 [0m
+	[44m full value : 5 [0m (current position 57 o)
+searching gen
+	[41m position 19 [0m
+	[44m full value : -41 [0m (current position 60 o)
+searching gen
+	[41m position 19 [0m
+	[44m full value : -51 [0m (current position 70 o)
+searching end
+	[41m position 97 [0m
+	[44m full value : 19 [0m (current position 78 o)
+searching boucle2
+	[41m position 88 [0m
+	[44m full value : -6 [0m (current position 94 o)
+searching no
+	[41m position 62 [0m
+	[44m full value : -42 [0m (current position 104 o)
+searching no
+	[41m position 62 [0m
+	[44m full value : -52 [0m (current position 114 o)
+Writing output program to ../champs/tdc4.cor
+searching debut
+	[41m position 1 [0m
+	[44m full value : -32 [0m (current position 33 o)
+searching debut+400
+	[41m position 60 [0m
+	[44m full value : 0 [0m (current position 60 o)
+searching cp
+	[41m position 30 [0m
+	[44m full value : -40 [0m (current position 70 o)
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+searching label2
+	[41m position 6 [0m
+	[44m full value : 5 [0m (current position 1 o)
+searching label3
+	[41m position 11 [0m
+	[44m full value : 5 [0m (current position 6 o)
+Writing output program to ../champs/toto.cor
+searching avantdebt
+	[41m position 88 [0m
+	[44m full value : 80 [0m (current position 8 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -74 [0m (current position 88 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -81 [0m (current position 95 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -88 [0m (current position 102 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -95 [0m (current position 109 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -102 [0m (current position 116 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -109 [0m (current position 123 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -155 [0m (current position 163 o)
+searching init
+	[41m position 130 [0m
+	[44m full value : -50 [0m (current position 180 o)
+searching debt
+	[41m position 158 [0m
+	[44m full value : -25 [0m (current position 183 o)
+searching level10
+	[41m position 231 [0m
+	[44m full value : 40 [0m (current position 191 o)
+searching level111
+	[41m position 268 [0m
+	[44m full value : 69 [0m (current position 199 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -193 [0m (current position 207 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -220 [0m (current position 228 o)
+searching level100
+	[41m position 297 [0m
+	[44m full value : 61 [0m (current position 236 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -230 [0m (current position 244 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -257 [0m (current position 265 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -259 [0m (current position 273 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -286 [0m (current position 294 o)
+searching code
+	[41m position 14 [0m
+	[44m full value : -288 [0m (current position 302 o)
+searching label
+	[41m position 8 [0m
+	[44m full value : -315 [0m (current position 323 o)
+Writing output program to ../champs/42.cor
+Lexical error at [4:11]
+Writing output program to ../champs/Car.cor
+Lexical error at [3:1]
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Lexical error at [7:1]
+Lexical error at [3:1]
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Lexical error at [31:23]
+Lexical error at [182:1]
+Writing output program to ../champs/maxidef.cor
+Writing output program to ../champs/mortel.cor
+Writing output program to ../champs/new.cor
+Lexical error at [3:1]
+Writing output program to ../champs/slider2.cor
+Lexical error at [3:1]
+Lexical error at [3:1]
+Lexical error at [3:1]
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+Writing output program to ../champs/42.cor
+Lexical error at [4:11]
+Writing output program to ../champs/Car.cor
+Lexical error at [3:1]
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Lexical error at [7:1]
+Lexical error at [3:1]
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Lexical error at [31:23]
+Lexical error at [182:1]
+Writing output program to ../champs/maxidef.cor
+Writing output program to ../champs/mortel.cor
+Writing output program to ../champs/new.cor
+Lexical error at [3:1]
+Writing output program to ../champs/slider2.cor
+Lexical error at [3:1]
+Lexical error at [3:1]
+Lexical error at [3:1]
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+Writing output program to ../champs/42.cor
+Lexical error at [4:11]
+Writing output program to ../champs/Car.cor
+Lexical error at [3:1]
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Lexical error at [7:1]
+Lexical error at [3:1]
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Lexical error at [31:23]
+Lexical error at [182:1]
+Writing output program to ../champs/maxidef.cor
+Writing output program to ../champs/mortel.cor
+Writing output program to ../champs/new.cor
+Lexical error at [3:1]
+Writing output program to ../champs/slider2.cor
+Lexical error at [3:1]
+Lexical error at [3:1]
+Lexical error at [3:1]
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+'../champs/42.cor' was successfully created.
+err label name : %:l1 - :l2
+'../champs/Car.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+'../champs/Gagnant.cor' was successfully created.
+'../champs/Octobre_Rouge_V4.2.cor' was successfully created.
+incorrect line >[=======
+]<
+Instruction name invalid : >[.extend]< .extend
+'../champs/all_op_param_combinaison_possible.cor' was successfully created.
+'../champs/barriere.cor' was successfully created.
+err label name : 2:sti	r1
+'../champs/jumper.cor' was successfully created.
+Comment not in good format
+Direct arg >[%0x08F40370]< not valid for instruction [ld] in line : ld %0x08F40370, r3
+Direct arg >[%0x70000004]< not valid for instruction [ld] in line : ld %0x70000004, r0
+'../champs/maxidef.cor' was successfully created.
+'../champs/mortel.cor' was successfully created.
+'../champs/new.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+'../champs/slider2.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+Instruction name invalid : >[.extend]< .extend
+Instruction name invalid : >[.extend]< .extend
+'../champs/test.cor' was successfully created.
+'../champs/test_label.cor' was successfully created.
+'../champs/toto.cor' was successfully created.
+Writing output program to ../champs/42.cor
+Lexical error at [4:11]
+Writing output program to ../champs/Car.cor
+Lexical error at [3:1]
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Lexical error at [7:1]
+Lexical error at [3:1]
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Lexical error at [31:23]
+Lexical error at [182:1]
+Writing output program to ../champs/maxidef.cor
+Writing output program to ../champs/mortel.cor
+Writing output program to ../champs/new.cor
+Lexical error at [3:1]
+Writing output program to ../champs/slider2.cor
+Lexical error at [3:1]
+Lexical error at [3:1]
+Lexical error at [3:1]
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+'../champs/42.cor' was successfully created.
+err label name : %:l1 - :l2
+'../champs/Car.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+'../champs/Gagnant.cor' was successfully created.
+'../champs/Octobre_Rouge_V4.2.cor' was successfully created.
+incorrect line >[=======
+]<
+Instruction name invalid : >[.extend]< .extend
+'../champs/all_op_param_combinaison_possible.cor' was successfully created.
+'../champs/barriere.cor' was successfully created.
+err label name : 2:sti	r1
+'../champs/jumper.cor' was successfully created.
+Comment not in good format
+Direct arg >[%0x08F40370]< not valid for instruction [ld] in line : ld %0x08F40370, r3
+Direct arg >[%0x70000004]< not valid for instruction [ld] in line : ld %0x70000004, r0
+'../champs/maxidef.cor' was successfully created.
+'../champs/mortel.cor' was successfully created.
+'../champs/new.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+'../champs/slider2.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+Instruction name invalid : >[.extend]< .extend
+Instruction name invalid : >[.extend]< .extend
+'../champs/test.cor' was successfully created.
+'../champs/test_label.cor' was successfully created.
+'../champs/toto.cor' was successfully created.
+Writing output program to ../champs/42.cor
+Lexical error at [4:11]
+Writing output program to ../champs/Car.cor
+Lexical error at [3:1]
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Lexical error at [7:1]
+Lexical error at [3:1]
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Lexical error at [31:23]
+Lexical error at [182:1]
+Writing output program to ../champs/maxidef.cor
+Writing output program to ../champs/mortel.cor
+Writing output program to ../champs/new.cor
+Lexical error at [3:1]
+Writing output program to ../champs/slider2.cor
+Lexical error at [3:1]
+Lexical error at [3:1]
+Lexical error at [3:1]
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+'../champs/42.cor' was successfully created.
+err label name : %:l1 - :l2
+'../champs/Car.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+'../champs/Gagnant.cor' was successfully created.
+'../champs/Octobre_Rouge_V4.2.cor' was successfully created.
+incorrect line >[=======
+]<
+Instruction name invalid : >[.extend]< .extend
+'../champs/all_op_param_combinaison_possible.cor' was successfully created.
+'../champs/barriere.cor' was successfully created.
+err label name : 2:sti	r1
+'../champs/jumper.cor' was successfully created.
+Comment not in good format
+Direct arg >[%0x08F40370]< not valid for instruction [ld] in line : ld %0x08F40370, r3
+Direct arg >[%0x70000004]< not valid for instruction [ld] in line : ld %0x70000004, r0
+'../champs/maxidef.cor' was successfully created.
+'../champs/mortel.cor' was successfully created.
+'../champs/new.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+'../champs/slider2.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+Instruction name invalid : >[.extend]< .extend
+Instruction name invalid : >[.extend]< .extend
+'../champs/test.cor' was successfully created.
+'../champs/test_label.cor' was successfully created.
+'../champs/toto.cor' was successfully created.
+Writing output program to ../champs/42.cor
+Lexical error at [4:11]
+Writing output program to ../champs/Car.cor
+Lexical error at [3:1]
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Lexical error at [7:1]
+Lexical error at [3:1]
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Lexical error at [31:23]
+Lexical error at [182:1]
+Writing output program to ../champs/maxidef.cor
+Writing output program to ../champs/mortel.cor
+Writing output program to ../champs/new.cor
+Lexical error at [3:1]
+Writing output program to ../champs/slider2.cor
+Lexical error at [3:1]
+Lexical error at [3:1]
+Lexical error at [3:1]
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+'../champs/42.cor' was successfully created.
+err label name : %:l1 - :l2
+'../champs/Car.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+'../champs/Gagnant.cor' was successfully created.
+'../champs/Octobre_Rouge_V4.2.cor' was successfully created.
+incorrect line >[=======
+]<
+Instruction name invalid : >[.extend]< .extend
+'../champs/all_op_param_combinaison_possible.cor' was successfully created.
+'../champs/barriere.cor' was successfully created.
+err label name : 2:sti	r1
+'../champs/jumper.cor' was successfully created.
+Comment not in good format
+Direct arg >[%0x08F40370]< not valid for instruction [ld] in line : ld %0x08F40370, r3
+Direct arg >[%0x70000004]< not valid for instruction [ld] in line : ld %0x70000004, r0
+'../champs/maxidef.cor' was successfully created.
+'../champs/mortel.cor' was successfully created.
+'../champs/new.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+'../champs/slider2.cor' was successfully created.
+Instruction name invalid : >[.extend]< .extend
+Instruction name invalid : >[.extend]< .extend
+Instruction name invalid : >[.extend]< .extend
+'../champs/test.cor' was successfully created.
+'../champs/test_label.cor' was successfully created.
+'../champs/toto.cor' was successfully created.
+Writing output program to ../champs/42.cor
+Lexical error at [4:11]
+Writing output program to ../champs/Car.cor
+Lexical error at [3:1]
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Lexical error at [7:1]
+Lexical error at [3:1]
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Lexical error at [31:23]
+Lexical error at [182:1]
+Writing output program to ../champs/maxidef.cor
+Writing output program to ../champs/mortel.cor
+Writing output program to ../champs/new.cor
+Lexical error at [3:1]
+Writing output program to ../champs/slider2.cor
+Lexical error at [3:1]
+Lexical error at [3:1]
+Lexical error at [3:1]
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+Writing output program to ../champs/42.cor
+Writing output program to ../champs/Backward.cor
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+Writing output program to ../champs/Car.cor
+Writing output program to ../champs/Death.cor
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Writing output program to ../champs/Survivor.cor
+Writing output program to ../champs/Torpille.cor
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+Writing output program to ../champs/leeloo.cor
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+Writing output program to ../champs/mat.cor
+Writing output program to ../champs/maxidef.cor
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+Writing output program to ../champs/mortel.cor
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+Writing output program to ../champs/new.cor
+Writing output program to ../champs/sebc.cor
+Writing output program to ../champs/slider2.cor
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+Writing output program to ../champs/tdc2.cor
+Writing output program to ../champs/tdc3.cor
+Writing output program to ../champs/tdc4.cor
+error in param line 4
+error in param line 4
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+Writing output program to ../champs/42.cor
+Lexical error at [4:11]
+Writing output program to ../champs/Car.cor
+Lexical error at [3:1]
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Lexical error at [7:1]
+Lexical error at [3:1]
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Lexical error at [31:23]
+Lexical error at [182:1]
+Writing output program to ../champs/maxidef.cor
+Writing output program to ../champs/mortel.cor
+Writing output program to ../champs/new.cor
+Lexical error at [3:1]
+Writing output program to ../champs/slider2.cor
+Lexical error at [3:1]
+Lexical error at [3:1]
+Lexical error at [3:1]
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+Writing output program to ../champs/42.cor
+Writing output program to ../champs/Backward.cor
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+Writing output program to ../champs/Car.cor
+Writing output program to ../champs/Death.cor
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Writing output program to ../champs/Survivor.cor
+Writing output program to ../champs/Torpille.cor
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+Writing output program to ../champs/leeloo.cor
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+Writing output program to ../champs/mat.cor
+Writing output program to ../champs/maxidef.cor
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+Writing output program to ../champs/mortel.cor
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+Writing output program to ../champs/new.cor
+Writing output program to ../champs/sebc.cor
+Writing output program to ../champs/slider2.cor
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+Writing output program to ../champs/tdc2.cor
+Writing output program to ../champs/tdc3.cor
+Writing output program to ../champs/tdc4.cor
+error in param line 4
+error in param line 4
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor
+Writing output program to ../champs/42.cor
+Writing output program to ../champs/Backward.cor
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+Writing output program to ../champs/Car.cor
+Writing output program to ../champs/Death.cor
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+Writing output program to ../champs/Gagnant.cor
+Writing output program to ../champs/Octobre_Rouge_V4.2.cor
+Writing output program to ../champs/Survivor.cor
+Writing output program to ../champs/Torpille.cor
+Writing output program to ../champs/all_op_param_combinaison_possible.cor
+Writing output program to ../champs/barriere.cor
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+error in param line 8
+Writing output program to ../champs/ex.cor
+Writing output program to ../champs/jumper.cor
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+error in param line 3
+Writing output program to ../champs/leeloo.cor
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+error in param line 6
+Writing output program to ../champs/mat.cor
+Writing output program to ../champs/maxidef.cor
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+error in param line 50
+Writing output program to ../champs/mortel.cor
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+error in param line 16
+Writing output program to ../champs/new.cor
+Writing output program to ../champs/sebc.cor
+Writing output program to ../champs/slider2.cor
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+error in param line 2
+Writing output program to ../champs/tdc2.cor
+Writing output program to ../champs/tdc3.cor
+Writing output program to ../champs/tdc4.cor
+error in param line 4
+error in param line 4
+Writing output program to ../champs/test.cor
+Writing output program to ../champs/test_label.cor
+Writing output program to ../champs/toto.cor

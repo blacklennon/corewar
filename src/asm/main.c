@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/05 17:00:34 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 14:36:19 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,16 @@ int		write_in_file(char *path, char **data)
 	name = get_new_path(path);
 	if (name)
 	{
-		table = interpret(data);
+		if (!(table = interpret(data)))
+		{
+			write(1, "\033[41m Error occured \033[0m\n", 24);
+			return (0);
+		}
 		tmp = get_header(data, NAME_CMD_STRING);
 		ft_bzero(&header.magic, sizeof(header));
 		header.magic = swap_int32(COREWAR_EXEC_MAGIC);
 		ft_strcpy(header.prog_name, tmp);
+		free(tmp);
 		tmp = get_header(data, COMMENT_CMD_STRING);
 		ft_strcpy(header.comment, tmp);
 		header.prog_size = swap_int32(table->size);
@@ -88,14 +93,14 @@ int		write_in_file(char *path, char **data)
 			print_binary(fd, table);
 			write(1, name, ft_strlen(name));
 			write(1, "\n", 1);
-			free(tmp);
-			free(name);
 		}
+		free(table->table);
 		free(table);
+		free(tmp);
 	}
-	else
-		return (0);
-	return (1);
+	free(name);
+	fd = 0;
+	return ((name)?1:0);
 }
 
 char		*clean_comments(char *line)
@@ -104,9 +109,10 @@ char		*clean_comments(char *line)
 
 	tmp = NULL;
 	if (ft_strchr(line, COMMENT_CHAR))
+	{
 		tmp = ft_strsub(line, 0, where_is(line, COMMENT_CHAR));
-	if (tmp)
 		free(line);
+	}
 	return ((tmp) ? tmp : line);
 }
 
@@ -114,7 +120,7 @@ int		main(int argc, char **argv)
 {
 	char	*file;
 	char	**data;
-	int	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;
@@ -135,6 +141,7 @@ int		main(int argc, char **argv)
 	i = 0;
 	while (data[i])
 		free(data[i++]);
+	free(data);
 	free(file);
 	return (EXIT_SUCCESS);
 }

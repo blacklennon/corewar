@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:49:49 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/04 11:13:59 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 14:42:08 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 
 t_binary	*interpret(char **data)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	t_binary	*table;
 	size_t		tmp;
 
-	table = (t_binary *)malloc(sizeof(t_binary));
+	table = (t_binary *)ft_memalloc(sizeof(t_binary));
 	table->size = 0;
 	table->table = NULL;
 	i = 0;

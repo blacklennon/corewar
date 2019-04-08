@@ -6,13 +6,13 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/04 11:14:19 by llopez           ###   ########.fr        #
+#    Updated: 2019/04/08 13:59:41 by llopez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			:= gcc
 
-DEBUG 		:= 1
+DEBUG 		:= 0
 
 TARGETS		:= corewar asm
 LIBS		:= libft

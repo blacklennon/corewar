@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/05 18:02:58 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 14:43:12 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ uint8_t		*add_byte(uint8_t content, t_binary *bin)
 	uint8_t	*tmp;
 
 	i = 0;
-	tmp = (uint8_t *)malloc(sizeof(uint8_t) * (bin->size + 1));
+	tmp = (uint8_t *)ft_memalloc(sizeof(uint8_t) * (bin->size + 1));
 	while (i < bin->size && bin->table)
 	{
 		tmp[i] = bin->table[i];
@@ -32,6 +32,7 @@ uint8_t		*add_byte(uint8_t content, t_binary *bin)
 	}
 	bin->size++;
 	tmp[i] = content;
+	i = 0;
 	free(bin->table);
 	return (tmp);
 }
@@ -52,6 +53,8 @@ uint8_t		param_encode(char **param)
 			content |= IND_CODE;
 		else if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
 			content |= REG_CODE;
+		else
+			return (0);
 		i++;
 		if (param[i])
 			content = content << 2;
@@ -74,11 +77,10 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 		{
 			if (param[i][1] == LABEL_CHAR)
 			{
-				value = (where_is(&param[i][1], ',') > 0) ?\
-			label_pos(ft_strsub(param[i], 2, where_is(&param[i][1], ',')), data) : \
-			label_pos(ft_strsub(param[i], 2, ft_strlen(param[i]) - 2), data);
+				value = label_pos(param[i], data);
+				if (value == -1)
+					return (NULL);
 				value -= (int)b_bytes;
-				//printf("\t\033[44m full value : %d \033[0m (current position %zu o)\n", value, b_bytes);
 			}
 			else
 				value = ft_atoi(&param[i][1]);
@@ -90,15 +92,17 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 			bin->table = add_byte((value & 0x0000FF00) >> 8, bin);
 			bin->table = add_byte((value & 0x000000FF), bin);
 		}
-		if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
+		else if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
 					&& ft_isdigit(param[i][1])))
 		{
 			value = ft_atoi(param[i]);
 			bin->table = add_byte((value & 0xFF00) >> 8, bin);
 			bin->table = add_byte((value & 0x00FF), bin);
 		}
-		if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
+		else if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
 			bin->table = add_byte((uint8_t)ft_atoi(&param[i][1]), bin);
+		else
+			return (NULL);
 		i++;
 	}
 	return (bin->table);
@@ -106,20 +110,34 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 
 uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data)
 {
-	int	i;
+	int		i;
 	char	*clean;
 	char	**param;
 	char	*tmp;
+	uint8_t	*tab_tmp;
+	uint8_t	value;
 
+	value = 0x0;
+	tab_tmp = NULL;
 	i = 0;
-	str = ft_strjstr(str, op_tab[i_op_tab].name);
-	str += ft_strlen(op_tab[i_op_tab].name) + 1;
-	clean = ft_strtrim(str);
-	param = ft_strsplit(clean, ',');
+	clean = NULL;
+	if (!(str = ft_strjstr(str, op_tab[i_op_tab].name))\
+			|| !(str += ft_strlen(op_tab[i_op_tab].name) + 1)\
+			|| !(clean = ft_strtrim(str))\
+			|| !(param = ft_strsplit(clean, ',')))
+	{
+		free(str);
+		free(clean);
+		return (NULL);
+	}
 	free(clean);
 	while (param[i])
 	{
-		tmp = ft_strtrim(param[i]);
+		if (!(tmp = ft_strtrim(param[i])))
+		{
+			free(str);
+			return (NULL);
+		}
 		free(param[i]);
 		param[i] = tmp;
 		i++;
@@ -129,11 +147,15 @@ uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data)
 		i = 0;
 		while (param[i])
 			free(param[i++]);
-		return (bin->table);
+		return (NULL);
 	}
 	if (op_tab[i_op_tab].ocp)
-		bin->table = add_byte((param_encode(param) << \
+	{
+		if (!(value = param_encode(param)))
+			return (NULL);
+		bin->table = add_byte((value << \
 			(8 - op_tab[i_op_tab].nb_params * 2)), bin);
+	}
 	bin->table = add_data(param, bin, i_op_tab, data);
 	i = 0;
 	while (param[i])

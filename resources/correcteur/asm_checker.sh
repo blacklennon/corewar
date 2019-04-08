@@ -1,3 +1,10 @@
+mkdir -p correct
+mkdir -p tests
+
+rm -rf tests/*.cor
+rm -rf correct/*.cor
+
+$correct_asm_path = ../asm
 
 if [ $# -ne 2 ]
 then
@@ -10,7 +17,7 @@ else
 	mv $2/*.cor tests/
 	for f in $2/*.s
 	do
-		 ./bin/asm ${f} >> log
+		 $correct_asm_path ${f} >> log
 	done
 	mv $2/*.cor correct/
 	for f in tests/*.cor
@@ -28,5 +35,4 @@ else
 		fi
 	done
 	printf "$(ls -l tests/ | wc -l | cut -d ' ' -f 7)/$(ls -l correct/ | wc -l | cut -d ' ' -f 7)\n"
-	rm -rf tests/*.cor
 fi
