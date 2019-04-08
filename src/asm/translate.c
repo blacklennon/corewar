@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 14:43:12 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:26:16 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 	int		value;
 	size_t	b_bytes;
 
-	b_bytes = bin->size - op_tab[i_op_tab].ocp;
+	b_bytes = bin->size - g_op_tab[i_op_tab].ocp;
 	value = 0;
 	i = 0;
 	while (param[i])
@@ -84,7 +84,7 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 			}
 			else
 				value = ft_atoi(&param[i][1]);
-			if (!op_tab[i_op_tab].little_dir)
+			if (!g_op_tab[i_op_tab].little_dir)
 			{
 				bin->table = add_byte((value & 0xFF000000) >> 24, bin);
 				bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
@@ -121,8 +121,8 @@ uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data)
 	tab_tmp = NULL;
 	i = 0;
 	clean = NULL;
-	if (!(str = ft_strjstr(str, op_tab[i_op_tab].name))\
-			|| !(str += ft_strlen(op_tab[i_op_tab].name) + 1)\
+	if (!(str = ft_strjstr(str, g_op_tab[i_op_tab].name))\
+			|| !(str += ft_strlen(g_op_tab[i_op_tab].name) + 1)\
 			|| !(clean = ft_strtrim(str))\
 			|| !(param = ft_strsplit(clean, ',')))
 	{
@@ -142,19 +142,19 @@ uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data)
 		param[i] = tmp;
 		i++;
 	}
-	if (i-1 > op_tab[i_op_tab].nb_params)
+	if (i-1 > g_op_tab[i_op_tab].nb_params)
 	{
 		i = 0;
 		while (param[i])
 			free(param[i++]);
 		return (NULL);
 	}
-	if (op_tab[i_op_tab].ocp)
+	if (g_op_tab[i_op_tab].ocp)
 	{
 		if (!(value = param_encode(param)))
 			return (NULL);
 		bin->table = add_byte((value << \
-			(8 - op_tab[i_op_tab].nb_params * 2)), bin);
+			(8 - g_op_tab[i_op_tab].nb_params * 2)), bin);
 	}
 	bin->table = add_data(param, bin, i_op_tab, data);
 	i = 0;

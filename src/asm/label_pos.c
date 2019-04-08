@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   label_pos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:51:35 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 13:27:16 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:25:13 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ size_t	param_size(char *str)
 	size = 0;
 	if ((op = find_op(str)))
 	{
-		str = ft_strjstr(str, op_tab[op].name);
-		str += ft_strlen(op_tab[op].name);
+		str = ft_strjstr(str, g_op_tab[op].name);
+		str += ft_strlen(g_op_tab[op].name);
 	}
 	else
 		return (0);
@@ -40,7 +40,7 @@ size_t	param_size(char *str)
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
 		if (str[i] == DIRECT_CHAR)
-			size += (op_tab[op].little_dir) ? 2 : 4;
+			size += (g_op_tab[op].little_dir) ? 2 : 4;
 		else if (ft_isdigit(str[i]) || (str[i] == '-'\
 					&& ft_isdigit(str[i+1])))
 			size += 2;
@@ -62,7 +62,7 @@ int		find_op(char *str)
 	i = 1;
 	while (i < 17)
 	{
-		if (ft_strjstr(str, op_tab[i].name))
+		if (ft_strjstr(str, g_op_tab[i].name))
 			return (i);
 		i++;
 	}
@@ -98,7 +98,7 @@ int		label_pos(char *param, char **data)
 		if (!ft_labelcmp(label, data[i]))
 			break;
 		if (find_op(data[i]))
-			distance += 1 + op_tab[find_op(data[i])].ocp + param_size(data[i]);
+			distance += 1 + g_op_tab[find_op(data[i])].ocp + param_size(data[i]);
 		if (find_op(data[i]) && !param_size(data[i]))
 		{
 			printf("error in param line %d\n", i);

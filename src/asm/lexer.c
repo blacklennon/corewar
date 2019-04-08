@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macuguen <macuguen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:03:49 by macuguen          #+#    #+#             */
-/*   Updated: 2019/03/26 14:39:48 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:24:24 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int     tokenisation(int i, char **data, t_token *token, t_token *token_new)
     j = 1;
     while(j <= 17)
     {
-        if (ft_strcmp(data[i], op_tab[j].name) == 0)
+        if (ft_strcmp(data[i], g_op_tab[j].name) == 0)
         {
             //operation
             addlist_opcode(j, token, token_new);

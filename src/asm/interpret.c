@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:49:49 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 14:42:08 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:23:42 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ t_binary	*interpret(char **data)
 		j = 1;
 		while (j < 17)
 		{
-			if (ft_strjstr(data[i], op_tab[j].name))
+			if (ft_strjstr(data[i], g_op_tab[j].name))
 			{
 				tmp = table->size;
-				table->table = add_byte(op_tab[j].code, table);
+				table->table = add_byte(g_op_tab[j].code, table);
 				table->table = add_param(data[i], j, table, data);
 				break;
 			}

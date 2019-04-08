@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/05 22:33:18 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/08 19:22:36 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ static void	read_reg(t_int_types *arg, t_args *args, uint16_t pc, t_vm *vm)
 		(*arg).u_reg = reg;
 }
 
-static uint16_t	read_mem(t_vm *vm, uint16_t pc, t_int_types_enum type, t_int_types *arg)
-{
-	if (type == e_ind)
-		*arg;
-}
+// static uint16_t	read_mem(t_vm *vm, uint16_t pc, t_int_types_enum type, t_int_types *arg)
+// {
+// 	if (type == e_ind)
+// 		*arg;
+// }
 
 uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 {
