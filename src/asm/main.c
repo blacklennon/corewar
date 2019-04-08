@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 18:28:42 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:04:01 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*read_file(char	*path)
 {
 	int	fd;
 	int	i;
-	char	buff[4096];
+	char	buff[4097];
 	char	*tmp;
 	char	*content;
 

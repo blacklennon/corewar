@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 17:23:17 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:05:50 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ int		check_name_comment(char *file)
 			if (where_is(ft_strchr(&file[i], '"') + 1, '"') >= PROG_NAME_LENGTH)
 				return (0);
 		}
+		else if (ft_strstr(&file[i], COMMENT_CMD_STRING))
+		{
+			if (comment)
+				return (0);
+			comment = 1;
+			if (where_is(ft_strchr(&file[i], '"') + 1, '"') >= COMMENT_LENGTH)
+				return (0);
+		}
 		while (file[i] != '\n')
 			i++;
 		i++;
@@ -66,6 +74,7 @@ int		check_file(char *file)
 
 	i = 0;
 	delete_comment(file);
-	check_name_comment(file);
+	if (!check_name_comment(file))
+		return (0);
 	return (1);
 }
