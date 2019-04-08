@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/03 11:48:00 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/08 19:19:20 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,15 @@
 # define OP_H
 
 # include <stdint.h>
-# include "typedefs/s_process.h"
+# include <stddef.h>
 
 # define IND_SIZE				2
 # define REG_SIZE				4
 # define DIR_SIZE				REG_SIZE
 
-/* OCP */
-# define REG_CODE				1 //01
-# define DIR_CODE				2 //10
-# define IND_CODE				3 //11
+# define REG_CODE				1
+# define DIR_CODE				2
+# define IND_CODE				3
 
 # define MAX_ARGS_NUMBER		4
 
@@ -67,10 +66,6 @@ typedef char					t_arg_type;
 # define T_IND					4
 # define T_LAB					8
 
-/*
-**
-*/
-
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
@@ -83,41 +78,6 @@ typedef struct			s_header
 	char				comment[COMMENT_LENGTH + 1];
 }				t_header;
 
-typedef enum 			e_op_code
-{
-	LIVE	= 1,
-	LD		= 2,
-	ST		= 3,
-	ADD		= 4,
-	SUB		= 5,
-	AND		= 6,
-	OR		= 7,
-	XOR		= 8,
-	ZJMP	= 9,
-	LDI		= 10,
-	STI		= 11,
-	FORK	= 12,
-	LLD		= 13,
-	LLDI	= 14,
-	LFORK	= 15,
-	AFF		= 16,
-	REGISTRE	= 17,
-	DIRECT		= 18,
-	INDIRECT	= 19,
-	REG		= 20,
-	LABEL		= 21
-
-}				t_op_code;
-
-typedef struct s_token
-{
-    t_op_code		type;
-    int			valeur;
-    char		*name_of_label;
-    struct s_token	*next;
-    struct s_token	*prev;
-}			t_token;
-
 typedef union			u_int_types
 {
 	int8_t				u_reg;
@@ -126,36 +86,73 @@ typedef union			u_int_types
 	int32_t				u_dir32;
 }						t_int_types;
 
-typedef enum			u_int_types_enum
+typedef enum			e_int_types_enum
 {
-	e_none, e_reg, e_ind, e_dir
+	e_none, e_reg, e_ind, e_dir, e_result
 }						t_int_types_enum;
 
-typedef	struct 			s_args
+typedef	struct			s_args
 {
 	t_int_types_enum	type[3];
 	t_int_types			value[3];
+	int					false_ocp;
+	int					false_reg;
 }						t_args;
 
-typedef struct			s_process
+typedef struct			s_champion
 {
+	unsigned int		id;
 	char				*file_path;
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
-	size_t				program_counter;
-	uint8_t				carry;
-	int32_t				registers[REG_NUMBER]; // c est bien ici qu on doit set les valeurs des registres
 	size_t				live_counter;
-	size_t				next_op;
+}						t_champion;
+
+typedef struct			s_process
+{
+	struct s_champion	*champion;
+	uint16_t			program_counter;
+	uint8_t				carry;
+	int32_t				registers[REG_NUMBER];
+	size_t				do_op;
+	struct s_op			*next_op;
+	struct s_process	*next;
 }						t_process;
 
 typedef struct			s_vm
 {
 	uint8_t				memory[MEM_SIZE];
 	size_t				nb_champs;
-	struct s_process	process[MAX_PLAYERS];
+	struct s_champion	champions[MAX_PLAYERS];
 	size_t				cycle;
+	size_t				cycle_to_check;
+	struct s_champion	*last_alive;
+	int					size_cycle;
+	size_t				nb_check;
+	size_t				cycle_limit;
+	int					verbose;
+	struct s_process	*process;
 }						t_vm;
+
+typedef enum			e_op_code
+{
+	LIVE = 1,
+	LD = 2,
+	ST = 3,
+	ADD = 4,
+	SUB = 5,
+	AND = 6,
+	OR = 7,
+	XOR = 8,
+	ZJMP = 9,
+	LDI = 10,
+	STI = 11,
+	FORK = 12,
+	LLD = 13,
+	LLDI = 14,
+	LFORK = 15,
+	AFF = 16
+}						t_op_code;
 
 typedef struct			s_op
 {
@@ -165,11 +162,11 @@ typedef struct			s_op
 	t_op_code			code;
 	uint32_t			cycles;
 	char				*description;
-	uint8_t				ocp; // booleen 1/0 est-ce que je dois lire l'ocp
-	uint8_t				little_dir; // boolean 1/0 est-ce que c'est un direct de taille 16/32 bits 2/4 BYTES; 
-	void				(*func)(t_process*, t_args*);
+	uint8_t				ocp;
+	uint8_t				little_dir;
+	void				(*func)(struct s_process*, struct s_args*);
 }						t_op;
 
-extern t_op				op_tab[17];
+extern t_op				g_op_tab[17];
 
 #endif

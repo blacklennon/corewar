@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 10:45:59 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 19:18:45 by pcarles          ###   ########.fr       */
+/*   Created: 2019/04/03 16:32:39 by pcarles           #+#    #+#             */
+/*   Updated: 2019/04/03 16:34:02 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(char const *str, char const *search)
+long			ft_atol(char const *s)
 {
-	int i;
-	int b;
+	unsigned int	flag;
+	long			res;
 
-	b = 0;
-	i = 0;
-	if (!*search)
-		return ((char *)str);
-	while (str[i])
+	flag = 0;
+	res = 0;
+	while (ft_isspace(*s))
+		s++;
+	if (*s == '-' || *s == '+')
 	{
-		b = 0;
-		while (b + 1 <= ft_strlen(search) && search[b] == str[i + b])
-			b++;
-		if (b == ft_strlen(search))
-			return ((char *)&str[i]);
-		i++;
+		if (*s == '-')
+			flag = 1;
+		s++;
 	}
-	return (NULL);
+	while (ft_isdigit(*s))
+	{
+		res = (res * 10) + (*s - '0');
+		s++;
+	}
+	return (flag ? -res : res);
 }

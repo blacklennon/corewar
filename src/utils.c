@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 10:45:59 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 19:18:45 by pcarles          ###   ########.fr       */
+/*   Created: 2019/03/26 19:24:56 by pcarles           #+#    #+#             */
+/*   Updated: 2019/03/26 19:26:05 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "corewar.h"
 
-char	*ft_strstr(char const *str, char const *search)
+int32_t		swap_int32(int32_t value)
 {
-	int i;
-	int b;
+	value = ((value << 8) & 0xFF00FF00) | ((value >> 8) & 0xFF00FF);
+	return ((value << 16) | ((value >> 16) & 0xFFFF));
+}
 
-	b = 0;
-	i = 0;
-	if (!*search)
-		return ((char *)str);
-	while (str[i])
-	{
-		b = 0;
-		while (b + 1 <= ft_strlen(search) && search[b] == str[i + b])
-			b++;
-		if (b == ft_strlen(search))
-			return ((char *)&str[i]);
-		i++;
-	}
-	return (NULL);
+int16_t		swap_int16(int16_t value)
+{
+	return ((int16_t)(value << 8) + ((uint16_t)value >> 8));
 }
