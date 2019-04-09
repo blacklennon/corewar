@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/09 21:07:25 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:38:45 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int		check_param(int	i_op_tab, char *file)
 			printf("Bad param : Registre\n");
 			return (0);
 		}
-		else if ((ft_isdigit(*file) || (*file == '-' && ft_isdigit(*(file + 1)))) && !(T_IND & g_op_tab[i_op_tab].params[param]))
+		else if ((ft_isdigit(*file) || (*file == '-' && ft_isdigit(*(file + 1)))) || !(T_IND & g_op_tab[i_op_tab].params[param]))
 		{
 			printf("Bad param : Indirect (%s) %d\n", file, param);
 			return (0);
