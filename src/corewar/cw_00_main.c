@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/04 16:50:32 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 09:33:40 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	anounce_winner(t_vm *vm)
 		31 + winner->id, winner->id, winner->name);
 	else
 		ft_printf("Nobody wins\n");
-	ft_printf("Game ended at cylce %d\n", vm->cycle);
+	ft_printf("Game ended at cycle %d\n", vm->cycle);
 }
 
 int			main(int ac, char **av)

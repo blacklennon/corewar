@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 15:53:34 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/05 20:33:42 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 10:25:30 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_isspace(int c);
 int					ft_isxdigit(int c);
+int					ft_stris(char *str, int (*f)(int c));
+int					ft_strisnumber(char *str);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_strnew(size_t size);
@@ -90,6 +92,5 @@ int					ft_islower(int c);
 int					ft_isupper(int c);
 long				ft_strtol(char const *str, char **endptr, int base);
 long long			ft_atoll(const char *str);
-int					ft_str_is_number(char *str);
 
 #endif

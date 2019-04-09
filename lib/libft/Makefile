@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 15:41:57 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/03 16:49:13 by pcarles          ###   ########.fr        #
+#    Updated: 2019/04/09 10:25:46 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,8 @@ C_FILES		= ft_putchar.c \
 			ft_isalnum.c \
 			ft_isascii.c \
 			ft_isprint.c \
+			ft_stris.c \
+			ft_strisnumber.c \
 			ft_toupper.c \
 			ft_tolower.c \
 			ft_strnew.c \
@@ -92,7 +94,6 @@ C_FILES		= ft_putchar.c \
 			ft_isxdigit.c \
 			get_next_line.c \
 			ft_atoll.c \
-			ft_str_is_number.c \
 			ft_printf/ft_printf.c \
 			ft_printf/init_handlers.c \
 			ft_printf/parser.c \

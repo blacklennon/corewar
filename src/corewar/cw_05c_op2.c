@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:31:34 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 17:26:18 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 10:19:03 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	LDI Reste a commenter, et a appliquer le verbose
 */
 
-void		op_ldi(t_process *process, t_args *args)
+void				op_ldi(t_process *process, t_args *args)
 {
 	int32_t	value;
 	int32_t	address;
@@ -35,7 +35,7 @@ void		op_ldi(t_process *process, t_args *args)
 	else if (args->type[0] != e_result && args->type[1] == e_result)
 		address = args->value[0].u_dir16 + args->value[1].u_dir32;
 	else
-		crash(process, "This should never been reached op2.c:33");
+		crash(process, "This should never been reached op2.c:38");
 	value = read4_memory(get_vm(NULL), \
 	process->program_counter + (address % IDX_MOD));
 	process->registers[args->value[2].u_reg] = value;
@@ -46,7 +46,7 @@ void		op_ldi(t_process *process, t_args *args)
 **	STI reste a commenter et a appliquer le verbose
 */
 
-void		op_sti(t_process *process, t_args *args)
+void				op_sti(t_process *process, t_args *args)
 {
 	int32_t	value_to_store;
 	int32_t	address;
@@ -64,7 +64,7 @@ void		op_sti(t_process *process, t_args *args)
 	else if (args->type[1] == e_dir && args->type[2] == e_result)
 		address = args->value[1].u_dir16 + args->value[2].u_dir32;
 	else
-		crash(process, "This should never been reached op2.c:60");
+		crash(process, "This should never been reached op2.c:67");
 	write4_memory(get_vm(NULL), value_to_store, \
 	process->program_counter + (address % IDX_MOD));
 	process->carry = (value_to_store == 0) ? 1 : 0;
@@ -75,7 +75,7 @@ void		op_sti(t_process *process, t_args *args)
 **	du process copie grace a ft_memcpy, elle est utile pour fork et lfork
 */
 
-t_process	*fork_process(t_process *process)
+static t_process	*fork_process(t_process *process)
 {
 	t_process	*new_process;
 
@@ -91,7 +91,7 @@ t_process	*fork_process(t_process *process)
 **	avec le modulo IDX_MOD qui en limite la portee
 */
 
-void		op_fork(t_process *process, t_args *args)
+void				op_fork(t_process *process, t_args *args)
 {
 	t_vm		*vm;
 	t_process	*new_process;
@@ -111,7 +111,7 @@ void		op_fork(t_process *process, t_args *args)
 **	sans le modulo IDX_MOD qui en limiterait la portee
 */
 
-void		op_lfork(t_process *process, t_args *args)
+void				op_lfork(t_process *process, t_args *args)
 {
 	t_vm		*vm;
 	t_process	*new_process;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_args.c                                        :+:      :+:    :+:   */
+/*   cw_04a_read_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/08 20:57:35 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 10:19:41 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static uint16_t	get_params_ocp(uint16_t pc, t_vm *vm, t_op *op, t_args *args)
 		else if (args->type[i] == e_dir && op->little_dir == 0)
 			args->value[i].u_dir32 = read4_memory(vm, pc);
 		else
-			crash(NULL, "wtf this should never be reached");
+			crash(NULL, "wtf this should never be reached read_args.c:87");
 		if (args->type[i] != e_reg)
 			pc += (args->type[i] == e_dir && op->little_dir == 0) ? 4 : 2;
 		i++;
@@ -114,6 +114,6 @@ uint16_t		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 	else if (op->params[0] == T_REG)
 		read_reg(&args->value[0], args, pc++, vm);
 	else
-		crash(process, "wtf this should never be reached");
+		crash(process, "wtf this should never be reached read_args.c:117");
 	return (pc);
 }

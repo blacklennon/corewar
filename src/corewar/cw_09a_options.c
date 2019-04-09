@@ -6,31 +6,12 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/08 21:10:27 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 10:26:09 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "corewar.h"
-
-int			ft_stris(char *str, int (*f)(int c))
-{
-	if (str == NULL || *str == '\0')
-		return (0);
-	while (*str)
-	{
-		if (!f((int)*str))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-int			ft_strisnumber(char *str)
-{
-	if (*str == '-' || *str == '+')
-		str++;
-	return (ft_stris(str, &ft_isdigit));
-}
 
 static int	set_verbosity(char *av, t_vm *vm)
 {

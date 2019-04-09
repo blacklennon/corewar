@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:32:03 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 17:26:33 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 10:20:03 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		op_lldi(t_process *process, t_args *args)
 	else if (args->type[0] != e_result && args->type[1] == e_result)
 		address = args->value[0].u_dir16 + args->value[1].u_dir32;
 	else
-		crash(process, "This should never been reached op3.c:31");
+		crash(process, "This should never been reached op3.c:37");
 	value = read4_memory(get_vm(NULL), process->program_counter + address);
 	process->registers[args->value[2].u_reg] = value;
 	process->carry = (value == 0) ? 1 : 0;

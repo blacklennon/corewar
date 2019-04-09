@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_number.c                                 :+:      :+:    :+:   */
+/*   ft_strisnumber.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/03/26 22:34:28 by jdouniol         ###   ########.fr       */
+/*   Created: 2019/03/26 22:16:11 by pcarles           #+#    #+#             */
+/*   Updated: 2019/04/09 10:25:08 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int 	ft_str_is_number(char *str)
+#include "libft.h"
+
+int			ft_strisnumber(char *str)
 {
-
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[0] == '-')
-			i++;
-		if (str[i] >= '0' && str[i] <= '9')
-			i++;
-		else
-			return (0);
-	}
-	return (1);
+	if (*str == '-' || *str == '+')
+		str++;
+	return (ft_stris(str, &ft_isdigit));
 }
