@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/09 18:51:14 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 19:15:48 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ void		parse_arguments(int ac, char **av, t_vm *vm)
 	i = 0;
 	while (++i < ac - 1)
 	{
-		if (*(av[i])++ == '-' && ft_strlen(av[i]) == 1)
+		if (*av[i] == '-' && ft_strlen(av[i]) == 2)
 		{
+			av[i]++;
 			if (*av[i] == 'd')
 				i += set_cycle_dump(av[i + 1], vm);
 			else if (*av[i] == 'v')
