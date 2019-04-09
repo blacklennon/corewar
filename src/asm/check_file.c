@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/09 19:45:00 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/09 21:07:25 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,23 @@ int		find_op_line(char *str)
 	return (0);
 }
 
+int		num_after_direct_char(char *file)
+{
+	int i;
+
+	i = 1;
+	if (file[i] == '-')
+		i++;
+	while (file[i] != '\0')
+	{
+		if (ft_isdigit(file[i]))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 int		check_param(int	i_op_tab, char *file)
 {
 	int		param;
@@ -159,7 +176,7 @@ int		check_param(int	i_op_tab, char *file)
 			printf("Bad param : Indirect (%s) %d\n", file, param);
 			return (0);
 		}
-		else if (*file == DIRECT_CHAR && ((*(file + 1) == '-' && ft_isdigit(*(file + 2))) || ft_isdigit(*(file + 1))) && !(T_DIR & g_op_tab[i_op_tab].params[param]))
+		else if (*file == DIRECT_CHAR && (!(num_after_direct_char(file)) || !(T_DIR & g_op_tab[i_op_tab].params[param])))
 		{
 			printf("Bad param : Direct\n");
 			return (0);
