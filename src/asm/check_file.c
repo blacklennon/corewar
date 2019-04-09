@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/09 18:29:04 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/09 19:36:20 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,43 +52,49 @@ int		check_name_comment(char *file)
 	i = 0;
 	name = 0;
 	comment = 0;
-	while (file[i])
-	{
-		if (&file[i] == ft_strstr(&file[i], NAME_CMD_STRING))
-		{
-			if (name)
-			{
-				printf("name double declaration\n");
-				return (0);
-			}
-			name = 1;
-			if (where_is(ft_strchr(&file[i], '"') + 1, '"') > PROG_NAME_LENGTH)
-			{
-				printf("name too big (max %d) (have %d)\n", PROG_NAME_LENGTH, \
-						where_is(ft_strchr(&file[i], '"') + 1, '"'));
-				return (0);
-			}
-		}
-		else if (&file[i] == ft_strstr(&file[i], COMMENT_CMD_STRING))
-		{
-			if (comment)
-			{
-				printf("comment double declaration\n");
-				return (0);
-			}
-			comment = 1;
-			if (where_is(ft_strchr(&file[i], '"') + 1, '"') > COMMENT_LENGTH)
-			{
-				printf("comment too big (max %d) (have %d)\n", \
-				COMMENT_LENGTH, where_is(ft_strchr(&file[i], '"') + 1, '"'));
-				return (0);
-			}
-		}
-		else if (ft_isalnum(file[i]) && !name && !comment)
-			return (0);
-		while (file[i] != '\n')
-			i++;
+	while (*file && ft_isspace(*file))
 		i++;
+	if (*file != NAME_CMD_STRING[0] || *file != NAME_CMD_STRING[0])
+	{
+		printf("ERROR 1\n");
+		return (0);
+	}
+	while (*file)
+	{
+		i = 0;
+		if (ft_strjstr(file, NAME_CMD_STRING) == file && !name)
+		{
+			file++;
+			file = jump_spaces(file);
+			if (*file != '"')
+				return (0);
+			file++;
+			while (*(file + i) && *(file + i) != '"')
+				i++;
+			if (i + 1 > PROG_NAME_LENGTH)
+				return (0);
+			file += i + 1;
+			name = 1;
+		}
+		else if (ft_strjstr(file, COMMENT_CMD_STRING) == file && !comment)
+		{
+			file++;
+			file = jump_spaces(file);
+			if (*file != '"')
+				return (0);
+			file++;
+			while (*(file + i) && *(file + i) != '"')
+				i++;
+			if (i + 1 > COMMENT_LENGTH)
+				return (0);
+			file += i + 1;
+			comment = 1;
+		}
+		else if (!ft_isspace(*file) && (!comment || !name))
+			return (0);
+		if (comment && name)
+			break;
+		file++;
 	}
 	return (1);
 }
@@ -194,7 +200,6 @@ int		check_all(char *file)
 		while (*file && *file != '\n')
 			file++;
 		file++;
-		//file = jump_spaces(file);
 		line++;
 	}
 	if ((*file))
