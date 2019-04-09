@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 19:29:14 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 16:43:27 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,30 @@ char	*read_file(char	*path)
 	return (content);
 }
 
+int		check_extension(char *path)
+{
+	int	i;
+
+	i = ft_strlen(path)-1;
+	while (path[i])
+	{
+		if (path[i] == '.' && ft_strstr(&path[i], ".s"))
+			return (1);
+		i--;
+	}
+	return (0);
+}
+
 int		check_args(int argc, char **argv)
 {
-	if (argc >= 2 && open(argv[1], O_RDONLY) > 0)
-		return (1);
-	return (0);
+	int	fd;
+	int	ret;
+
+	fd = -1;
+	ret = (argc >= 2 && (fd = open(argv[1], O_RDONLY)) > 0);
+	ret = (ret && check_extension(argv[1]));
+	close(fd);
+	return (ret);
 }
 
 int		write_in_file(char *path, char **data)
