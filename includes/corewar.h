@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/05 20:54:37 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 18:48:51 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ void		write2_memory(t_vm *vm, int16_t value, size_t index);
 */
 
 void		parse_arguments(int ac, char **av, t_vm *vm);
+void		try_add_player(char **av, int i, t_vm *vm);
 
 #endif

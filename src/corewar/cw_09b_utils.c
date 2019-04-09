@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/03 18:02:35 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 19:00:16 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "ft_printf.h"
+#include "common.h"
 #include "corewar.h"
 
 void		mem_dump(uint8_t *p, size_t size, size_t octet_highlight)
@@ -83,7 +84,7 @@ void		crash(t_process *process, char *str)
 	vm = get_vm(NULL);
 	if (str == NULL && process == NULL)
 	{
-		ft_printf("usage: \n");
+		corewar_usage();
 		free_process(vm->process);
 		exit(EXIT_FAILURE);
 	}

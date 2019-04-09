@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/08 22:13:21 by pcarles          ###   ########.fr        #
+#    Updated: 2019/04/09 18:49:07 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ corewar_SRC	:=	op.c \
 				corewar/cw_05c_op2.c \
 				corewar/cw_05d_op3.c \
 				corewar/cw_09a_options.c \
+				corewar/cw_09b_options.c \
 				corewar/cw_09b_utils.c \
 				corewar/cw_09c_memory.c
 

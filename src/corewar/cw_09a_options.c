@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/09 10:26:09 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/09 18:51:14 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,13 @@ static int	set_cycle_dump(char *av, t_vm *vm)
 	{
 		tmp = ft_atol(av);
 		if (tmp > 0 && tmp <= __LONG_MAX__)
-		{
 			vm->cycle_limit = (size_t)tmp;
-			ft_printf("cycle limit is: %zu\n", vm->cycle_limit);
-		}
 		else
-			crash(NULL, "dumple cycle too big");
+			crash(NULL, "dump cycle too big");
 	}
 	else
 		crash(NULL, "not a valid number");
 	return (1);
-}
-
-static void	add_player(char *file_path, t_vm *vm)
-{
-	int		i;
-
-	i = 0;
-	while (i < MAX_ARGS_NUMBER)
-	{
-		if (vm->champions[i].file_path == NULL)
-		{
-			vm->champions[i].file_path = file_path;
-			return ;
-		}
-		i++;
-	}
-	crash(NULL, "too many players");
 }
 
 void		parse_arguments(int ac, char **av, t_vm *vm)
@@ -121,10 +101,7 @@ void		parse_arguments(int ac, char **av, t_vm *vm)
 	}
 	while (i < ac)
 	{
-		if (ft_strstr(av[i], ".cor") != NULL)
-			add_player(av[i], vm);
-		else
-			crash(NULL, NULL);
+		try_add_player(av, i, vm);
 		i++;
 	}
 }
