@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/09 19:36:20 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/09 19:45:00 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,18 @@ int		check_name_comment(char *file)
 	name = 0;
 	comment = 0;
 	while (*file && ft_isspace(*file))
-		i++;
+		file++;
 	if (*file != NAME_CMD_STRING[0] || *file != NAME_CMD_STRING[0])
-	{
-		printf("ERROR 1\n");
 		return (0);
-	}
 	while (*file)
 	{
-		i = 0;
 		if (ft_strjstr(file, NAME_CMD_STRING) == file && !name)
 		{
 			file++;
 			file = jump_spaces(file);
 			if (*file != '"')
 				return (0);
-			file++;
+			i = 1;
 			while (*(file + i) && *(file + i) != '"')
 				i++;
 			if (i + 1 > PROG_NAME_LENGTH)
@@ -82,7 +78,7 @@ int		check_name_comment(char *file)
 			file = jump_spaces(file);
 			if (*file != '"')
 				return (0);
-			file++;
+			i = 1;
 			while (*(file + i) && *(file + i) != '"')
 				i++;
 			if (i + 1 > COMMENT_LENGTH)
@@ -151,6 +147,8 @@ int		check_param(int	i_op_tab, char *file)
 	printf("Checking param for op %s\n", g_op_tab[i_op_tab].name);
 	while (file && *file && file < max_index)
 	{
+		if (param > g_op_tab[i_op_tab].nb_params - 1)
+			return (0);
 		if (*file == 'r' && (!(T_REG & g_op_tab[i_op_tab].params[param]) || (ft_atoi(file+1) > REG_NUMBER || ft_atoi(file+1) < 1)))
 		{
 			printf("Bad param : Registre\n");
