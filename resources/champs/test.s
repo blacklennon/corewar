@@ -4,7 +4,7 @@
 st r15,13
 ld %65,r2
 sti r2,%654,%654
-: sti r2,%654,%654
+label: sti r2,%654,%654
 st r15,13
 ld %65,r2
-ld :,r5
+ld :label,r5

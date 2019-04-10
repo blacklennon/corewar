@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 20:20:44 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 20:50:12 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,10 +157,13 @@ int		find_op_line(char *str)
 int		find_label(char *label_name, char *file)
 {
 	char	*pos;
+	int		label_length;
 
-	label_name = ft_strsub(label_name, where_is(label_name, LABEL_CHAR) + 1, \
-			(ft_cbc(label_name, SEPARATOR_CHAR, '\n')) ? where_is(label_name,\
-				SEPARATOR_CHAR) - 1 : where_is(label_name, '\n'));
+	label_name = ft_strchr(label_name, LABEL_CHAR) + 1;
+	label_length = 0;
+	while (ft_strchr(LABEL_CHARS, label_name[label_length]))
+		label_length++;
+	label_name = ft_strsub(label_name, 0, label_length);
 	if (!ft_strlen(label_name))
 		return (0);
 	pos = ft_strstr(file, label_name);
@@ -169,8 +172,10 @@ int		find_label(char *label_name, char *file)
 		file = pos + ft_strlen(label_name);
 		pos = ft_strstr(file, label_name);
 	}
+	if (pos)
+		pos += ft_strlen(label_name);
 	free(label_name);
-	return ((pos && pos[ft_strlen(label_name)] == LABEL_CHAR));
+	return ((pos && *pos == LABEL_CHAR));
 }
 
 int			ft_valid_number(char *file)
@@ -205,20 +210,21 @@ int		check_param(int	op_code, char *file, char *start)
 		if (params_found > op->nb_params - 1)
 			return (0);
 		if (((T_REG & op->params[params_found]) != 0) && *file == 'r' \
-				&& (ft_atoi(file+1) <= REG_NUMBER && ft_atoi(file+1) >= 1))
+				&& (ft_atoi(file+1) <= REG_NUMBER && ft_atoi(file + 1) >= 1))
 			params_found++;
 		else if (((T_IND & op->params[params_found]) != 0)\
 				&& ft_valid_number(file + 1))
 			params_found++;
 		else if (((T_DIR & op->params[params_found]) != 0)\
-				&& *file == DIRECT_CHAR && ft_valid_number(file + 1))
+				&& *file == DIRECT_CHAR && (ft_valid_number(file + 1)\
+					|| (*(file + 1) == LABEL_CHAR && find_label(file, start))))
 			params_found++;
 		else if (*file == LABEL_CHAR && (T_DIR & op->params[params_found])\
 				&& find_label(file, start))
 			params_found++;
 		else
 		{
-			printf("params not recognized >%.10s<\n", file);
+			printf("params not recognized >%.20s<\n", file);
 			return (0);
 		}
 		while (*file && (*file != SEPARATOR_CHAR && *file != '\n'))
@@ -315,12 +321,7 @@ int		check_all(char *file)
 			printf("Bad param on line %d\n", line);
 			return (0);
 		}
-		while (*file && *file != '\n')
-			file++;
-		if (*file == '\0')
-			break ;
-		file++;
-		while (*file == '\n')
+		while (*file && (*file != '\n' || *file != ' '))
 			file++;
 		line++;
 	}
