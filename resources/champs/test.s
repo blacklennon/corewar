@@ -4,3 +4,7 @@
 st r15,13
 ld %65,r2
 sti r2,%654,%654
+label01: sti r2,%654,%654
+st r15,13
+ld %65,r2
+ld :label01,r5

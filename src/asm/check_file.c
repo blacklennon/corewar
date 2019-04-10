@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/09 19:45:00 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 17:53:00 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,25 +141,27 @@ int		check_param(int	i_op_tab, char *file)
 {
 	int		param;
 	char	*max_index;
+	t_op	*op;
 
+	op = &g_op_tab[i_op_tab];
 	max_index = ft_strchr(file, '\n');
 	param = 0;
-	printf("Checking param for op %s\n", g_op_tab[i_op_tab].name);
+	//printf("Checking param for op %s\n", g_op_tab[i_op_tab].name);
 	while (file && *file && file < max_index)
 	{
-		if (param > g_op_tab[i_op_tab].nb_params - 1)
+		if (param > op->nb_params - 1)
 			return (0);
-		if (*file == 'r' && (!(T_REG & g_op_tab[i_op_tab].params[param]) || (ft_atoi(file+1) > REG_NUMBER || ft_atoi(file+1) < 1)))
+		if (*file == 'r' && (!(T_REG & op->params[param]) || (ft_atoi(file+1) > REG_NUMBER || ft_atoi(file+1) < 1)))
 		{
 			printf("Bad param : Registre\n");
 			return (0);
 		}
-		else if ((ft_isdigit(*file) || (*file == '-' && ft_isdigit(*(file + 1)))) && !(T_IND & g_op_tab[i_op_tab].params[param]))
+		else if ((ft_isdigit(*file) || (*file == '-' && ft_isdigit(*(file + 1)))) && !(T_IND & op->params[param]))
 		{
 			printf("Bad param : Indirect (%s) %d\n", file, param);
 			return (0);
 		}
-		else if (*file == DIRECT_CHAR && ((*(file + 1) == '-' && ft_isdigit(*(file + 2))) || ft_isdigit(*(file + 1))) && !(T_DIR & g_op_tab[i_op_tab].params[param]))
+		else if (*file == DIRECT_CHAR && ((*(file + 1) == '-' && ft_isdigit(*(file + 2))) || ft_isdigit(*(file + 1))) && !(T_DIR & op->params[param]))
 		{
 			printf("Bad param : Direct\n");
 			return (0);
@@ -169,6 +171,36 @@ int		check_param(int	i_op_tab, char *file)
 		param++;
 	}
 	return (1);
+}
+
+int			ft_cbc(char *file, char a, char b) // Permet de savoir si un char se trouve avant un autre char (charbeforechar)
+{
+	int	found;
+
+	found = 0;
+	while (file && *file)
+	{
+		if (*file == b)
+			return (0);
+		if (*file == a)
+			return (1);
+		file++;
+	}
+	return (0);
+}
+
+char		*find_label(char *file)
+{
+	char	*ptr;
+
+	ptr = file;
+//	printf("%s\n", file);
+	if (file && ft_cbc(file, LABEL_CHAR, '\n'))
+	{
+		//file = jump_spaces(file);
+//		printf("after label : |%s|\n", file);
+	}
+	return (file);
 }
 
 int		check_all(char *file)
@@ -187,7 +219,7 @@ int		check_all(char *file)
 	file = jump_spaces(file);
 	while (file && find_op_line(file))
 	{
-		printf("%s\n", g_op_tab[find_op_line(file)].name);
+//		printf("%s\n", g_op_tab[find_op_line(file)].name);
 		i_op_tab = find_op_line(file);
 		file = jump_spaces(file);
 		if (!check_param(i_op_tab, file))
@@ -197,7 +229,9 @@ int		check_all(char *file)
 		}
 		while (*file && *file != '\n')
 			file++;
-		file++;
+		while (*file && !ft_isalnum(*file))
+			file++;
+//		printf("last Char before new boucle : |%c|\n", *file);
 		line++;
 	}
 	if ((*file))

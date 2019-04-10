@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 19:26:16 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/10 18:14:33 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ uint8_t		param_encode(char **param)
 	i = 0;
 	while (param[i])
 	{
+		printf("paramencode = |%s|\n", param[i]);
 		if (param[i][0] == DIRECT_CHAR)
 			content |= DIR_CODE;
 		else if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
@@ -53,6 +54,8 @@ uint8_t		param_encode(char **param)
 			content |= IND_CODE;
 		else if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
 			content |= REG_CODE;
+		else if (param[i][0] == LABEL_CHAR)
+			content |= IND_CODE;
 		else
 			return (0);
 		i++;
@@ -99,10 +102,25 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 			bin->table = add_byte((value & 0xFF00) >> 8, bin);
 			bin->table = add_byte((value & 0x00FF), bin);
 		}
+		else if (param[i][0] == LABEL_CHAR)
+		{
+			value = label_pos(&param[i][0], data);
+			if (value == -1)
+			{
+				printf("\033[41m po trouve \033[0m\n");
+				return (NULL);
+			}
+			value -= (int)b_bytes;
+			bin->table = add_byte((value & 0xFF00) >> 8, bin);
+			bin->table = add_byte((value & 0x00FF), bin);
+		}
 		else if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
 			bin->table = add_byte((uint8_t)ft_atoi(&param[i][1]), bin);
 		else
+		{
+			printf("WHAT ?\n");
 			return (NULL);
+		}
 		i++;
 	}
 	return (bin->table);
@@ -140,6 +158,7 @@ uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data)
 		}
 		free(param[i]);
 		param[i] = tmp;
+		printf("%s\n", param[i]);
 		i++;
 	}
 	if (i-1 > g_op_tab[i_op_tab].nb_params)
