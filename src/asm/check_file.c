@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 18:18:44 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 18:20:36 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ int		check_param(int	op_code, char *file)
 	int		params_found;
 	t_op	*op;
 	char	*max_index;
-	t_op	*op;
 
 	op = &g_op_tab[op_code];
 	max_index = ft_strchr(file, '\n');
@@ -258,17 +257,11 @@ int		check_all(char *file)
 		}
 		while (*file && *file != '\n')
 			file++;
-<<<<<<< HEAD
-		while (*file && !ft_isalnum(*file))
-			file++;
-//		printf("last Char before new boucle : |%c|\n", *file);
-=======
 		if (*file == '\0')
 			break ;
 		file++;
 		while (*file == '\n')
 			file++;
->>>>>>> 2b7bc43870e5d75cd3f6bbbed81068a04552f429
 		line++;
 	}
 	if ((*file))
