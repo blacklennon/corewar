@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 22:08:05 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 22:09:43 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		check_name_comment(char *file)
 	i = 0;
 	name = 0;
 	comment = 0;
-	while (*file && ft_isspace(*file))
+	while (file && *file && ft_isspace(*file))
 		file++;
 	if (*file != NAME_CMD_STRING[0] || *file != NAME_CMD_STRING[0])
 		return (0);
@@ -338,6 +338,8 @@ int		check_file(char *file)
 	int		i;
 
 	i = 0;
+	if (!file)
+		return (0);
 	delete_comment(file);
 	if (!check_name_comment(file) || !check_all(file))
 		return (0);

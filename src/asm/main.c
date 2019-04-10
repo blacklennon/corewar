@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 20:20:43 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 22:10:49 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,10 @@ int		main(int argc, char **argv)
 	i = 0;
 	file = NULL;
 	if (!check_args(argc, argv))
+	{
+		write(1, "Thanks to send a valid file.\n", 29);
 		return (EXIT_FAILURE);
+	}
 	file = read_file(argv[1]);
 	if (!check_file(file))
 	{
