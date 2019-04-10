@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 17:53:00 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 18:18:44 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,38 +137,65 @@ int		find_op_line(char *str)
 	return (0);
 }
 
-int		check_param(int	i_op_tab, char *file)
+int			ft_valid_number(char *file)
 {
-	int		param;
+	char	*tmp;
+
+	tmp = file;
+	if (*file == '-')
+		file++;
+	while (*file != '\0' && ft_isdigit(*file))
+		file++;
+	if ((*file == SEPARATOR_CHAR || *file == COMMENT_CHAR || ft_isspace(*file) || *file == '\n') && tmp < file)
+		return (1);
+	return (0);
+}
+
+int		check_param(int	op_code, char *file)
+{
+	int		params_found;
+	t_op	*op;
 	char	*max_index;
 	t_op	*op;
 
-	op = &g_op_tab[i_op_tab];
+	op = &g_op_tab[op_code];
 	max_index = ft_strchr(file, '\n');
-	param = 0;
-	//printf("Checking param for op %s\n", g_op_tab[i_op_tab].name);
-	while (file && *file && file < max_index)
+	params_found = 0;
+	printf("Checking param for op %s\n", op->name);
+	while (*file != '\0' && file < max_index)
 	{
-		if (param > op->nb_params - 1)
+		if (params_found > op->nb_params - 1)
 			return (0);
-		if (*file == 'r' && (!(T_REG & op->params[param]) || (ft_atoi(file+1) > REG_NUMBER || ft_atoi(file+1) < 1)))
+		if (((T_REG & op->params[params_found]) != 0) && *file == 'r' && (ft_atoi(file+1) <= REG_NUMBER && ft_atoi(file+1) >= 1))
+			params_found++;
+		// !!!!!!
+		else if (((T_IND & op->params[params_found]) != 0) && ft_valid_number(file + 1))
+			params_found++;
+		else if (((T_DIR & op->params[params_found]) != 0) && *file == DIRECT_CHAR && ft_valid_number(file + 1))
+			params_found++;
+		else
 		{
-			printf("Bad param : Registre\n");
+			printf("params not recognized >%.10s<\n", file);
 			return (0);
 		}
-		else if ((ft_isdigit(*file) || (*file == '-' && ft_isdigit(*(file + 1)))) && !(T_IND & op->params[param]))
-		{
-			printf("Bad param : Indirect (%s) %d\n", file, param);
-			return (0);
-		}
-		else if (*file == DIRECT_CHAR && ((*(file + 1) == '-' && ft_isdigit(*(file + 2))) || ft_isdigit(*(file + 1))) && !(T_DIR & op->params[param]))
-		{
-			printf("Bad param : Direct\n");
-			return (0);
-		}
-		while (*file && (*file != '\n' || *file != ','))
+		while (*file != '\0' && (*file != ',' && *file != '\n'))
 			file++;
-		param++;
+		if (*file == ',')
+			file++;
+		else if (*file == '\n')
+			break ;
+		else
+		{
+			printf("bad separator\n");
+			return (0);
+		}
+		while (ft_isspace(*file))
+			file++;
+	}
+	if (params_found != op->nb_params)
+	{
+		printf("bad params number\n");
+		return (0);
 	}
 	return (1);
 }
@@ -221,6 +248,8 @@ int		check_all(char *file)
 	{
 //		printf("%s\n", g_op_tab[find_op_line(file)].name);
 		i_op_tab = find_op_line(file);
+		while (ft_isspace(*file))
+			file++;
 		file = jump_spaces(file);
 		if (!check_param(i_op_tab, file))
 		{
@@ -229,13 +258,24 @@ int		check_all(char *file)
 		}
 		while (*file && *file != '\n')
 			file++;
+<<<<<<< HEAD
 		while (*file && !ft_isalnum(*file))
 			file++;
 //		printf("last Char before new boucle : |%c|\n", *file);
+=======
+		if (*file == '\0')
+			break ;
+		file++;
+		while (*file == '\n')
+			file++;
+>>>>>>> 2b7bc43870e5d75cd3f6bbbed81068a04552f429
 		line++;
 	}
 	if ((*file))
+	{
 		printf("bad op (%s)\n", file);
+		return (0);
+	}
 	return (1);
 }
 
