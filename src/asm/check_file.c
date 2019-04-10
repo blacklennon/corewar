@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 18:20:36 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 20:20:44 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,23 @@
 #include "../../lib/libft/includes/libft.h"
 #include "../../includes/op.h"
 #include "../../includes/asm.h"
+
+int			ft_cbc(char *file, char a, char b) // Permet de savoir si un char se trouve avant un autre char (charbeforechar)
+{
+	int	found;
+
+	found = 0;
+	while (file && *file)
+	{
+		if (*file == b)
+			return (0);
+		if (*file == a)
+			return (1);
+		file++;
+	}
+	return (0);
+}
+
 
 void	delete_comment(char *str)
 {
@@ -137,6 +154,25 @@ int		find_op_line(char *str)
 	return (0);
 }
 
+int		find_label(char *label_name, char *file)
+{
+	char	*pos;
+
+	label_name = ft_strsub(label_name, where_is(label_name, LABEL_CHAR) + 1, \
+			(ft_cbc(label_name, SEPARATOR_CHAR, '\n')) ? where_is(label_name,\
+				SEPARATOR_CHAR) - 1 : where_is(label_name, '\n'));
+	if (!ft_strlen(label_name))
+		return (0);
+	pos = ft_strstr(file, label_name);
+	while (pos && file && pos[ft_strlen(label_name)] != LABEL_CHAR)
+	{
+		file = pos + ft_strlen(label_name);
+		pos = ft_strstr(file, label_name);
+	}
+	free(label_name);
+	return ((pos && pos[ft_strlen(label_name)] == LABEL_CHAR));
+}
+
 int			ft_valid_number(char *file)
 {
 	char	*tmp;
@@ -144,42 +180,50 @@ int			ft_valid_number(char *file)
 	tmp = file;
 	if (*file == '-')
 		file++;
-	while (*file != '\0' && ft_isdigit(*file))
+	while (*file && ft_isdigit(*file))
 		file++;
 	if ((*file == SEPARATOR_CHAR || *file == COMMENT_CHAR || ft_isspace(*file) || *file == '\n') && tmp < file)
 		return (1);
 	return (0);
 }
 
-int		check_param(int	op_code, char *file)
+int		check_param(int	op_code, char *file, char *start)
 {
 	int		params_found;
 	t_op	*op;
 	char	*max_index;
 
 	op = &g_op_tab[op_code];
+	while (ft_strjstr(file, op->name) != file)
+		file++;
+	file += ft_strlen(op->name);
+	file = jump_spaces(file);
 	max_index = ft_strchr(file, '\n');
 	params_found = 0;
-	printf("Checking param for op %s\n", op->name);
-	while (*file != '\0' && file < max_index)
+	while (*file && file < max_index)
 	{
 		if (params_found > op->nb_params - 1)
 			return (0);
-		if (((T_REG & op->params[params_found]) != 0) && *file == 'r' && (ft_atoi(file+1) <= REG_NUMBER && ft_atoi(file+1) >= 1))
+		if (((T_REG & op->params[params_found]) != 0) && *file == 'r' \
+				&& (ft_atoi(file+1) <= REG_NUMBER && ft_atoi(file+1) >= 1))
 			params_found++;
-		// !!!!!!
-		else if (((T_IND & op->params[params_found]) != 0) && ft_valid_number(file + 1))
+		else if (((T_IND & op->params[params_found]) != 0)\
+				&& ft_valid_number(file + 1))
 			params_found++;
-		else if (((T_DIR & op->params[params_found]) != 0) && *file == DIRECT_CHAR && ft_valid_number(file + 1))
+		else if (((T_DIR & op->params[params_found]) != 0)\
+				&& *file == DIRECT_CHAR && ft_valid_number(file + 1))
+			params_found++;
+		else if (*file == LABEL_CHAR && (T_DIR & op->params[params_found])\
+				&& find_label(file, start))
 			params_found++;
 		else
 		{
 			printf("params not recognized >%.10s<\n", file);
 			return (0);
 		}
-		while (*file != '\0' && (*file != ',' && *file != '\n'))
+		while (*file && (*file != SEPARATOR_CHAR && *file != '\n'))
 			file++;
-		if (*file == ',')
+		if (*file == SEPARATOR_CHAR)
 			file++;
 		else if (*file == '\n')
 			break ;
@@ -188,7 +232,7 @@ int		check_param(int	op_code, char *file)
 			printf("bad separator\n");
 			return (0);
 		}
-		while (ft_isspace(*file))
+		while (*file == ' ' || *file == '\t')
 			file++;
 	}
 	if (params_found != op->nb_params)
@@ -199,43 +243,8 @@ int		check_param(int	op_code, char *file)
 	return (1);
 }
 
-int			ft_cbc(char *file, char a, char b) // Permet de savoir si un char se trouve avant un autre char (charbeforechar)
+char	*jump_header(char *file)
 {
-	int	found;
-
-	found = 0;
-	while (file && *file)
-	{
-		if (*file == b)
-			return (0);
-		if (*file == a)
-			return (1);
-		file++;
-	}
-	return (0);
-}
-
-char		*find_label(char *file)
-{
-	char	*ptr;
-
-	ptr = file;
-//	printf("%s\n", file);
-	if (file && ft_cbc(file, LABEL_CHAR, '\n'))
-	{
-		//file = jump_spaces(file);
-//		printf("after label : |%s|\n", file);
-	}
-	return (file);
-}
-
-int		check_all(char *file)
-{
-	int	line;
-	int	i_op_tab;
-
-	i_op_tab = 0;
-	line = 0;
 	if (ft_strstr(file, COMMENT_CMD_STRING) < ft_strstr(file, \
 				NAME_CMD_STRING))
 		file = ft_strstr(file, NAME_CMD_STRING);
@@ -243,16 +252,67 @@ int		check_all(char *file)
 		file = ft_strstr(file, COMMENT_CMD_STRING);
 	file = ft_strchr(&file[where_is(file, '"') + 1], '"') + 1;
 	file = jump_spaces(file);
-	while (file && find_op_line(file))
+	return (file);
+}
+
+int		check_char_label(char *label_name)
+{
+	int	i;
+
+	i = 0;
+	while (label_name[i] && ft_strchr(LABEL_CHARS, label_name[i]))
+		i++;
+	return ((i == (int)ft_strlen(label_name)));
+}
+
+char	*check_label(char *file)
+{
+	char	*label_name;
+	int		i;
+	char	*ptr;
+
+	ptr = file;
+	i = 0;
+	label_name = NULL;
+	if (ft_cbc(file, LABEL_CHAR, '\n'))
 	{
-//		printf("%s\n", g_op_tab[find_op_line(file)].name);
-		i_op_tab = find_op_line(file);
-		while (ft_isspace(*file))
-			file++;
-		file = jump_spaces(file);
-		if (!check_param(i_op_tab, file))
+		while (ft_isalnum(file[i]))
+			i++;
+		if (file[i] != LABEL_CHAR)
+			return (ptr);
+		label_name = ft_strsub(file, 0, where_is(file, LABEL_CHAR));
+		if (!ft_strlen(label_name) || !check_char_label(label_name))
 		{
-			printf("Bad param at instruction %d\n", line);
+			free(label_name);
+			return (NULL);
+		}
+		free(label_name);
+		file = ft_strchr(file, LABEL_CHAR) + 1;
+		file = jump_spaces(file);
+	}
+	return (file);
+}
+
+int		check_all(char *file)
+{
+	int		line;
+	int		i_op_tab;
+	char	*start;
+
+	i_op_tab = 0;
+	line = 1;
+	start = file;
+	file = jump_header(file);
+	while (file && (i_op_tab = find_op_line(file)))
+	{
+		if (!(file = check_label(file)))
+		{
+			printf("Bad label at instruction %d\n", line);
+			return (0);
+		}
+		if (!check_param(i_op_tab, file, start))
+		{
+			printf("Bad param on line %d\n", line);
 			return (0);
 		}
 		while (*file && *file != '\n')

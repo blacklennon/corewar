@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/09 16:43:27 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 20:20:43 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		main(int argc, char **argv)
 	file = read_file(argv[1]);
 	if (!check_file(file))
 	{
-		printf("\033[41m\tINVALID FILE\t\033[0m\n");
+		printf("\033[41m Invalid file \033[0m\n");
 		free(file);
 		return (EXIT_FAILURE);
 	}

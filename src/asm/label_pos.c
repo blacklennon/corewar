@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:51:35 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 17:51:45 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 20:08:30 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int		label_pos(char *param, char **data)
 
 	distance = 0;
 	i = 0;
-	printf("param = %s\n", param);
 	if (param[0] == DIRECT_CHAR)
 		label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 2,\
 			where_is(&param[1], ',')) : ft_strsub(param, 2, \
@@ -100,7 +99,6 @@ int		label_pos(char *param, char **data)
 		label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 1,\
 			where_is(&param[1], ',')) : ft_strsub(param, 1, \
 			ft_strlen(param) - 1);
-	printf("looking for label %s\n", label);
 	while (data[i])
 	{
 		if (!ft_labelcmp(label, data[i]))
