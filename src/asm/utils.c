@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 19:29:44 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/10 23:04:08 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*ft_strjstr(char const *str, char const *search)
 			b++;
 		if ((size_t)b == ft_strlen(search) && ((!i\
 			 || !ft_isalpha(str[i - 1]))\
-			 && !ft_isalpha(str[i + b])))
+			 && ft_isspace(str[i + b])))
 			return ((char *)&str[i]);
 		i++;
 	}

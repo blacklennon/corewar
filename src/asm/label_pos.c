@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:51:35 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 20:08:30 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 23:03:09 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ size_t	param_size(char *str)
 	i = 0;
 	size = 0;
 	if ((op = find_op(str)))
-	{
 		str = ft_strjstr(str, g_op_tab[op].name);
-		str += ft_strlen(g_op_tab[op].name);
-	}
 	else
+	{
+		printf("Err 1\n");
 		return (0);
-	while (*str == ' ' || *str == '\t')
+	}
+	while (str != ft_strjstr(str, g_op_tab[op].name))
 		str++;
+	str = jump_spaces(str);
 	while (str[i])
 	{
 		while (str[i] == ' ' || str[i] == '\t')
@@ -46,8 +47,13 @@ size_t	param_size(char *str)
 			size += 2;
 		else if (str[i] == 'r')
 			size++;
+		else if (str[i] == LABEL_CHAR)
+			size += 2;
 		else
+		{
+			printf("Err 2\n");
 			return (0);
+		}
 		while (str[i] && str[i] != ',')
 			i++;
 		i += (str[i] == ',') ? 1 : 0;
@@ -101,6 +107,7 @@ int		label_pos(char *param, char **data)
 			ft_strlen(param) - 1);
 	while (data[i])
 	{
+		printf("%s\n", data[i]);
 		if (!ft_labelcmp(label, data[i]))
 			break;
 		if (find_op(data[i]))
