@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 22:22:04 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 23:39:43 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "../../includes/op.h"
 #include "../../includes/asm.h"
 
-int			ft_cbc(char *file, char a, char b) // Permet de savoir si un char se trouve avant un autre char (charbeforechar)
+int			ft_cbc(char *file, char a, char b)
 {
 	int	found;
 
@@ -33,7 +33,6 @@ int			ft_cbc(char *file, char a, char b) // Permet de savoir si un char se trouv
 	}
 	return (0);
 }
-
 
 void	delete_comment(char *str)
 {
@@ -210,16 +209,16 @@ int		check_param(int	op_code, char *file, char *start)
 		if (params_found > op->nb_params - 1)
 			return (0);
 		if (((T_REG & op->params[params_found]) != 0) && *file == 'r' \
-				&& (ft_atoi(file+1) <= REG_NUMBER && ft_atoi(file + 1) >= 1))
+				&& (ft_atoi(file + 1) <= REG_NUMBER && ft_atoi(file + 1) >= 1))
 			params_found++;
 		else if (((T_IND & op->params[params_found]) != 0)\
-				&& ft_valid_number(file + 1))
+				&& ft_valid_number(file))
 			params_found++;
 		else if (((T_DIR & op->params[params_found]) != 0)\
 				&& *file == DIRECT_CHAR && (ft_valid_number(file + 1)\
 					|| (*(file + 1) == LABEL_CHAR && find_label(file, start))))
 			params_found++;
-		else if (*file == LABEL_CHAR && (T_DIR & op->params[params_found])\
+		else if (*file == LABEL_CHAR && (T_IND & op->params[params_found])\
 				&& find_label(file, start))
 			params_found++;
 		else

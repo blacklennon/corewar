@@ -1,4 +1,4 @@
 .name ""
 .comment ""
 
-live: live %:live
+and r17,r5,r6
