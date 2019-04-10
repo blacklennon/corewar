@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 14:06:58 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/05 20:55:13 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/10 23:17:09 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ void			launch(t_vm *vm)
 	while (42)
 	{
 		vm->cycle++;
-		if (vm->cycle == vm->cycle_to_check || vm->cycle == vm->cycle_limit)
-		{
-			if (check_is_alive(vm) == 0 || vm->cycle == vm->cycle_limit)
-				break ;
-			vm->cycle_to_check += vm->size_cycle;
-		}
 		current_process = vm->process;
 		while (current_process != NULL)
 		{
 			if (current_process->do_op == vm->cycle)
 				do_op(current_process, vm);
 			current_process = current_process->next;
+		}
+		if (vm->cycle == vm->cycle_to_check || vm->cycle == vm->cycle_limit)
+		{
+			if (check_is_alive(vm) == 0 || vm->cycle == vm->cycle_limit)
+				break ;
+			vm->cycle_to_check += vm->size_cycle;
 		}
 	}
 }
