@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 20:50:12 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/10 22:08:05 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			ft_cbc(char *file, char a, char b) // Permet de savoir si un char se trouv
 
 void	delete_comment(char *str)
 {
-	while (*str)
+	while (str && *str)
 	{
 		if (*str == '#')
 		{
