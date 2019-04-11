@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 19:54:22 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 21:38:29 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,82 +17,6 @@
 #include "../../lib/libft/includes/libft.h"
 #include "../../includes/op.h"
 #include "../../includes/asm.h"
-
-int		ft_cbc(char *file, char a, char b)
-{
-	while (file && *file)
-	{
-		if (*file == b)
-			return (0);
-		if (*file == a)
-			return (1);
-		file++;
-	}
-	return (0);
-}
-
-void	delete_comment(char *str)
-{
-	while (str && *str)
-	{
-		if (*str == '#')
-		{
-			while (*str && *str != '\n')
-			{
-				*str = ' ';
-				str++;
-			}
-		}
-		str++;
-	}
-}
-
-char	*jump_spaces(char *file)
-{
-	while (ft_isalnum(*file))
-		file++;
-	while (ft_isspace(*file))
-		file++;
-	return (file);
-}
-
-char	*jump_str_declar(char *file, int max_size)
-{
-	int	i;
-
-	if (!file)
-		return (0);
-	file = jump_spaces(file);
-	if (*file != '"')
-		return (0);
-	i = 1;
-	if (!ft_cbc(file + i, '"', '\n'))
-		return (0);
-	while (*(file + i) && *(file + i) != '"')
-		i++;
-	if (i + 1 > max_size)
-		return (0);
-	file += i + 1;
-	return (file);
-}
-
-char	*check_head(char *file, int *who, int max_length)
-{
-	file++;
-	if (!(file = jump_str_declar(file, max_length)))
-		return (NULL);
-	*who = 1;
-	return (file);
-}
-
-char	*jump_before_header(char *file)
-{
-	while (file && *file && ft_isspace(*file))
-		file++;
-	if (*file != NAME_CMD_STRING[0] || *file != NAME_CMD_STRING[0])
-		return (NULL);
-	return (file);
-}
 
 int		check_name_comment(char *file)
 {
@@ -106,14 +30,25 @@ int		check_name_comment(char *file)
 	while (*file)
 	{
 		if ((ft_strjstr(file, NAME_CMD_STRING) == file && !name\
-					&& !(file = check_head(file, &name, PROG_NAME_LENGTH)))\
-				|| ((ft_strjstr(file, COMMENT_CMD_STRING) == file && !comment)\
-					&& !(file = check_head(file, &comment, COMMENT_LENGTH)))) 
-				return (0);
-		else if (!ft_isspace(*file) && (!comment || !name))
+					&& !(file = check_head(file, &name, PROG_NAME_LENGTH))))
+		{
+			printf("here ?\n");
 			return (0);
+		}
+		else if ((ft_strjstr(file, COMMENT_CMD_STRING) == file\
+					&& !comment) && !(file = check_head(file, &comment,\
+						COMMENT_LENGTH)))
+		{
+			printf("here ?\n");
+			return (0);
+		}
+		else if (!ft_isspace(*file) && (!comment || !name))
+		{
+			printf("here \n");
+			return (0);
+		}
 		if (comment && name)
-			break;
+			break ;
 		file++;
 	}
 	return (1);
@@ -132,12 +67,12 @@ char	*ft_strjstr_line(char const *str, char const *search)
 	{
 		b = 0;
 		if (str[i] == '\n')
-			break;
+			break ;
 		while (str[i + b] && search[b] && search[b] == str[i + b])
 			b++;
 		if ((size_t)b == ft_strlen(search) && ((!i\
-						 || ft_isspace(str[i - 1]))\
-					 && ft_isspace(str[i + b])))
+				|| ft_isspace(str[i - 1]))\
+					&& ft_isspace(str[i + b])))
 			return ((char *)&str[i]);
 		i++;
 	}
@@ -194,16 +129,10 @@ int		ft_valid_number(char *file)
 		file++;
 	while (*file && ft_isdigit(*file))
 		file++;
-	if ((*file == SEPARATOR_CHAR || *file == COMMENT_CHAR || ft_isspace(*file)) && tmp < file)
+	if ((*file == SEPARATOR_CHAR || *file == COMMENT_CHAR || ft_isspace(*file))\
+			&& tmp < file)
 		return (1);
 	return (0);
-}
-
-char	*jump_tabspace(char *file)
-{
-	while (*file && (*file == ' ' || *file == '\t'))
-		file++;
-	return (file);
 }
 
 int		check_param_code(char *file, int *params_found, char *start, t_op *op)
@@ -236,10 +165,7 @@ char	*check_param(int op_code, char *file, char *start)
 	if (!op_code)
 		return (0);
 	op = &g_op_tab[op_code];
-	file = jump_tabspace(file);
-	if (ft_strjstr(file, op->name) != file)
-		return (0);
-	file += ft_strlen(op->name);
+	file = goto_param(file, op);
 	max_index = ft_strchr(file, '\n');
 	params_found = 0;
 	while (*file && file < max_index)
@@ -249,30 +175,13 @@ char	*check_param(int op_code, char *file, char *start)
 		if (params_found > op->nb_params - 1\
 				|| !check_param_code(file, &params_found, start, op))
 			return (0);
-		while (!ft_strchr(" \t,", *file) && file < max_index)
-			file++;
-		while (ft_strchr(" \t", *file) && file < max_index)
-			file++;
+		file = jump_current_param(file, max_index);
 		if (*file == SEPARATOR_CHAR && file + 1 < max_index)
 			file++;
 		else
-			break;
+			break ;
 	}
-	if (params_found != op->nb_params)
-		return (NULL);
-	return (file);
-}
-
-char	*jump_header(char *file)
-{
-	if (ft_strstr(file, COMMENT_CMD_STRING) < ft_strstr(file, \
-				NAME_CMD_STRING))
-		file = ft_strstr(file, NAME_CMD_STRING);
-	else
-		file = ft_strstr(file, COMMENT_CMD_STRING);
-	file = ft_strchr(&file[where_is(file, '"') + 1], '"') + 1;
-	file = jump_spaces(file);
-	return (file);
+	return ((params_found != op->nb_params) ? NULL : file);
 }
 
 int		check_char_label(char *label_name)
@@ -314,25 +223,19 @@ char	*check_label(char *file)
 
 int		check_all(char *file)
 {
-	int		line;
 	int		i_op_tab;
 	char	*start;
 
-	if (!file)
-		return (0);
 	i_op_tab = 0;
-	line = 1;
 	start = file;
-	file = jump_header(file);
-	if (!(*file))
+	if (!(file = jump_header(file)))
 		return (0);
 	while (file && *file)
 	{
 		if (!(file = check_label(file)))
 			return (0);
-		while (*file == ' ' || *file == '\t')
-			file++;
-		if (*file == '\n' && file++ && ++line)
+		file = jump_tabspace(file);
+		if (*file == '\n' && file++)
 			continue;
 		if (!(i_op_tab = find_op_line(file))\
 				|| !(file = check_param(i_op_tab, file, start)))
@@ -341,7 +244,6 @@ int		check_all(char *file)
 		if (*file != '\n' && *file)
 			return (0);
 		file++;
-		line++;
 	}
 	return ((*file) ? 0 : 1);
 }

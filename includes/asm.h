@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 16:58:21 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 21:36:12 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,12 @@ int			check_char_label(char *label_name);
 char		*check_label(char *file);
 int			check_all(char *file);
 int			check_file(char *file);
+char		*check_head(char *file, int *who, int max_length);
+char		*jump_str_declar(char *file, int max_size);
+int			check_name_comment(char *file);
+char		*jump_tabspace(char *file);
+char		*jump_before_header(char *file);
+char		*goto_param(char *file, t_op *op);
+char		*jump_current_param(char *file, char *max_index);
 
 #endif

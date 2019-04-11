@@ -1,4 +1,4 @@
-.name ""
+.name ".comment"
 .comment ""
 
-and r17,r5,r6
+and r16,r5,r6
