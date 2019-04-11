@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 17:11:29 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 18:11:30 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ char	*check_param(int op_code, char *file, char *start)
 	params_found = 0;
 	while (*file && file < max_index)
 	{
-		while (*file == ' ' || *file == '\t')
+		while (ft_strchr(" \t", *file) && file < max_index)
 			file++;
 		if (params_found > op->nb_params - 1)
 			return (0);
@@ -235,7 +235,9 @@ char	*check_param(int op_code, char *file, char *start)
 			printf("params not recognized >%.20s<\n", file);
 			return (NULL);
 		}
-		while (*file != ',' && file < max_index)
+		while (!ft_strchr(" \t,", *file) && file < max_index)
+			file++;
+		while (ft_strchr(" \t", *file) && file < max_index)
 			file++;
 		if (*file == SEPARATOR_CHAR)
 			file++;
@@ -311,6 +313,11 @@ int		check_all(char *file)
 	line = 1;
 	start = file;
 	file = jump_header(file);
+	if (!(*file))
+	{
+		printf("Empty champ\n");
+		return (0);
+	}
 	while (file && *file)
 	{
 		if (!(file = check_label(file)))
@@ -339,7 +346,10 @@ int		check_all(char *file)
 		while (*file && ft_strchr(" \t", *file))
 			file++;
 		if (*file != '\n' && *file)
-			file++;
+		{
+			printf("Bad character at line %d\n", line);
+			return (0);
+		}
 		file++;
 		line++;
 	}
