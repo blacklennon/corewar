@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/04/05 22:24:19 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/11 21:58:00 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ typedef struct			s_champion
 	char				*file_path;
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
-	size_t				live_counter;
 }						t_champion;
 
 typedef struct			s_process
@@ -115,6 +114,7 @@ typedef struct			s_process
 	uint8_t				carry;
 	int32_t				registers[REG_NUMBER];
 	size_t				do_op;
+	size_t				live_counter;
 	struct s_op			*next_op;
 	struct s_process	*next;
 }						t_process;

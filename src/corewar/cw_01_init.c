@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:53:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/03 18:05:19 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/11 22:57:51 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	init_opcode(t_op *op_tab)
 static void	init_champion(t_champion *champion)
 {
 	champion->file_path = NULL;
-	champion->live_counter = 0;
 	ft_bzero(champion->name, sizeof(champion->name));
 	ft_bzero(champion->comment, sizeof(champion->comment));
 }

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/08 20:26:07 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/11 22:08:05 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	new_process(t_vm *vm, int id, t_champion *champion)
 	new_process->do_op = 0;
 	ft_bzero(new_process->registers, sizeof(new_process->registers));
 	new_process->champion = champion;
+	new_process->live_counter = 0;
 	new_process->program_counter = (id - 1) * (MEM_SIZE / vm->nb_champs);
 	new_process->registers[0] = (int32_t)id;
 	new_process->next = vm->process;
