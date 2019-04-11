@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 22:10:49 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 15:24:59 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int		check_args(int argc, char **argv)
 	fd = -1;
 	ret = (argc >= 2 && (fd = open(argv[1], O_RDONLY)) > 0);
 	ret = (ret && check_extension(argv[1]));
-	close(fd);
+	if (fd > 0)
+		close(fd);
 	return (ret);
 }
 

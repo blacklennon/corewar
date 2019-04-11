@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 22:22:03 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 15:20:39 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,9 @@ uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data)
 	char	*clean;
 	char	**param;
 	char	*tmp;
-	uint8_t	*tab_tmp;
 	uint8_t	value;
 
 	value = 0x0;
-	tab_tmp = NULL;
 	i = 0;
 	clean = NULL;
 	if (!(str = ft_strjstr(str, g_op_tab[i_op_tab].name))\
