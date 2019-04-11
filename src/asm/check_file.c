@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 16:56:21 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 17:11:29 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ char	*ft_strjstr_line(char const *str, char const *search)
 		while (str[i + b] && search[b] && search[b] == str[i + b])
 			b++;
 		if ((size_t)b == ft_strlen(search) && ((!i\
-						 || !ft_isalpha(str[i - 1]))\
-					 && !ft_isalpha(str[i + b])))
+						 || ft_isspace(str[i - 1]))\
+					 && ft_isspace(str[i + b])))
 			return ((char *)&str[i]);
 		i++;
 	}
@@ -283,7 +283,7 @@ char	*check_label(char *file)
 	label_name = NULL;
 	if (ft_cbc(file, LABEL_CHAR, '\n'))
 	{
-		while (!ft_strchr(" \n:", file[i]))
+		while (!ft_strchr(" \n\t:", file[i]))
 			i++;
 		if (file[i] != LABEL_CHAR)
 			return (ptr);
