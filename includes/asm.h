@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 22:47:55 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 16:27:44 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char		*ft_strjstr_line(char const *str, char const *search);
 int			find_op_line(char *str);
 int			find_label(char *label_name, char *file);
 int			ft_valid_number(char *file);
-int			check_param(int	op_code, char *file, char *start);
+char		*check_param(int	op_code, char *file, char *start);
 char		*jump_header(char *file);
 int			check_char_label(char *label_name);
 char		*check_label(char *file);

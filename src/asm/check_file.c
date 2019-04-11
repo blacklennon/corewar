@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 15:35:04 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 16:56:21 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,33 +183,42 @@ int			ft_valid_number(char *file)
 		file++;
 	while (*file && ft_isdigit(*file))
 		file++;
-	if ((*file == SEPARATOR_CHAR || *file == COMMENT_CHAR || ft_isspace(*file) || *file == '\n') && tmp < file)
+	if ((*file == SEPARATOR_CHAR || *file == COMMENT_CHAR || ft_isspace(*file)) && tmp < file)
 		return (1);
 	return (0);
 }
 
-int		check_param(int	op_code, char *file, char *start)
+char	*check_param(int op_code, char *file, char *start)
 {
 	int		params_found;
 	t_op	*op;
 	char	*max_index;
 
 	if (!op_code)
+	{
+		printf("no op code\n");
 		return (0);
+	}
 	op = &g_op_tab[op_code];
-	while (ft_strjstr(file, op->name) != file)
-		file++;
-	file += ft_strlen(op->name);
 	while (*file == ' ' || *file == '\t')
 		file++;
+	if (ft_strjstr(file, op->name) != file)
+	{
+		printf("bad character\n");
+		return (0);
+	}
+	file += ft_strlen(op->name);
 	max_index = ft_strchr(file, '\n');
 	params_found = 0;
 	while (*file && file < max_index)
 	{
+		while (*file == ' ' || *file == '\t')
+			file++;
 		if (params_found > op->nb_params - 1)
 			return (0);
 		if (((T_REG & op->params[params_found]) != 0) && *file == 'r' \
-				&& (ft_atoi(file + 1) <= REG_NUMBER && ft_atoi(file + 1) >= 1))
+				&& (ft_atoi(file + 1) <= REG_NUMBER\
+					&& ft_valid_number(file + 1) && ft_atoi(file + 1) >= 1))
 			params_found++;
 		else if (((T_IND & op->params[params_found]) != 0)\
 				&& ft_valid_number(file))
@@ -224,28 +233,21 @@ int		check_param(int	op_code, char *file, char *start)
 		else
 		{
 			printf("params not recognized >%.20s<\n", file);
-			return (0);
+			return (NULL);
 		}
-		while (*file && (*file != SEPARATOR_CHAR && *file != '\n'))
+		while (*file != ',' && file < max_index)
 			file++;
 		if (*file == SEPARATOR_CHAR)
 			file++;
-		else if (*file == '\n')
-			break ;
 		else
-		{
-			printf("bad separator\n");
-			return (0);
-		}
-		while (*file == ' ' || *file == '\t')
-			file++;
+			break;
 	}
 	if (params_found != op->nb_params)
 	{
 		printf("bad params number\n");
-		return (0);
+		return (NULL);
 	}
-	return (1);
+	return (file);
 }
 
 char	*jump_header(char *file)
@@ -281,7 +283,7 @@ char	*check_label(char *file)
 	label_name = NULL;
 	if (ft_cbc(file, LABEL_CHAR, '\n'))
 	{
-		while (ft_isalnum(file[i]))
+		while (!ft_strchr(" \n:", file[i]))
 			i++;
 		if (file[i] != LABEL_CHAR)
 			return (ptr);
@@ -329,13 +331,16 @@ int		check_all(char *file)
 			printf("bad operation at line %d\n", line);
 			return (0);
 		}
-		if (!check_param(i_op_tab, file, start))
+		if (!(file = check_param(i_op_tab, file, start)))
 		{
 			printf("bad param at line %d\n", line);
 			return (0);
 		}
-		while (*file && (*file != '\n' || *file != ' '))
+		while (*file && ft_strchr(" \t", *file))
 			file++;
+		if (*file != '\n' && *file)
+			file++;
+		file++;
 		line++;
 	}
 	if ((*file))
