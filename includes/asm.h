@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 22:47:55 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 16:08:48 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #ifndef ASM_H
 # define ASM_H
 
+# define BUFFER_SIZE 4096
+
 typedef	struct	s_binary
 {
 	size_t	size;
 	uint8_t	*table;
 }		t_binary;
 
-char		*read_file(char	*path);
-int			check_args(int argc, char **argv);
 uint8_t		*bytes_conv(uint32_t content, uint8_t *table);
 int			write_in_file(char *path, char **data);
 t_binary	*interpret(char **data);
