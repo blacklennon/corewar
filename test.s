@@ -1,4 +1,3 @@
-.name ".comment"
-.comment ""
+.name "" .comment ""
 
 and r16,r5,r6

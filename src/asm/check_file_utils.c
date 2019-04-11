@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 20:26:54 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 20:27:40 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 21:50:54 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*check_head(char *file, int *who, int max_length)
 	file++;
 	if (!(file = jump_str_declar(file, max_length)))
 		return (NULL);
+	if (*(file = jump_tabspace(file)) != '\n')
+		return (0);
 	*who = 1;
 	return (file);
 }

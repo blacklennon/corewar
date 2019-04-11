@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 21:38:29 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 21:48:05 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,17 @@ int		check_name_comment(char *file)
 		return (0);
 	while (*file)
 	{
-		if ((ft_strjstr(file, NAME_CMD_STRING) == file && !name\
+		if ((ft_strjstr_line(file, NAME_CMD_STRING) == file && !name\
 					&& !(file = check_head(file, &name, PROG_NAME_LENGTH))))
-		{
-			printf("here ?\n");
 			return (0);
-		}
-		else if ((ft_strjstr(file, COMMENT_CMD_STRING) == file\
+		else if ((ft_strjstr_line(file, COMMENT_CMD_STRING) == file\
 					&& !comment) && !(file = check_head(file, &comment,\
 						COMMENT_LENGTH)))
-		{
-			printf("here ?\n");
 			return (0);
-		}
 		else if (!ft_isspace(*file) && (!comment || !name))
-		{
-			printf("here \n");
 			return (0);
-		}
+		if (*(file = jump_tabspace(file)) != '\n')
+			return (0);
 		if (comment && name)
 			break ;
 		file++;
