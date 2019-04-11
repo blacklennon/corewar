@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 00:28:05 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 15:31:45 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,8 @@ int		check_param(int	op_code, char *file, char *start)
 	t_op	*op;
 	char	*max_index;
 
+	if (!op_code)
+		return (0);
 	op = &g_op_tab[op_code];
 	while (ft_strjstr(file, op->name) != file)
 		file++;
@@ -293,7 +295,6 @@ char	*check_label(char *file)
 		}
 		free(label_name);
 		file = ft_strchr(file, LABEL_CHAR) + 1;
-		file = jump_spaces(file);
 	}
 	return (file);
 }
@@ -304,20 +305,35 @@ int		check_all(char *file)
 	int		i_op_tab;
 	char	*start;
 
+	if (!file)
+		return (0);
 	i_op_tab = 0;
 	line = 1;
 	start = file;
 	file = jump_header(file);
-	while (file && (i_op_tab = find_op_line(file)))
+	while (file && *file)
 	{
 		if (!(file = check_label(file)))
 		{
 			printf("Bad label at instruction %d\n", line);
 			return (0);
 		}
+		while (*file == ' ' || *file == '\t')
+			file++;
+		if (*file == '\n')
+		{
+			file++;
+			line++;
+			continue;
+		}
+		if (!(i_op_tab = find_op_line(file)))
+		{
+			printf("bad operation at line %d\n", line);
+			return (0);
+		}
 		if (!check_param(i_op_tab, file, start))
 		{
-			printf("Bad param on line %d\n", line);
+			printf("bad param at line %d\n", line);
 			return (0);
 		}
 		while (*file && (*file != '\n' || *file != ' '))
