@@ -6,80 +6,53 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 15:24:59 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/11 16:07:00 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include "libft.h"
+#include "ft_printf.h"
 #include "common.h"
 #include "op.h"
 #include "asm.h"
 
-char	*read_file(char	*path)
+char	*read_file(int fd)
 {
-	int	fd;
-	int	i;
-	char	buff[4097];
+	int		i;
+	char	buff[BUFFER_SIZE + 1];
 	char	*tmp;
 	char	*content;
 
 	i = 0;
 	tmp = NULL;
 	content = NULL;
-	if ((fd = open(path, O_RDONLY)))
+	errno = 0;
+	while ((i = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
-		while ((i = read(fd, buff, 4096)))
+		buff[i] = '\0';
+		if (i && content && ft_strlen(content))
 		{
-			buff[i] = 0;
-			if (i && content && ft_strlen(content))
-			{
-				if (tmp)
-					free(tmp);
-				tmp = ft_strdup(content);
-				if (content)
-					free(content);
-				content = (char *)malloc(i + ft_strlen(tmp) + 1);
-				content = ft_strcpy(content, tmp);
-				content = ft_strcat(content, buff);
-			}
-			else if (i)
-				content = ft_strdup(buff);
-			if (i < 4096)
-				return (content);
+			tmp = ft_strdup(content);
+			if (content)
+				free(content);
+			content = (char *)malloc(i + ft_strlen(tmp) + 1);
+			content = ft_strcpy(content, tmp);
+			content = ft_strcat(content, buff);
+			free(tmp);
 		}
+		else if (i)
+			content = ft_strdup(buff);
+		if (i < BUFFER_SIZE)
+			return (content);
 	}
+	if (i < 0)
+		perror("asm");
 	return (content);
-}
-
-int		check_extension(char *path)
-{
-	int	i;
-
-	i = ft_strlen(path)-1;
-	while (path[i])
-	{
-		if (path[i] == '.' && ft_strstr(&path[i], ".s"))
-			return (1);
-		i--;
-	}
-	return (0);
-}
-
-int		check_args(int argc, char **argv)
-{
-	int	fd;
-	int	ret;
-
-	fd = -1;
-	ret = (argc >= 2 && (fd = open(argv[1], O_RDONLY)) > 0);
-	ret = (ret && check_extension(argv[1]));
-	if (fd > 0)
-		close(fd);
-	return (ret);
 }
 
 int		write_in_file(char *path, char **data)
@@ -124,21 +97,48 @@ int		write_in_file(char *path, char **data)
 	return ((name)?1:0);
 }
 
-int		main(int argc, char **argv)
+static int	check_extension(char *path)
+{
+	int	i;
+
+	i = ft_strlen(path) - 1;
+	if (i >= 2 && path[i] == 's' && path[i - 1] == '.')
+		return (1);
+	return (0);
+}
+
+static int	check_args(char *file_path)
+{
+	int		fd;
+
+	if (check_extension(file_path) == 0)
+	{
+		ft_printf("asm: %s: Bad extension\n", file_path);
+		exit (EXIT_FAILURE);
+	}
+	errno = 0;
+	if ((fd = open(file_path, O_RDONLY)) < 0)
+	{
+		ft_printf("asm: %s: %s\n", file_path, strerror(errno));
+		exit (EXIT_FAILURE);
+	}
+	return (fd);
+}
+
+int			main(int argc, char **argv)
 {
 	char	*file;
 	char	**data;
 	int		i;
+	int		fd;
 	char	*tmp;
 
 	i = 0;
 	file = NULL;
-	if (!check_args(argc, argv))
-	{
-		write(1, "Thanks to send a valid file.\n", 29);
-		return (EXIT_FAILURE);
-	}
-	file = read_file(argv[1]);
+	if (argc < 2)
+		exit (EXIT_FAILURE);
+	fd = check_args(argv[1]);
+	file = read_file(fd);
 	if (!check_file(file))
 	{
 		printf("\033[41m Invalid file \033[0m\n");
