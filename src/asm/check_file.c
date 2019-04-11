@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 15:32:35 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 15:35:04 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,8 @@ int		check_param(int	op_code, char *file, char *start)
 	while (ft_strjstr(file, op->name) != file)
 		file++;
 	file += ft_strlen(op->name);
-	file = jump_spaces(file);
+	while (*file == ' ' || *file == '\t')
+		file++;
 	max_index = ft_strchr(file, '\n');
 	params_found = 0;
 	while (*file && file < max_index)
