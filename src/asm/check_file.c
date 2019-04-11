@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 18:21:12 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 19:29:56 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "../../includes/op.h"
 #include "../../includes/asm.h"
 
-int			ft_cbc(char *file, char a, char b)
+int		ft_cbc(char *file, char a, char b)
 {
 	while (file && *file)
 	{
@@ -56,6 +56,26 @@ char	*jump_spaces(char *file)
 	return (file);
 }
 
+char	*jump_str_declar(char *file, int max_size)
+{
+	int	i;
+
+	if (!file)
+		return (0);
+	file = jump_spaces(file);
+	if (*file != '"')
+		return (0);
+	i = 1;
+	if (!ft_cbc(file + i, '"', '\n'))
+		return (0);
+	while (*(file + i) && *(file + i) != '"')
+		i++;
+	if (i + 1 > max_size)
+		return (0);
+	file += i + 1;
+	return (file);
+}
+
 int		check_name_comment(char *file)
 {
 	int		i;
@@ -74,29 +94,15 @@ int		check_name_comment(char *file)
 		if (ft_strjstr(file, NAME_CMD_STRING) == file && !name)
 		{
 			file++;
-			file = jump_spaces(file);
-			if (*file != '"')
+			if (!(file = jump_str_declar(file, PROG_NAME_LENGTH)))
 				return (0);
-			i = 1;
-			while (*(file + i) && *(file + i) != '"')
-				i++;
-			if (i + 1 > PROG_NAME_LENGTH)
-				return (0);
-			file += i + 1;
 			name = 1;
 		}
 		else if (ft_strjstr(file, COMMENT_CMD_STRING) == file && !comment)
 		{
 			file++;
-			file = jump_spaces(file);
-			if (*file != '"')
+			if (!(file = jump_str_declar(file, COMMENT_LENGTH)))
 				return (0);
-			i = 1;
-			while (*(file + i) && *(file + i) != '"')
-				i++;
-			if (i + 1 > COMMENT_LENGTH)
-				return (0);
-			file += i + 1;
 			comment = 1;
 		}
 		else if (!ft_isspace(*file) && (!comment || !name))
@@ -174,7 +180,7 @@ int		find_label(char *label_name, char *file)
 	return ((pos && *pos == LABEL_CHAR));
 }
 
-int			ft_valid_number(char *file)
+int		ft_valid_number(char *file)
 {
 	char	*tmp;
 
@@ -188,6 +194,34 @@ int			ft_valid_number(char *file)
 	return (0);
 }
 
+char	*jump_tabspace(char *file)
+{
+	while (*file && (*file == ' ' || *file == '\t'))
+		file++;
+	return (file);
+}
+
+int		check_param_code(char *file, int *params_found, char *start, t_op *op)
+{
+	if (((T_REG & op->params[*params_found]) != 0) && *file == 'r' \
+			&& (ft_atoi(file + 1) <= REG_NUMBER\
+				&& ft_valid_number(file + 1) && ft_atoi(file + 1) >= 1))
+		(*params_found)++;
+	else if (((T_IND & op->params[*params_found]) != 0)\
+			&& ft_valid_number(file))
+		(*params_found)++;
+	else if (((T_DIR & op->params[*params_found]) != 0)\
+			&& *file == DIRECT_CHAR && (ft_valid_number(file + 1)\
+				|| (*(file + 1) == LABEL_CHAR && find_label(file, start))))
+		(*params_found)++;
+	else if (*file == LABEL_CHAR && (T_IND & op->params[*params_found])\
+			&& find_label(file, start))
+		(*params_found)++;
+	else
+		return (0);
+	return (1);
+}
+
 char	*check_param(int op_code, char *file, char *start)
 {
 	int		params_found;
@@ -195,18 +229,11 @@ char	*check_param(int op_code, char *file, char *start)
 	char	*max_index;
 
 	if (!op_code)
-	{
-		printf("no op code\n");
 		return (0);
-	}
 	op = &g_op_tab[op_code];
-	while (*file == ' ' || *file == '\t')
-		file++;
+	file = jump_tabspace(file);
 	if (ft_strjstr(file, op->name) != file)
-	{
-		printf("bad character\n");
 		return (0);
-	}
 	file += ft_strlen(op->name);
 	max_index = ft_strchr(file, '\n');
 	params_found = 0;
@@ -214,27 +241,9 @@ char	*check_param(int op_code, char *file, char *start)
 	{
 		while (ft_strchr(" \t", *file) && file < max_index)
 			file++;
-		if (params_found > op->nb_params - 1)
+		if (params_found > op->nb_params - 1\
+				|| !check_param_code(file, &params_found, start, op))
 			return (0);
-		if (((T_REG & op->params[params_found]) != 0) && *file == 'r' \
-				&& (ft_atoi(file + 1) <= REG_NUMBER\
-					&& ft_valid_number(file + 1) && ft_atoi(file + 1) >= 1))
-			params_found++;
-		else if (((T_IND & op->params[params_found]) != 0)\
-				&& ft_valid_number(file))
-			params_found++;
-		else if (((T_DIR & op->params[params_found]) != 0)\
-				&& *file == DIRECT_CHAR && (ft_valid_number(file + 1)\
-					|| (*(file + 1) == LABEL_CHAR && find_label(file, start))))
-			params_found++;
-		else if (*file == LABEL_CHAR && (T_IND & op->params[params_found])\
-				&& find_label(file, start))
-			params_found++;
-		else
-		{
-			printf("params not recognized >%.20s<\n", file);
-			return (NULL);
-		}
 		while (!ft_strchr(" \t,", *file) && file < max_index)
 			file++;
 		while (ft_strchr(" \t", *file) && file < max_index)
@@ -245,10 +254,7 @@ char	*check_param(int op_code, char *file, char *start)
 			break;
 	}
 	if (params_found != op->nb_params)
-	{
-		printf("bad params number\n");
 		return (NULL);
-	}
 	return (file);
 }
 
@@ -314,51 +320,25 @@ int		check_all(char *file)
 	start = file;
 	file = jump_header(file);
 	if (!(*file))
-	{
-		printf("Empty champ\n");
 		return (0);
-	}
 	while (file && *file)
 	{
 		if (!(file = check_label(file)))
-		{
-			printf("Bad label at instruction %d\n", line);
 			return (0);
-		}
 		while (*file == ' ' || *file == '\t')
 			file++;
-		if (*file == '\n')
-		{
-			file++;
-			line++;
+		if (*file == '\n' && file++ && ++line)
 			continue;
-		}
-		if (!(i_op_tab = find_op_line(file)))
-		{
-			printf("bad operation at line %d\n", line);
+		if (!(i_op_tab = find_op_line(file))\
+				|| !(file = check_param(i_op_tab, file, start)))
 			return (0);
-		}
-		if (!(file = check_param(i_op_tab, file, start)))
-		{
-			printf("bad param at line %d\n", line);
-			return (0);
-		}
-		while (*file && ft_strchr(" \t", *file))
-			file++;
+		file = jump_tabspace(file);
 		if (*file != '\n' && *file)
-		{
-			printf("Bad character at line %d\n", line);
 			return (0);
-		}
 		file++;
 		line++;
 	}
-	if ((*file))
-	{
-		printf("bad op (%s)\n", file);
-		return (0);
-	}
-	return (1);
+	return ((*file) ? 0 : 1);
 }
 
 int		check_file(char *file)
