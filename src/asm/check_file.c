@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 19:29:56 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 19:54:22 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,35 +76,40 @@ char	*jump_str_declar(char *file, int max_size)
 	return (file);
 }
 
-int		check_name_comment(char *file)
+char	*check_head(char *file, int *who, int max_length)
 {
-	int		i;
-	int		name;
-	int		comment;
+	file++;
+	if (!(file = jump_str_declar(file, max_length)))
+		return (NULL);
+	*who = 1;
+	return (file);
+}
 
-	i = 0;
-	name = 0;
-	comment = 0;
+char	*jump_before_header(char *file)
+{
 	while (file && *file && ft_isspace(*file))
 		file++;
 	if (*file != NAME_CMD_STRING[0] || *file != NAME_CMD_STRING[0])
+		return (NULL);
+	return (file);
+}
+
+int		check_name_comment(char *file)
+{
+	int		name;
+	int		comment;
+
+	name = 0;
+	comment = 0;
+	if (!(file = jump_before_header(file)))
 		return (0);
 	while (*file)
 	{
-		if (ft_strjstr(file, NAME_CMD_STRING) == file && !name)
-		{
-			file++;
-			if (!(file = jump_str_declar(file, PROG_NAME_LENGTH)))
+		if ((ft_strjstr(file, NAME_CMD_STRING) == file && !name\
+					&& !(file = check_head(file, &name, PROG_NAME_LENGTH)))\
+				|| ((ft_strjstr(file, COMMENT_CMD_STRING) == file && !comment)\
+					&& !(file = check_head(file, &comment, COMMENT_LENGTH)))) 
 				return (0);
-			name = 1;
-		}
-		else if (ft_strjstr(file, COMMENT_CMD_STRING) == file && !comment)
-		{
-			file++;
-			if (!(file = jump_str_declar(file, COMMENT_LENGTH)))
-				return (0);
-			comment = 1;
-		}
 		else if (!ft_isspace(*file) && (!comment || !name))
 			return (0);
 		if (comment && name)
