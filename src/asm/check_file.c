@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 18:11:30 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 18:21:12 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ char	*check_param(int op_code, char *file, char *start)
 			file++;
 		while (ft_strchr(" \t", *file) && file < max_index)
 			file++;
-		if (*file == SEPARATOR_CHAR)
+		if (*file == SEPARATOR_CHAR && file + 1 < max_index)
 			file++;
 		else
 			break;
