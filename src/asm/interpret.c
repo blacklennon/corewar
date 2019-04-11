@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:49:49 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/08 19:23:42 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/11 15:19:43 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_binary	*interpret(char **data)
 	int			i;
 	int			j;
 	t_binary	*table;
-	size_t		tmp;
 
 	table = (t_binary *)ft_memalloc(sizeof(t_binary));
 	table->size = 0;
@@ -36,7 +35,6 @@ t_binary	*interpret(char **data)
 		{
 			if (ft_strjstr(data[i], g_op_tab[j].name))
 			{
-				tmp = table->size;
 				table->table = add_byte(g_op_tab[j].code, table);
 				table->table = add_param(data[i], j, table, data);
 				break;

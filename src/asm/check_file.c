@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 15:31:45 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/11 15:32:35 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 
 int			ft_cbc(char *file, char a, char b)
 {
-	int	found;
-
-	found = 0;
 	while (file && *file)
 	{
 		if (*file == b)
@@ -350,9 +347,6 @@ int		check_all(char *file)
 
 int		check_file(char *file)
 {
-	int		i;
-
-	i = 0;
 	if (!file)
 		return (0);
 	delete_comment(file);

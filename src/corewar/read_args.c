@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/08 19:22:36 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/11 15:19:17 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	read_reg(t_int_types *arg, t_args *args, uint16_t pc, t_vm *vm)
 	uint8_t	reg;
 
 	reg = read1_memory(vm, pc) - 1;
-	if (reg < 0 || reg >= REG_NUMBER)
+	if (reg <= 0 || reg >= REG_NUMBER)
 	{
 		args->false_ocp = 1;
 		if (vm->verbose == 3)
