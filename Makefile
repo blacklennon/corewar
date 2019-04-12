@@ -6,7 +6,7 @@
 #    By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/12 13:23:46 by llopez           ###   ########.fr        #
+#    Updated: 2019/04/12 14:57:08 by llopez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ asm_SRC		:=	op.c \
 				asm/asm_02e_check_file_utils.c \
 				asm/asm_03_interpret.c \
 				asm/asm_04_translate.c \
+				asm/asm_05_translate.c \
 				asm/asm_09a_label_pos.c \
 				asm/asm_09b_utils.c \
 				asm/asm_09c_utils.c
