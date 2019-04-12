@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 15:20:39 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 12:43:40 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ uint8_t		*add_byte(uint8_t content, t_binary *bin)
 
 uint8_t		param_encode(char **param)
 {
-	int	i;
+	int		i;
 	uint8_t	content;
 
 	content = 0x0;
@@ -151,7 +151,7 @@ uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data)
 		param[i] = tmp;
 		i++;
 	}
-	if (i-1 > g_op_tab[i_op_tab].nb_params)
+	if (i - 1 > g_op_tab[i_op_tab].nb_params)
 	{
 		i = 0;
 		while (param[i])
