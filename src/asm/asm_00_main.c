@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 15:11:16 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:23:16 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ int			write_in_file(char *path, char **data)
 	return ((name) ? 1 : 0);
 }
 
+void		asm_usage(void)
+{
+	ft_printf("usage:\t./asm file.s\n");
+	exit(EXIT_FAILURE);
+}
+
 int			main(int argc, char **argv)
 {
 	char	*file;
@@ -100,8 +106,8 @@ int			main(int argc, char **argv)
 
 	i = 0;
 	file = NULL;
-	if (argc < 2)
-		exit(EXIT_FAILURE);
+	if (argc < 2 || argc > 2)
+		asm_usage();
 	fd = check_args(argv[1]);
 	file = read_file(fd);
 	if (!check_file(file))
