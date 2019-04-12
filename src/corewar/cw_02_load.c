@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/12 14:59:54 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 16:10:12 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	init_champ(t_champion *champion, t_header *header, int fd)
 {
 	int id;
 
-	ft_strcpy(champion->name, header->prog_name);
-	ft_strcpy(champion->comment, header->comment);
+	ft_strncpy(champion->name, header->prog_name, PROG_NAME_LENGTH);
+	ft_strncpy(champion->comment, header->comment, COMMENT_LENGTH);
 	id = champion->id;
 	ft_printf(" \e[%dm=== CHAMPION %d ===\e[0m\n     name: %s\n"
 		"  comment: %s\nprog_size: %d\n\n", \
