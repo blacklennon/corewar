@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/11 21:36:12 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 11:20:11 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,8 @@ char		*jump_tabspace(char *file);
 char		*jump_before_header(char *file);
 char		*goto_param(char *file, t_op *op);
 char		*jump_current_param(char *file, char *max_index);
+int			check_args(char *file_path);
+char		*check_label(char *file);
+int			find_label(char *label_name, char *file);
 
 #endif
