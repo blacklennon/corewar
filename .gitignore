@@ -11,5 +11,3 @@ bin/
 *.dSYM
 !src/asm
 !src/corewar
-!resources/asm
-!resources/corewar

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/12 12:55:13 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 15:30:45 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_vm		*get_vm(t_vm *new_vm);
 void		free_process(t_process *process_list);
 int			check_is_alive(t_vm *vm);
 
-void		get_value_of_arg(t_process *process, t_int_types *value, \
-			t_int_types_enum *type, int opcode);
+void		get_value_of_arg(t_process *process, t_int_types *value,\
+				t_int_types_enum *type, int opcode);
 uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm);
 void		op_live(t_process *process, t_args *args);
 void		op_ld(t_process *process, t_args *args);
@@ -58,11 +58,6 @@ int16_t		read2_memory(t_vm *vm, size_t index);
 int8_t		read1_memory(t_vm *vm, size_t index);
 void		write4_memory(t_vm *vm, int32_t value, size_t index);
 void		write2_memory(t_vm *vm, int16_t value, size_t index);
-
-/*
-**	Options
-*/
-
 void		parse_arguments(int ac, char **av, t_vm *vm);
 void		try_add_player(char *file_path, t_vm *vm);
 

@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/23 17:30:55 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/12 15:01:37 by pcarles          ###   ########.fr        #
+#    Updated: 2019/04/12 15:32:42 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DEP_FLAGS		?= -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
 # Default values for debug flags
 DEBUG			?= 0
 C_FLAGS_DEBUG	?= -g3 -fsanitize=address
-LD_FLAGS_DEBUG	?= -fsanitize=address
+LD_FLAGS_DEBUG	?= -g3 -fsanitize=address
 
 # Default values for directories
 SRCDIR			?= src
