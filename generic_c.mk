@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/23 17:30:55 by pcarles           #+#    #+#              #
-#    Updated: 2019/03/21 16:55:45 by pcarles          ###   ########.fr        #
+#    Updated: 2019/04/12 15:01:37 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ $(DEPDIR)/%.d: ;
 
 # Clean all binaries expect the targets..
 clean:
-	@rm -rf `dirname $(BINDIR)` $(DEPDIR)
+	@rm -rf $(shell dirname $(BINDIR)) $(DEPDIR)
 	@$(MAKE) -C $(addprefix $(LIBDIR)/,$(LIBS)) $@
 
 # ..clean targets binaries
@@ -92,7 +92,8 @@ fclean: clean
 	@rm -f $(TARGETS)
 	@$(MAKE) -C $(addprefix $(LIBDIR)/,$(LIBS)) $@
 
-re: fclean all
+re: fclean
+	@$(MAKE) all
 
 norm:
 	@norminette $(SRCDIR) $(HDRDIR)
