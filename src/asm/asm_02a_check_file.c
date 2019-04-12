@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:23:56 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:04:17 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:08:59 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	*ft_strjstr_line(char const *str, char const *search)
 		while (str[i + b] && search[b] && search[b] == str[i + b])
 			b++;
 		if ((size_t)b == ft_strlen(search) && ((!i\
-				|| ft_isspace(str[i - 1]))\
-					&& ft_isspace(str[i + b])))
+			|| ft_isspace(str[i - 1]))\
+				&& ft_isspace(str[i + b])))
 			return ((char *)&str[i]);
 		i++;
 	}
@@ -70,7 +70,7 @@ int		ft_valid_number(char *file)
 	while (*file && ft_isdigit(*file))
 		file++;
 	if ((*file == SEPARATOR_CHAR || *file == COMMENT_CHAR || ft_isspace(*file))\
-			&& tmp < file)
+		&& tmp < file)
 		return (1);
 	return (0);
 }
@@ -92,7 +92,7 @@ int		check_all(char *file)
 		if (*file == '\n' && file++)
 			continue;
 		if (!(i_op_tab = find_op_line(file))\
-				|| !(file = check_param(i_op_tab, file, start)))
+			|| !(file = check_param(i_op_tab, file, start)))
 			return (0);
 		file = jump_tabspace(file);
 		if (*file != '\n' && *file)

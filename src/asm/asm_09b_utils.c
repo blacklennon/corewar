@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:11:22 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:12:27 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_header(char **data, char *cmd_string)
 	if (data[i] && ft_strjstr(data[i], cmd_string))
 	{
 		line = ft_strsub(data[i], (uint32_t)where_is(data[i], '"') + 1,\
-		(size_t)where_is(&data[i][where_is(data[i], '"') + 1], '"'));
+			(size_t)where_is(&data[i][where_is(data[i], '"') + 1], '"'));
 		return (line);
 	}
 	return (NULL);

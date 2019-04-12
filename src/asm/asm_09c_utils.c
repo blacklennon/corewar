@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:30:39 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:10:39 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strjstr(char const *str, char const *search)
 			b++;
 		if ((size_t)b == ft_strlen(search) && ((!i\
 			|| !ft_isalpha(str[i - 1]))\
-			&& ft_isspace(str[i + b])))
+				&& ft_isspace(str[i + b])))
 			return ((char *)&str[i]);
 		i++;
 	}
@@ -53,11 +53,11 @@ char	*get_label(char *param)
 
 	if (param[0] == DIRECT_CHAR)
 		label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 2,\
-				where_is(&param[1], ',')) : ft_strsub(param, 2, \
+			where_is(&param[1], ',')) : ft_strsub(param, 2,\
 				ft_strlen(param) - 2);
 	else
 		label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 1,\
-				where_is(&param[1], ',')) : ft_strsub(param, 1, \
+			where_is(&param[1], ',')) : ft_strsub(param, 1,\
 				ft_strlen(param) - 1);
 	return (label);
 }
