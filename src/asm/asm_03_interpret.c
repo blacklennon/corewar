@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interpret.c                                        :+:      :+:    :+:   */
+/*   asm_03_interpret.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:49:49 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 18:27:01 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 18:32:36 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			jump_index_header(char **data)
 		if (found == 2)
 			break ;
 		if ((ft_strjstr(data[i], NAME_CMD_STRING)\
-				|| ft_strjstr(data[i], COMMENT_CMD_STRING)))
+			|| ft_strjstr(data[i], COMMENT_CMD_STRING)))
 			found++;
 		i++;
 	}

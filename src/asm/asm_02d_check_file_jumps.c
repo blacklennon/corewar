@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 20:27:54 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 15:09:58 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:32:24 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*jump_header(char *file)
 {
 	if (!file)
 		return (NULL);
-	if (ft_strjstr(file, COMMENT_CMD_STRING) < ft_strstr(file, \
+	if (ft_strjstr(file, COMMENT_CMD_STRING) < ft_strstr(file,\
 		NAME_CMD_STRING))
 		file = ft_strjstr(file, NAME_CMD_STRING);
 	else
