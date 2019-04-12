@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_00_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 17:35:31 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 18:29:32 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ char		*read_file(int fd)
 {
 	int		i;
 	char	buff[BUFFER_SIZE + 1];
-	char	*tmp;
 	char	*content;
 
 	i = 0;
-	tmp = NULL;
 	content = NULL;
 	errno = 0;
 	while ((i = read(fd, buff, BUFFER_SIZE)) > 0)

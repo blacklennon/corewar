@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_02_load.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/12 18:34:26 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:39:51 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void		load_champs(t_vm *vm)
 		errno = 0;
 		if ((fd = open(tmp->file_path, O_RDONLY)) < 0)
 			crash(NULL, strerror(errno));
-		if (read(fd, &header, sizeof(header)) < 0)
-			crash(NULL, strerror(errno));
+		if (read(fd, &header, sizeof(header)) != sizeof(header))
+			crash(NULL, "Invalid header");
 		if (swap_int32(header.magic) != COREWAR_EXEC_MAGIC)
 			crash(NULL, "Wrong exec format");
 		if ((header.prog_size = swap_int32(header.prog_size)) > CHAMP_MAX_SIZE)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_04_translate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 18:22:36 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 18:31:03 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			clean_param(char **param, char *str)
 	while (param[i])
 	{
 		if (!*(tmp = ft_strtrim(param[i])))
-			free(&str);
+			free(str);
 		free(param[i]);
 		param[i] = tmp;
 		i++;
@@ -89,13 +89,9 @@ uint8_t		*get_param_value(char **param, int i_op_tab, t_binary *bin)
 
 uint8_t		*add_param(char *str, int i_op_tab, t_binary *bin, char **data)
 {
-	int		i;
 	char	*clean;
 	char	**param;
-	uint8_t	value;
 
-	value = 0x0;
-	i = 0;
 	clean = NULL;
 	if (!(str = ft_strjstr(str, g_op_tab[i_op_tab].name))\
 		|| !(str += ft_strlen(g_op_tab[i_op_tab].name) + 1)\
