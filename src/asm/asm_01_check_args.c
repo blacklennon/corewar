@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/12 13:12:08 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:16:33 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,44 +48,3 @@ int		check_args(char *file_path)
 	}
 	return (fd);
 }
-/*
-char	*check_head(char *file, int *who, int max_length)
-{
-	file++;
-	if (!(file = jump_str_declar(file, max_length)))
-		return (NULL);
-	if (*(file = jump_tabspace(file)) != '\n')
-		return (0);
-	*who = 1;
-	return (file);
-}
-
-int		check_name_comment(char *file)
-{
-	int		name;
-	int		comment;
-
-	name = 0;
-	comment = 0;
-	if (!(file = jump_before_header(file)))
-		return (0);
-	while (*file)
-	{
-		if ((ft_strjstr_line(file, NAME_CMD_STRING) == file && !name\
-					&& !(file = check_head(file, &name, PROG_NAME_LENGTH))))
-			return (0);
-		else if ((ft_strjstr_line(file, COMMENT_CMD_STRING) == file\
-					&& !comment) && !(file = check_head(file, &comment,\
-						COMMENT_LENGTH)))
-			return (0);
-		else if (!ft_isspace(*file) && (!comment || !name))
-			return (0);
-		if (*(file = jump_tabspace(file)) != '\n')
-			return (0);
-		if (comment && name)
-			break ;
-		file++;
-	}
-	return (1);
-}
-*/
