@@ -1,16 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_05b_op1.c                                       :+:      :+:    :+:   */
+/*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/26 19:30:17 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/02 18:20:49 by jdouniol         ###   ########.fr       */
+/*   Created: 2019/04/12 13:24:59 by pcarles           #+#    #+#             */
+/*   Updated: 2019/04/12 13:25:27 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+**	La fonction op_add realise une addition entre deux valeurs
+**	et charge le resultat dans un registre
+**	ces valeurs sont forcement dans des registres
+*/
+
+void		op_add(t_process *process, t_args *args)
+{
+	int32_t	result;
+	t_vm	*vm;
+
+	vm = get_vm(NULL);
+	result = process->registers[args->value[0].u_reg]\
+		+ process->registers[args->value[1].u_reg];
+	process->registers[args->value[2].u_reg] = result;
+	process->carry = (result == 0) ? 1 : 0;
+	if (vm->verbose == 3)
+	{
+		ft_printf("Value is %d, (%d + %d), stored in reg %d\n", result,\
+			process->registers[args->value[0].u_reg],\
+			process->registers[args->value[1].u_reg], args->value[2].u_reg);
+	}
+}
 
 /*
 **	La fonction op_sub realise une soustraction entre deux valeurs
@@ -108,26 +132,5 @@ void		op_xor(t_process *process, t_args *args)
 		ft_printf("Value is %d, (%d ^ %d), stored in reg %d\n", result,\
 			args->value[0].u_dir32,\
 			args->value[1].u_dir32, args->value[2].u_reg);
-	}
-}
-
-/*
-**	La fonction op_zjmp realise un jump a la case memoire
-**	passee en prametre, si le carry est a 1
-*/
-
-void		op_zjmp(t_process *process, t_args *args)
-{
-	t_vm	*vm;
-
-	vm = get_vm(NULL);
-	if (process->carry == 1)
-	{
-		process->program_counter += args->value[0].u_dir16;
-		if (vm->verbose == 3)
-		{
-			ft_printf("PC is advancing of %d bytes,then new pc is %d\n",\
-			args->value[0].u_dir16, process->program_counter);
-		}
 	}
 }

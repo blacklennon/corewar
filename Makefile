@@ -6,7 +6,7 @@
 #    By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/09 18:49:07 by pcarles          ###   ########.fr        #
+#    Updated: 2019/04/12 13:29:36 by pcarles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,13 +27,14 @@ corewar_SRC	:=	op.c \
 				corewar/cw_03_cycle.c \
 				corewar/cw_04_execution.c \
 				corewar/cw_04a_read_args.c \
-				corewar/cw_05a_op.c \
-				corewar/cw_05b_op1.c \
-				corewar/cw_05c_op2.c \
-				corewar/cw_05d_op3.c \
 				corewar/cw_09a_options.c \
 				corewar/cw_09b_options.c \
 				corewar/cw_09b_utils.c \
-				corewar/cw_09c_memory.c
+				corewar/cw_09c_memory.c \
+				corewar/operations/misc.c \
+				corewar/operations/st.c \
+				corewar/operations/ld.c \
+				corewar/operations/math.c \
+				corewar/operations/fork.c \
 
 include generic_c.mk
