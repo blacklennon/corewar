@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 15:23:16 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 17:35:31 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int			write_in_file(char *path, char **data)
 		{
 			write(1, "\033[41m Error occured \033[0m\n", 24);
 			free(name);
+			free(table);
 			return (0);
 		}
 		fill_header(&header, data, table);
@@ -87,7 +88,6 @@ int			write_in_file(char *path, char **data)
 		free(table);
 	}
 	free(name);
-	fd = 0;
 	return ((name) ? 1 : 0);
 }
 

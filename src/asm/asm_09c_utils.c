@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 15:10:39 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:29:25 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strjstr(char const *str, char const *search)
 		while (str[i + b] && search[b] && search[b] == str[i + b])
 			b++;
 		if ((size_t)b == ft_strlen(search) && ((!i\
-			|| !ft_isalpha(str[i - 1]))\
+			|| ft_isspace(str[i - 1]))\
 				&& ft_isspace(str[i + b])))
 			return ((char *)&str[i]);
 		i++;

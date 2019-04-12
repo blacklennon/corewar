@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:49:49 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 12:38:00 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 18:27:01 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,25 @@
 #include "../../includes/op.h"
 #include "../../includes/asm.h"
 
+int			jump_index_header(char **data)
+{
+	int	i;
+	int	found;
+
+	found = 0;
+	i = 0;
+	while (data[i])
+	{
+		if (found == 2)
+			break ;
+		if ((ft_strjstr(data[i], NAME_CMD_STRING)\
+				|| ft_strjstr(data[i], COMMENT_CMD_STRING)))
+			found++;
+		i++;
+	}
+	return (i);
+}
+
 t_binary	*interpret(char **data)
 {
 	int			i;
@@ -27,7 +46,7 @@ t_binary	*interpret(char **data)
 	table = (t_binary *)ft_memalloc(sizeof(t_binary));
 	table->size = 0;
 	table->table = NULL;
-	i = 0;
+	i = jump_index_header(data);
 	while (data[i])
 	{
 		j = 1;

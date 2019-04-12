@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 14:56:00 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 15:11:46 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:34:54 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ uint8_t		*add_byte(uint8_t content, t_binary *bin)
 	}
 	bin->size++;
 	tmp[i] = content;
-	i = 0;
 	free(bin->table);
 	return (tmp);
 }
