@@ -6,13 +6,13 @@
 #    By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/12 13:12:47 by jdouniol         ###   ########.fr        #
+#    Updated: 2019/04/12 13:14:37 by jdouniol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			:= gcc
 
-DEBUG 		:= 0
+DEBUG 		:= 1
 
 TARGETS		:= corewar asm
 LIBS		:= libft

@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/12 11:59:52 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 12:53:47 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ char	*check_param(int op_code, char *file, char *start)
 	if (!op_code)
 		return (0);
 	op = &g_op_tab[op_code];
-	file = goto_param(file, op);
+	if (!(file = goto_param(file, op)))
+		return (NULL);
 	max_index = ft_strchr(file, '\n');
 	params_found = 0;
 	while (*file && file < max_index)
