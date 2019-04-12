@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 11:20:11 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:13:39 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ char		*jump_current_param(char *file, char *max_index);
 int			check_args(char *file_path);
 char		*check_label(char *file);
 int			find_label(char *label_name, char *file);
+void		clean_data(char **data);
 
 #endif
