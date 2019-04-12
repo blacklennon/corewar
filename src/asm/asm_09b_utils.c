@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   asm_09b_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 12:41:54 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:11:22 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 long	ft_latoi(char const *s)
 {
 	int		flag;
-	long		res;
+	long	res;
 
 	flag = 0;
 	res = 0;
@@ -80,7 +80,7 @@ int		where_is(char *str, int c)
 
 char	*get_header(char **data, char *cmd_string)
 {
-	int	i;
+	int		i;
 	char	*line;
 
 	i = 0;
@@ -93,34 +93,6 @@ char	*get_header(char **data, char *cmd_string)
 		line = ft_strsub(data[i], (uint32_t)where_is(data[i], '"') + 1,\
 		(size_t)where_is(&data[i][where_is(data[i], '"') + 1], '"'));
 		return (line);
-	}
-	return (NULL);
-}
-
-int		print_binary(int fd, t_binary *bin)
-{
-	return (write(fd, bin->table, bin->size));
-}
-
-char	*ft_strjstr(char const *str, char const *search)
-{
-	int i;
-	int b;
-
-	b = 0;
-	i = 0;
-	if (!search || !str)
-		return (NULL);
-	while (str && str[i])
-	{
-		b = 0;
-		while (str[i + b] && search[b] && search[b] == str[i + b])
-			b++;
-		if ((size_t)b == ft_strlen(search) && ((!i\
-			|| !ft_isalpha(str[i - 1]))\
-			&& ft_isspace(str[i + b])))
-			return ((char *)&str[i]);
-		i++;
 	}
 	return (NULL);
 }

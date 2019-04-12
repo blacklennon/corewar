@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   translate.c                                        :+:      :+:    :+:   */
+/*   asm_04_translate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 12:43:40 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:08:07 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 	return (bin->table);
 }
 
-uint8_t		*add_param(char	*str, int i_op_tab, t_binary *bin, char **data)
+uint8_t		*add_param(char *str, int i_op_tab, t_binary *bin, char **data)
 {
 	int		i;
 	char	*clean;
