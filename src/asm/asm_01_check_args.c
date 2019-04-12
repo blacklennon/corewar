@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/12 12:51:20 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:12:08 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include "op.h"
 #include "asm.h"
 
-//static
 int		check_extension(char *path)
 {
 	int	i;
@@ -32,7 +31,6 @@ int		check_extension(char *path)
 	return (0);
 }
 
-//static 
 int		check_args(char *file_path)
 {
 	int		fd;

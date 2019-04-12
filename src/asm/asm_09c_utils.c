@@ -1,0 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_09c_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
+/*   Updated: 2019/04/12 13:11:45 by jdouniol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include "libft.h"
+#include "common.h"
+#include "op.h"
+#include "asm.h"
+
+int		print_binary(int fd, t_binary *bin)
+{
+	return (write(fd, bin->table, bin->size));
+}
+
+char	*ft_strjstr(char const *str, char const *search)
+{
+	int i;
+	int b;
+
+	b = 0;
+	i = 0;
+	if (!search || !str)
+		return (NULL);
+	while (str && str[i])
+	{
+		b = 0;
+		while (str[i + b] && search[b] && search[b] == str[i + b])
+			b++;
+		if ((size_t)b == ft_strlen(search) && ((!i\
+			|| !ft_isalpha(str[i - 1]))\
+			&& ft_isspace(str[i + b])))
+			return ((char *)&str[i]);
+		i++;
+	}
+	return (NULL);
+}

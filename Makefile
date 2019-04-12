@@ -6,7 +6,7 @@
 #    By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/11 14:47:37 by pcarles           #+#    #+#              #
-#    Updated: 2019/04/12 12:51:12 by jdouniol         ###   ########.fr        #
+#    Updated: 2019/04/12 13:12:47 by jdouniol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ corewar_SRC	:=	op.c \
 
 asm_SRC		:=	op.c \
 				utils.c \
-				asm/asm_03_interpret.c \
 				asm/asm_00_main.c \
 				asm/asm_01_check_args.c \
 				asm/asm_02a_check_file.c \
@@ -47,8 +46,10 @@ asm_SRC		:=	op.c \
 				asm/asm_02c_check_name_and_header.c \
 				asm/asm_02d_check_file_jumps.c \
 				asm/asm_02e_check_file_utils.c \
-				asm/asm_09a_utils.c \
-				asm/asm_09b_label_pos.c \
-				asm/asm_04_translate.c
+				asm/asm_03_interpret.c \
+				asm/asm_04_translate.c \
+				asm/asm_09a_label_pos.c \
+				asm/asm_09b_utils.c \
+				asm/asm_09c_utils.c
 
 include generic_c.mk
