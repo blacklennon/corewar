@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 18:42:57 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/09 19:15:54 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 12:57:36 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,17 @@ static void	add_player(char *file_path, t_vm *vm)
 		}
 		i++;
 	}
-	crash(NULL, "too many players");
+	crash(NULL, "Too many players");
 }
 
-void		try_add_player(char **av, int i, t_vm *vm)
+void		try_add_player(char *file_path, t_vm *vm)
 {
-	if (ft_strstr(av[i], ".cor") != NULL)
-		add_player(av[i], vm);
+	size_t	len;
+
+	len = ft_strlen(file_path) - 1;
+	if (len < 4 || file_path[len--] != 'r' || file_path[len--] != 'o' \
+				|| file_path[len--] != 'c' || file_path[len] != '.')
+		crash(NULL, "Invalid file");
 	else
-		crash(NULL, NULL);
+		add_player(file_path, vm);
 }

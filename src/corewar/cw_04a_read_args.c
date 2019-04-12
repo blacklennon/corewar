@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 20:42:16 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/11 23:08:38 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 13:16:48 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static void		read_reg(t_int_types *arg, t_args *args, uint16_t pc, t_vm *vm)
 	{
 		args->false_ocp = 1;
 		if (vm->verbose == 3)
-			ft_printf("bad registrer number: %d, going "
-			"to the next operation.\n", reg);
+			ft_printf("Bad registrer number: %d, going "
+			"to the next operation.\n", reg + 1);
 	}
 	else
 		(*arg).u_reg = reg;
@@ -60,7 +60,7 @@ static uint16_t	return_bad_ocp(t_args *args, t_vm *vm, uint16_t pc, uint8_t ocp)
 {
 	args->false_ocp = 1;
 	if (vm->verbose == 3)
-		ft_printf("bad ocp: %d, going to the next operation.\n", ocp);
+		ft_printf("Bad ocp: 0x%.2x, going to the next operation.\n", ocp);
 	return (pc);
 }
 
@@ -84,7 +84,7 @@ static uint16_t	get_params_ocp(uint16_t pc, t_vm *vm, t_op *op, t_args *args)
 		else if (args->type[i] == e_dir && op->little_dir == 0)
 			args->value[i].u_dir32 = read4_memory(vm, pc);
 		else
-			crash(NULL, "wtf this should never be reached read_args.c:87");
+			crash(NULL, "Wtf this should never be reached read_args.c:87");
 		if (args->type[i] != e_reg)
 			pc += (args->type[i] == e_dir && op->little_dir == 0) ? 4 : 2;
 		i++;
@@ -114,6 +114,6 @@ uint16_t		read_args(t_op *op, t_process *process, t_args *args, t_vm *vm)
 	else if (op->params[0] == T_REG)
 		read_reg(&args->value[0], args, pc++, vm);
 	else
-		crash(process, "wtf this should never be reached read_args.c:117");
+		crash(process, "Wtf this should never be reached read_args.c:117");
 	return (pc);
 }

@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/09 09:33:40 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 12:59:36 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			main(int ac, char **av)
 	parse_arguments(ac, av, &vm);
 	set_nb_champs(&vm);
 	if (vm.nb_champs < 1)
-		crash(NULL, "not enough players");
+		crash(NULL, "Not enough players");
 	load_champs(&vm);
 	if (vm.process == NULL)
 		return (EXIT_FAILURE);

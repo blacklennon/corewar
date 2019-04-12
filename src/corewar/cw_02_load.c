@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:49:44 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/11 22:08:05 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 13:01:35 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	new_process(t_vm *vm, int id, t_champion *champion)
 	t_process	*new_process;
 
 	if ((new_process = (t_process*)malloc(sizeof(t_process))) == NULL)
-		crash(NULL, "failed to malloc process :(");
+		crash(NULL, "Failed to malloc process :(");
 	new_process->carry = 0;
 	new_process->next_op = NULL;
 	new_process->do_op = 0;
@@ -69,12 +69,12 @@ void		load_champs(t_vm *vm)
 		if (read(fd, &header, sizeof(header)) < 0)
 			crash(NULL, strerror(errno));
 		if (swap_int32(header.magic) != COREWAR_EXEC_MAGIC)
-			crash(NULL, "wrong exec format");
+			crash(NULL, "Wrong exec format");
 		if ((header.prog_size = swap_int32(header.prog_size)) > CHAMP_MAX_SIZE)
-			crash(NULL, "champion too big");
+			crash(NULL, "Champion too big");
 		if (read(fd, &vm->memory[(tmp->id - 1) * (MEM_SIZE / vm->nb_champs)], \
 			header.prog_size) != (int)header.prog_size)
-			crash(NULL, "bad file size");
+			crash(NULL, "Bad file size");
 		new_process(vm, tmp->id, tmp);
 		init_champ(tmp, &header, fd);
 	}

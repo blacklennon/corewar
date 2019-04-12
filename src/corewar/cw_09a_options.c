@@ -6,7 +6,7 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 22:16:11 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/09 19:15:48 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 12:59:27 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static int	set_verbosity(char *av, t_vm *vm)
 				vm->verbose = 3;
 		}
 		else
-			crash(NULL, "verbosity level must be between 1 and 3");
+			crash(NULL, "Verbosity level must be between 1 and 3");
 	}
 	else
-		crash(NULL, "not a valid number");
+		crash(NULL, "Not a valid number");
 	return (1);
 }
 
@@ -47,17 +47,17 @@ static int	set_player_number(char **av, int ac, int i, t_vm *vm)
 		if (tmp >= 1 && tmp <= MAX_PLAYERS)
 		{
 			if (i + 1 >= ac)
-				crash(NULL, "missing player after -n option");
+				crash(NULL, "Missing player after -n option");
 			if (vm->champions[tmp - 1].file_path == NULL)
 				vm->champions[tmp - 1].file_path = av[i + 1];
 			else
-				crash(NULL, "player redefinition");
+				crash(NULL, "Player redefinition");
 		}
 		else
-			crash(NULL, "player number must be between 1 and 4");
+			crash(NULL, "Player number must be between 1 and 4");
 	}
 	else
-		crash(NULL, "not a valid number");
+		crash(NULL, "Not a valid number");
 	return (2);
 }
 
@@ -71,10 +71,10 @@ static int	set_cycle_dump(char *av, t_vm *vm)
 		if (tmp > 0 && tmp <= __LONG_MAX__)
 			vm->cycle_limit = (size_t)tmp;
 		else
-			crash(NULL, "dump cycle too big");
+			crash(NULL, "Dump cycle too big");
 	}
 	else
-		crash(NULL, "not a valid number");
+		crash(NULL, "Not a valid number");
 	return (1);
 }
 
@@ -102,7 +102,7 @@ void		parse_arguments(int ac, char **av, t_vm *vm)
 	}
 	while (i < ac)
 	{
-		try_add_player(av, i, vm);
+		try_add_player(av[i], vm);
 		i++;
 	}
 }
