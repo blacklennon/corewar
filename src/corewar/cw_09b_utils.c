@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_09b_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:19:24 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/09 19:00:16 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 18:35:37 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		reg_dump(t_process *process)
 
 	ft_printf("\n \e[31m=== REGISTERS DUMP ===\e[0m\n");
 	i = 0;
-	ft_printf("\nFor player %d (%s)\n", process->champion->id, \
+	ft_printf("\nFor player %d (%s)\n", process->champion->id,\
 		process->champion->name);
 	while (i < REG_NUMBER)
 	{
@@ -93,7 +93,7 @@ void		crash(t_process *process, char *str)
 	if (process != NULL)
 	{
 		ft_printf("\n \e[31;1m=== CRASH error: %s ===\e[0m\n\n"
-		"Champion: %s\nCycle: %zu", \
+		"Champion: %s\nCycle: %zu",\
 		str, process->champion->name, get_vm(NULL)->cycle);
 		reg_dump(process);
 		mem_dump(vm->memory, sizeof(vm->memory), process->program_counter);

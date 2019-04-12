@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_09b_options.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 18:42:57 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/12 12:57:36 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 18:35:22 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void		try_add_player(char *file_path, t_vm *vm)
 	size_t	len;
 
 	len = ft_strlen(file_path) - 1;
-	if (len < 4 || file_path[len--] != 'r' || file_path[len--] != 'o' \
-				|| file_path[len--] != 'c' || file_path[len] != '.')
+	if (len < 4 || file_path[len--] != 'r' || file_path[len--] != 'o'\
+		|| file_path[len--] != 'c' || file_path[len] != '.')
 		crash(NULL, "Invalid file");
 	else
 		add_player(file_path, vm);

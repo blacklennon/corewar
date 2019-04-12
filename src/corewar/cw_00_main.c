@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_00_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/12 15:20:03 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 18:33:58 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	anounce_winner(t_vm *vm)
 
 	winner = vm->last_alive;
 	if (winner != NULL)
-		ft_printf("\e[%dmAnd the winner is champion %d, %s\e[0m\n", \
+		ft_printf("\e[%dmAnd the winner is champion %d, %s\e[0m\n",\
 		31 + winner->id, winner->id, winner->name);
 	else
 		ft_printf("Nobody wins\n");
