@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:24:08 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:11:16 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char		*read_file(int fd)
 	while ((i = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[i] = '\0';
+		if (!ft_str_is_ascii(buff))
+			return (NULL);
 		if (i && content && ft_strlen(content))
 			content = ft_concat(content, i, buff);
 		else if (i)

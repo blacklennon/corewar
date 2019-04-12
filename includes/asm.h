@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 14:59:30 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:11:03 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ uint8_t			*add_dir(int value, int little_dir, t_binary *bin);
 uint8_t			*add_ind(int value, t_binary *bin);
 int				get_right_value(char **param, int i, char **data, \
 					size_t b_bytes);
+int				ft_str_is_ascii(char *str);
 
 #endif

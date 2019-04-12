@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:07:48 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:21:22 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:10:11 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@
 #include "common.h"
 #include "op.h"
 #include "asm.h"
+
+int		ft_str_is_ascii(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isascii(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	clean_data(char **data)
 {
