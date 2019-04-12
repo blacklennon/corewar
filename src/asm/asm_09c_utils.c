@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:11:45 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:30:39 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ char	*ft_strjstr(char const *str, char const *search)
 		i++;
 	}
 	return (NULL);
+}
+
+char	*get_label(char *param)
+{
+	char	*label;
+
+	if (param[0] == DIRECT_CHAR)
+		label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 2,\
+				where_is(&param[1], ',')) : ft_strsub(param, 2, \
+				ft_strlen(param) - 2);
+	else
+		label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 1,\
+				where_is(&param[1], ',')) : ft_strsub(param, 1, \
+				ft_strlen(param) - 1);
+	return (label);
 }

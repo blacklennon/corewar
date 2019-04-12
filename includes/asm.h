@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:13:39 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 13:30:38 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,8 @@ int			check_args(char *file_path);
 char		*check_label(char *file);
 int			find_label(char *label_name, char *file);
 void		clean_data(char **data);
+void		print_all(t_header *header, char *name, t_binary *table, int fd);
+void		fill_header(t_header *header, char **data, t_binary *table);
+char		*get_label(char *param);
 
 #endif

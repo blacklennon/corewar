@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:08:07 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:49:08 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,25 @@ uint8_t		param_encode(char **param)
 	return (content);
 }
 
+uint8_t		*add_dir(int value, int little_dir, t_binary *bin)
+{
+	if (!little_dir)
+	{
+		bin->table = add_byte((value & 0xFF000000) >> 24, bin);
+		bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
+	}
+	bin->table = add_byte((value & 0x0000FF00) >> 8, bin);
+	bin->table = add_byte((value & 0x000000FF), bin);
+	return (bin->table);
+}
+
+uint8_t		*add_ind(int value, t_binary *bin)
+{
+	bin->table = add_byte((value & 0xFF00) >> 8, bin);
+	bin->table = add_byte((value & 0x00FF), bin);
+	return (bin->table);
+}
+
 uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 {
 	int		i;
@@ -77,38 +96,16 @@ uint8_t		*add_data(char **param, t_binary *bin, int i_op_tab, char **data)
 	{
 		if (param[i][0] == DIRECT_CHAR)
 		{
-			if (param[i][1] == LABEL_CHAR)
-			{
-				value = label_pos(param[i], data);
-				if (value == -1)
-					return (NULL);
-				value -= (int)b_bytes;
-			}
-			else
-				value = ft_atoi(&param[i][1]);
-			if (!g_op_tab[i_op_tab].little_dir)
-			{
-				bin->table = add_byte((value & 0xFF000000) >> 24, bin);
-				bin->table = add_byte((value & 0x00FF0000) >> 16, bin);
-			}
-			bin->table = add_byte((value & 0x0000FF00) >> 8, bin);
-			bin->table = add_byte((value & 0x000000FF), bin);
+			value = (param[i][1] == LABEL_CHAR) ? label_pos(param[i], data)\
+					- (int)b_bytes : ft_atoi(&param[i][1]);
+			bin->table = add_dir(value, g_op_tab[i_op_tab].little_dir, bin);
 		}
-		else if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
-					&& ft_isdigit(param[i][1])))
+		else if (param[i][0] == LABEL_CHAR || (ft_isdigit(param[i][0])\
+				|| (param[i][0] == '-' && ft_isdigit(param[i][1]))))
 		{
-			value = ft_atoi(param[i]);
-			bin->table = add_byte((value & 0xFF00) >> 8, bin);
-			bin->table = add_byte((value & 0x00FF), bin);
-		}
-		else if (param[i][0] == LABEL_CHAR)
-		{
-			value = label_pos(&param[i][0], data);
-			if (value == -1)
-				return (NULL);
-			value -= (int)b_bytes;
-			bin->table = add_byte((value & 0xFF00) >> 8, bin);
-			bin->table = add_byte((value & 0x00FF), bin);
+			value = (param[i][0] == LABEL_CHAR) ? label_pos(&param[i][0], data)\
+					- (int)b_bytes : ft_atoi(param[i]);
+			bin->table = add_ind(value, bin);
 		}
 		else if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
 			bin->table = add_byte((uint8_t)ft_atoi(&param[i][1]), bin);

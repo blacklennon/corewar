@@ -6,7 +6,7 @@
 /*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 13:07:48 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:12:37 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 13:21:22 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "op.h"
 #include "asm.h"
 
-void    clean_data(char **data)
+void	clean_data(char **data)
 {
 	int		i;
 	char	*tmp;

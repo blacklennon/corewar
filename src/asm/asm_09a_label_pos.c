@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:51:35 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 12:39:38 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:27:26 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,27 @@
 #include "../../lib/libft/includes/libft.h"
 #include "../../includes/op.h"
 #include "../../includes/asm.h"
+
+int		single_param_size(char *str, int op)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = 0;
+	if (str[i] == DIRECT_CHAR)
+		size += (g_op_tab[op].little_dir) ? 2 : 4;
+	else if (ft_isdigit(str[i]) || (str[i] == '-'\
+				&& ft_isdigit(str[i + 1])))
+		size += 2;
+	else if (str[i] == 'r')
+		size++;
+	else if (str[i] == LABEL_CHAR)
+		size += 2;
+	else
+		return (0);
+	return (size);
+}
 
 size_t	param_size(char *str)
 {
@@ -37,17 +58,9 @@ size_t	param_size(char *str)
 	{
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		if (str[i] == DIRECT_CHAR)
-			size += (g_op_tab[op].little_dir) ? 2 : 4;
-		else if (ft_isdigit(str[i]) || (str[i] == '-'\
-					&& ft_isdigit(str[i + 1])))
-			size += 2;
-		else if (str[i] == 'r')
-			size++;
-		else if (str[i] == LABEL_CHAR)
-			size += 2;
-		else
+		if (!single_param_size(&str[i], op))
 			return (0);
+		size += single_param_size(&str[i], op);
 		while (str[i] && str[i] != ',')
 			i++;
 		i += (str[i] == ',') ? 1 : 0;
@@ -91,25 +104,16 @@ int		label_pos(char *param, char **data)
 
 	distance = 0;
 	i = 0;
-	if (param[0] == DIRECT_CHAR)
-		label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 2,\
-			where_is(&param[1], ',')) : ft_strsub(param, 2, \
-			ft_strlen(param) - 2);
-	else
-		label = (where_is(&param[1], ',') > 0) ? ft_strsub(param, 1,\
-			where_is(&param[1], ',')) : ft_strsub(param, 1, \
-			ft_strlen(param) - 1);
+	label = get_label(param);
 	while (data[i])
 	{
 		if (!ft_labelcmp(label, data[i]))
 			break ;
 		if (find_op(data[i]))
-			distance += 1 + g_op_tab[find_op(data[i])].ocp + param_size(data[i]);
+			distance += 1 + g_op_tab[find_op(data[i])].ocp\
+						+ param_size(data[i]);
 		if (find_op(data[i]) && !param_size(data[i]))
-		{
-			printf("error in param line %d\n", i);
 			return (-1);
-		}
 		i++;
 	}
 	distance++;

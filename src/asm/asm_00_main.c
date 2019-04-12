@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:09:42 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 13:24:08 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,6 @@ char		*read_file(int fd)
 		perror("asm");
 	return (content);
 }
-void		fill_header(t_header *header, char **data, t_binary *table)
-{
-	char	*tmp;
-
-	tmp = get_header(data, NAME_CMD_STRING);
-	ft_bzero(header, sizeof(t_header));
-	header->magic = swap_int32(COREWAR_EXEC_MAGIC);
-	ft_strcpy(header->prog_name, tmp);
-	free(tmp);
-	tmp = get_header(data, COMMENT_CMD_STRING);
-	ft_strcpy(header->comment, tmp);
-	header->prog_size = swap_int32(table->size);
-	free(tmp);
-}
-
-void		print_all(t_header *header, char *name, t_binary *table, int fd)
-{
-	write(1, "Writing output program to ", 26);
-	write(fd, header, sizeof(t_header));
-	print_binary(fd, table);
-	write(1, name, ft_strlen(name));
-	write(1, "\n", 1);
-}
 
 int			write_in_file(char *path, char **data)
 {
@@ -122,7 +99,7 @@ int			main(int argc, char **argv)
 	i = 0;
 	file = NULL;
 	if (argc < 2)
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	fd = check_args(argv[1]);
 	file = read_file(fd);
 	if (!check_file(file))
