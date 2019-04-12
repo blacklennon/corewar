@@ -6,14 +6,14 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 18:46:04 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/12 15:31:44 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 19:03:37 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "corewar.h"
 
-static size_t	check_lives(t_process **process_list, t_process *process, \
+static size_t	check_lives(t_process **process_list, t_process *process,\
 				t_process *prev)
 {
 	t_process	*tmp;
