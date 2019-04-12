@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 14:56:46 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:56:20 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 13:58:32 by llopez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ASM_H
 
 # include "op.h"
+# define BUFFER_SIZE 4096
 
 typedef	struct	s_binary
 {
@@ -68,5 +69,7 @@ int				find_label(char *label_name, char *file);
 void			clean_data(char **data);
 void			fill_header(t_header *header, char **data, t_binary *table);
 char			*get_label(char *param);
+void			print_all(t_header *header, char *name, t_binary *table,\
+					int fd);
 
 #endif
