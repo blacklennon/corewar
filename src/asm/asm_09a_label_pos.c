@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   label_pos.c                                        :+:      :+:    :+:   */
+/*   asm_09a_label_pos.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:51:35 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 13:27:26 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:12:10 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		single_param_size(char *str, int op)
 	if (str[i] == DIRECT_CHAR)
 		size += (g_op_tab[op].little_dir) ? 2 : 4;
 	else if (ft_isdigit(str[i]) || (str[i] == '-'\
-				&& ft_isdigit(str[i + 1])))
+		&& ft_isdigit(str[i + 1])))
 		size += 2;
 	else if (str[i] == 'r')
 		size++;
@@ -111,7 +111,7 @@ int		label_pos(char *param, char **data)
 			break ;
 		if (find_op(data[i]))
 			distance += 1 + g_op_tab[find_op(data[i])].ocp\
-						+ param_size(data[i]);
+				+ param_size(data[i]);
 		if (find_op(data[i]) && !param_size(data[i]))
 			return (-1);
 		i++;

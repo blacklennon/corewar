@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/12 12:54:52 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:09:32 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,18 @@ char	*check_label(char *file)
 int		check_param_code(char *file, int *params_found, char *start, t_op *op)
 {
 	if (((T_REG & op->params[*params_found]) != 0) && *file == 'r' \
-			&& (ft_atoi(file + 1) <= REG_NUMBER\
-				&& ft_valid_number(file + 1) && ft_atoi(file + 1) >= 1))
+		&& (ft_atoi(file + 1) <= REG_NUMBER\
+			&& ft_valid_number(file + 1) && ft_atoi(file + 1) >= 1))
 		(*params_found)++;
 	else if (((T_IND & op->params[*params_found]) != 0)\
-			&& ft_valid_number(file))
+		&& ft_valid_number(file))
 		(*params_found)++;
 	else if (((T_DIR & op->params[*params_found]) != 0)\
-			&& *file == DIRECT_CHAR && (ft_valid_number(file + 1)\
-				|| (*(file + 1) == LABEL_CHAR && find_label(file, start))))
+		&& *file == DIRECT_CHAR && (ft_valid_number(file + 1)\
+			|| (*(file + 1) == LABEL_CHAR && find_label(file, start))))
 		(*params_found)++;
 	else if (*file == LABEL_CHAR && (T_IND & op->params[*params_found])\
-			&& find_label(file, start))
+		&& find_label(file, start))
 		(*params_found)++;
 	else
 		return (0);
@@ -121,7 +121,7 @@ char	*check_param(int op_code, char *file, char *start)
 		while (ft_strchr(" \t", *file) && file < max_index)
 			file++;
 		if (params_found > op->nb_params - 1\
-				|| !check_param_code(file, &params_found, start, op))
+			|| !check_param_code(file, &params_found, start, op))
 			return (0);
 		file = jump_current_param(file, max_index);
 		if (*file == SEPARATOR_CHAR && file + 1 < max_index)

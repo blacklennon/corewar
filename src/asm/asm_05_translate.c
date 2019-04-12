@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_05_translate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopez <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 14:56:00 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 14:56:32 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:11:46 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ uint8_t		param_encode(char **param)
 		if (param[i][0] == DIRECT_CHAR)
 			content |= DIR_CODE;
 		else if (ft_isdigit(param[i][0]) || (param[i][0] == '-'\
-					&& ft_isdigit(param[i][1])))
+			&& ft_isdigit(param[i][1])))
 			content |= IND_CODE;
 		else if (param[i][0] == 'r' && ft_atoi(&param[i][1]) <= REG_NUMBER)
 			content |= REG_CODE;
@@ -90,9 +90,9 @@ int			get_right_value(char **param, int i, char **data, size_t b_bytes)
 	value = 0;
 	if (param[i][0] == DIRECT_CHAR)
 		value = (param[i][1] == LABEL_CHAR) ? label_pos(param[i], data)\
-				- (int)b_bytes : ft_atoi(&param[i][1]);
+			- (int)b_bytes : ft_atoi(&param[i][1]);
 	else if (param[i][0] == LABEL_CHAR || (ft_isdigit(param[i][0])\
-			|| (param[i][0] == '-' && ft_isdigit(param[i][1]))))
+		|| (param[i][0] == '-' && ft_isdigit(param[i][1]))))
 		value = (param[i][0] == LABEL_CHAR) ? label_pos(&param[i][0], data)\
 			- (int)b_bytes : ft_atoi(param[i]);
 	return (value);

@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 11:48:31 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 14:56:36 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:11:08 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			get_param_value(char **param, int i_op_tab, t_binary *bin)
 
 	if (!(value = param_encode(param)))
 		return (0);
-	bin->table = add_byte((value << \
+	bin->table = add_byte((value <<\
 		(8 - g_op_tab[i_op_tab].nb_params * 2)), bin);
 	return (1);
 }
@@ -96,9 +96,9 @@ uint8_t		*add_param(char *str, int i_op_tab, t_binary *bin, char **data)
 	i = 0;
 	clean = NULL;
 	if (!(str = ft_strjstr(str, g_op_tab[i_op_tab].name))\
-			|| !(str += ft_strlen(g_op_tab[i_op_tab].name) + 1)\
+		|| !(str += ft_strlen(g_op_tab[i_op_tab].name) + 1)\
 			|| !(clean = ft_strtrim(str))\
-			|| !(param = ft_strsplit(clean, ',')))
+				|| !(param = ft_strsplit(clean, ',')))
 	{
 		free(str);
 		free(clean);

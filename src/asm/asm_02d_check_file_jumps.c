@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file_jumps.c                                 :+:      :+:    :+:   */
+/*   asm_02d_check_file_jumps.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 20:27:54 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/12 12:42:46 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 15:09:58 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*jump_header(char *file)
 	if (!file)
 		return (NULL);
 	if (ft_strjstr(file, COMMENT_CMD_STRING) < ft_strstr(file, \
-				NAME_CMD_STRING))
+		NAME_CMD_STRING))
 		file = ft_strjstr(file, NAME_CMD_STRING);
 	else
 		file = ft_strjstr(file, COMMENT_CMD_STRING);
