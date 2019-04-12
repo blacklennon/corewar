@@ -6,12 +6,13 @@
 /*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:38:49 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/12 12:59:36 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 15:20:03 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_printf.h"
+#include "common.h"
 #include "corewar.h"
 
 static void	set_nb_champs(t_vm *vm)
@@ -49,6 +50,11 @@ int			main(int ac, char **av)
 {
 	t_vm	vm;
 
+	if (ac < 2)
+	{
+		corewar_usage();
+		exit(EXIT_FAILURE);
+	}
 	init_vm(&vm);
 	parse_arguments(ac, av, &vm);
 	set_nb_champs(&vm);
