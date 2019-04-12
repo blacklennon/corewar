@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 17:10:01 by pcarles           #+#    #+#             */
-/*   Updated: 2019/04/05 20:54:37 by pcarles          ###   ########.fr       */
+/*   Updated: 2019/04/12 13:51:55 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "libft.h"
 # include "ft_printf.h"
 
-int		main(int ac, char **av);
+int			main(int ac, char **av);
 void		init_vm(t_vm *vm);
 void		mem_dump(uint8_t *p, size_t size, size_t octet_highlight);
 void		reg_dump(t_process *process);
@@ -33,8 +33,8 @@ t_vm		*get_vm(t_vm *new_vm);
 void		free_process(t_process *process_list);
 int			check_is_alive(t_vm *vm);
 
-void		get_value_of_arg(t_process *process, t_int_types *value, \
-			t_int_types_enum *type, int opcode);
+void		get_value_of_arg(t_process *process, t_int_types *value,\
+				t_int_types_enum *type, int opcode);
 uint16_t	read_args(t_op *op, t_process *process, t_args *args, t_vm *vm);
 void		op_live(t_process *process, t_args *args);
 void		op_ld(t_process *process, t_args *args);
