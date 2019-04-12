@@ -6,7 +6,7 @@
 /*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/12 11:20:34 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 11:59:52 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ char	*check_label(char *file)
 	}
 	return (file);
 }
-
-
 
 int		check_param_code(char *file, int *params_found, char *start, t_op *op)
 {

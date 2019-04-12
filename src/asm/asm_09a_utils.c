@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:22:03 by llopez            #+#    #+#             */
-/*   Updated: 2019/04/10 23:04:08 by llopez           ###   ########.fr       */
+/*   Updated: 2019/04/12 12:41:54 by jdouniol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "op.h"
 #include "asm.h"
 
-long		ft_latoi(char const *s)
+long	ft_latoi(char const *s)
 {
 	int		flag;
 	long		res;
@@ -78,7 +78,7 @@ int		where_is(char *str, int c)
 	return ((str[i] == c) ? i : -1);
 }
 
-char		*get_header(char **data, char *cmd_string)
+char	*get_header(char **data, char *cmd_string)
 {
 	int	i;
 	char	*line;
@@ -117,8 +117,8 @@ char	*ft_strjstr(char const *str, char const *search)
 		while (str[i + b] && search[b] && search[b] == str[i + b])
 			b++;
 		if ((size_t)b == ft_strlen(search) && ((!i\
-			 || !ft_isalpha(str[i - 1]))\
-			 && ft_isspace(str[i + b])))
+			|| !ft_isalpha(str[i - 1]))\
+			&& ft_isspace(str[i + b])))
 			return ((char *)&str[i]);
 		i++;
 	}
