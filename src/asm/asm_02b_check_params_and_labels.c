@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_02b_check_params_and_labels.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdouniol <jdouniol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pcarles <pcarles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 15:11:44 by jdouniol          #+#    #+#             */
-/*   Updated: 2019/04/12 15:09:32 by jdouniol         ###   ########.fr       */
+/*   Updated: 2019/04/12 19:04:47 by pcarles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*check_label(char *file)
 
 int		check_param_code(char *file, int *params_found, char *start, t_op *op)
 {
-	if (((T_REG & op->params[*params_found]) != 0) && *file == 'r' \
+	if (((T_REG & op->params[*params_found]) != 0) && *file == 'r'\
 		&& (ft_atoi(file + 1) <= REG_NUMBER\
 			&& ft_valid_number(file + 1) && ft_atoi(file + 1) >= 1))
 		(*params_found)++;
